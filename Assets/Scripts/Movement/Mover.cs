@@ -2,48 +2,51 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using RPG.Core;
 
-public class Mover : MonoBehaviour
+namespace RPG.Movement
 {
-    // Tunables
-
-    // Cached References
-    NavMeshAgent navMeshAgent = null;
-    Animator animator = null;
-
-    // State
-    Ray lastRay;
-
-    private void Start()
+    public class Mover : MonoBehaviour, IAction
     {
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
-    }
+        // Cached References
+        NavMeshAgent navMeshAgent = null;
+        Animator animator = null;
+        ActionScheduler actionScheduler = null;
 
-    private void Update()
-    {
-        if (Input.GetButton("Fire1"))
+        private void Start()
         {
-            MoveToCursor();
+            navMeshAgent = GetComponent<NavMeshAgent>();
+            animator = GetComponent<Animator>();
+            actionScheduler = GetComponent<ActionScheduler>();
         }
-        UpdateAnimator();
-    }
 
-    private void MoveToCursor()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        bool hasHit = Physics.Raycast(ray, out RaycastHit hitInfo);
-        if (hasHit)
+        private void Update()
         {
-            navMeshAgent.SetDestination(hitInfo.point);
+            UpdateAnimator();
         }
-        lastRay = ray;
-    }
 
-    private void UpdateAnimator()
-    {
-        Vector3 velocity = navMeshAgent.velocity;
-        Vector3 localVelocity = transform.InverseTransformDirection(velocity);
-        animator.SetFloat("forwardSpeed", localVelocity.z);
+        public void StartMoveAction(Vector3 destination)
+        {
+            actionScheduler.StartAction(this);
+            MoveTo(destination);
+        }
+
+        public void MoveTo(Vector3 destination)
+        {
+            navMeshAgent.isStopped = false;
+            navMeshAgent.SetDestination(destination);
+        }
+
+        public void Cancel()
+        {
+            navMeshAgent.isStopped = true;
+        }
+
+        private void UpdateAnimator()
+        {
+            Vector3 velocity = navMeshAgent.velocity;
+            Vector3 localVelocity = transform.InverseTransformDirection(velocity);
+            animator.SetFloat("forwardSpeed", localVelocity.z);
+        }
     }
 }

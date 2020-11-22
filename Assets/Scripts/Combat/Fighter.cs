@@ -19,7 +19,7 @@ namespace RPG.Combat
         Animator animator = null;
 
         // State
-        public Transform target = null;
+        public Health target = null;
         float timeSinceLastAttack = 0f;
 
         private void Start()
@@ -33,6 +33,11 @@ namespace RPG.Combat
         {
             timeSinceLastAttack += Time.deltaTime;
             if (target == null) { return; }
+            if (target.GetComponent<Health>().IsDead())
+            {
+                Cancel();
+                return;
+            }
 
             bool inRange = GetIsInRange();
             if (inRange)
@@ -42,18 +47,25 @@ namespace RPG.Combat
             }
             else
             {
-                mover.MoveTo(target.position);
+                mover.MoveTo(target.transform.position);
             }
         }
 
         private void AttackBehavior()
         {
+            transform.LookAt(target.transform.position);
             if (timeSinceLastAttack > timeBetweenAttacks)
             {
                 // This will trigger a Hit() event
-                animator.SetTrigger("attack");
+                TriggerAttack();
                 timeSinceLastAttack = 0f;
             }
+        }
+
+        private void TriggerAttack()
+        {
+            animator.ResetTrigger("stopAttack");
+            animator.SetTrigger("attack");
         }
 
         private bool GetIsInRange()
@@ -61,27 +73,37 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
         }
 
-        public void Attack(CombatTarget target)
+        public void Attack(CombatTarget combatTarget)
         {
             actionScheduler.StartAction(this);
-            this.target = target.transform;
+            this.target = combatTarget.GetComponent<Health>();
+        }
+
+        public bool CanAttack(CombatTarget combatTarget)
+        {
+            if (combatTarget == null) { return false; }
+            Health targetToTest = combatTarget.GetComponent<Health>();
+            return (targetToTest != null && !targetToTest.IsDead());
         }
 
         public void Cancel()
         {
+            StopAttack();
             target = null;
+            timeSinceLastAttack = 0f;
+        }
+
+        private void StopAttack()
+        {
+            animator.ResetTrigger("attack");
+            animator.SetTrigger("stopAttack");
         }
 
         // Animation Event
         public void Hit()
         {
             if (target == null) { return; }
-
-            Health targetHealth = target.GetComponent<Health>();
-            if (targetHealth != null)
-            {
-                targetHealth.TakeDamage(weaponDamage);
-            }
+            target.TakeDamage(weaponDamage);
         }
     }
 }

@@ -32,8 +32,8 @@ namespace RPG.Control
             foreach (RaycastHit hitInfo in hitsInfo)
             {
                 CombatTarget target = hitInfo.transform.GetComponent<CombatTarget>();
-                if (target == null) continue;
-                    
+                if (!fighter.CanAttack(target)) { continue; }    
+
                 if (Input.GetButtonDown("Fire1"))
                 {
                     fighter.Attack(target);

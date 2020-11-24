@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace RPG.Combat
+namespace RPG.Core
 {
     public class Health : MonoBehaviour
     {
@@ -28,15 +28,16 @@ namespace RPG.Combat
             UnityEngine.Debug.Log("Health is " + healthPoints);
             if (healthPoints <= 0)
             {
-                QueueDeathSequence();
+                Die();
             }
         }
 
-        private void QueueDeathSequence()
+        private void Die()
         {
             if (isDead) { return; }
 
             animator.SetTrigger("die");
+            GetComponent<ActionScheduler>().CancelCurrentAction();
             isDead = true;
         }
 

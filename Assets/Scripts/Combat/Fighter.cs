@@ -20,7 +20,7 @@ namespace RPG.Combat
 
         // State
         public Health target = null;
-        float timeSinceLastAttack = 0f;
+        float timeSinceLastAttack = Mathf.Infinity;
 
         private void Start()
         {
@@ -73,24 +73,24 @@ namespace RPG.Combat
             return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
         }
 
-        public void Attack(CombatTarget combatTarget)
-        {
-            actionScheduler.StartAction(this);
-            this.target = combatTarget.GetComponent<Health>();
-        }
-
-        public bool CanAttack(CombatTarget combatTarget)
+        public bool CanAttack(GameObject combatTarget)
         {
             if (combatTarget == null) { return false; }
             Health targetToTest = combatTarget.GetComponent<Health>();
             return (targetToTest != null && !targetToTest.IsDead());
         }
 
+        public void Attack(GameObject combatTarget)
+        {
+            actionScheduler.StartAction(this);
+            this.target = combatTarget.GetComponent<Health>();
+        }
+
         public void Cancel()
         {
             StopAttack();
             target = null;
-            timeSinceLastAttack = 0f;
+            timeSinceLastAttack = Mathf.Infinity;
         }
 
         private void StopAttack()

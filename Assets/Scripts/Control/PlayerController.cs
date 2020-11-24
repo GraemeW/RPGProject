@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Combat;
+using RPG.Core;
 using System;
 
 namespace RPG.Control
@@ -12,18 +13,21 @@ namespace RPG.Control
         // Cached References
         Mover mover = null;
         Fighter fighter = null;
+        Health health = null;
 
         void Start()
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
+            health = GetComponent<Health>();
         }
 
         void Update()
         {
+            if (health.IsDead()) { return; }
+
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
-            UnityEngine.Debug.Log("Nothing to do");
         }
 
         private bool InteractWithCombat()
@@ -31,10 +35,13 @@ namespace RPG.Control
             RaycastHit[] hitsInfo = Physics.RaycastAll(GetMouseRay());
             foreach (RaycastHit hitInfo in hitsInfo)
             {
-                CombatTarget target = hitInfo.transform.GetComponent<CombatTarget>();
+                CombatTarget combatTarget = hitInfo.transform.GetComponent<CombatTarget>();
+                if (combatTarget == null) { continue; }
+
+                GameObject target = combatTarget.gameObject;
                 if (!fighter.CanAttack(target)) { continue; }    
 
-                if (Input.GetButtonDown("Fire1"))
+                if (Input.GetButton("Fire1"))
                 {
                     fighter.Attack(target);
                 }

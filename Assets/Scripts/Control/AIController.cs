@@ -18,6 +18,7 @@ namespace RPG.Control
         [SerializeField] PatrolPath patrolPath = null;
         [SerializeField] float waypointTolerance = 1.0f;
         [SerializeField] float waypointDwellTime = 2.0f;
+        [Range(0,1)][SerializeField] float patrolSpeedFraction = 0.65f;
         
         // Cached References
         Fighter fighter = null;
@@ -76,7 +77,6 @@ namespace RPG.Control
         private void PatrolBehavior()
         {
             Vector3 nextPosition = guardPosition;
-
             if (patrolPath != null)
             {
                 if (AtWaypoint())
@@ -87,7 +87,7 @@ namespace RPG.Control
                 nextPosition = GetCurrentWaypoint();
             }
 
-            mover.StartMoveAction(nextPosition);
+            mover.StartMoveAction(nextPosition, patrolSpeedFraction);
             if (patrolPath == null) { mover.QueueRotationAfterMove(guardRotation); }
         }
 

@@ -12,6 +12,7 @@ namespace RPG.Combat
         [SerializeField] float weaponRange = 2.0f;
         [SerializeField] float timeBetweenAttacks = 1.5f;
         [SerializeField] float weaponDamage = 5.0f;
+        [SerializeField] float chaseSpeedFraction = 0.95f;
 
         // Cached References
         Mover mover = null;
@@ -47,7 +48,7 @@ namespace RPG.Combat
             }
             else
             {
-                mover.MoveTo(target.transform.position);
+                mover.MoveTo(target.transform.position, chaseSpeedFraction);
             }
         }
 

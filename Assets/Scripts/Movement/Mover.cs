@@ -10,6 +10,7 @@ namespace RPG.Movement
     {
         // Tunables
         [SerializeField] float pathEndThreshold = 0.1f;
+        [SerializeField] float maxSpeed = 5.66f;
         [SerializeField] float rotationSpeed = 5.0f;
 
         // Cached References
@@ -41,15 +42,16 @@ namespace RPG.Movement
             RotateOnPathEnd();
         }
 
-        public void StartMoveAction(Vector3 destination)
+        public void StartMoveAction(Vector3 destination, float speedFraction)
         {
             actionScheduler.StartAction(this);
-            MoveTo(destination);
+            MoveTo(destination, speedFraction);
         }
 
-        public void MoveTo(Vector3 destination)
+        public void MoveTo(Vector3 destination, float speedFraction)
         {
             navMeshAgent.isStopped = false;
+            SetSpeed(speedFraction);
             navMeshAgent.SetDestination(destination);
         }
 
@@ -64,6 +66,11 @@ namespace RPG.Movement
             hasPath = false;
             rotationQueuedOnPathEnd = false;
             navMeshAgent.isStopped = true;
+        }
+
+        private void SetSpeed(float speedFraction)
+        {
+            navMeshAgent.speed = Mathf.Clamp01(speedFraction) * maxSpeed;
         }
 
         private void UpdateAnimator()

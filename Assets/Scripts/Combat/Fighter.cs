@@ -90,6 +90,7 @@ namespace RPG.Combat
         public void Cancel()
         {
             StopAttack();
+            mover.Cancel();
             target = null;
             timeSinceLastAttack = Mathf.Infinity;
         }

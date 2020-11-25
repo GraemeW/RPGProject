@@ -105,5 +105,12 @@ namespace RPG.Movement
                 }
             }
         }
+
+        public void TeleportToPosition(Vector3 position, Quaternion rotation)
+        {
+            if (navMeshAgent == null) { navMeshAgent = GetComponent<NavMeshAgent>(); }
+            navMeshAgent.Warp(position);
+            transform.rotation = rotation;
+        }
     }
 }

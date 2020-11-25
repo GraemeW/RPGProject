@@ -15,6 +15,9 @@ namespace RPG.Control
         Fighter fighter = null;
         Health health = null;
 
+        // State
+        public bool isEnabled = true;
+
         void Start()
         {
             mover = GetComponent<Mover>();
@@ -25,6 +28,7 @@ namespace RPG.Control
         void Update()
         {
             if (health.IsDead()) { return; }
+            if (!isEnabled) { return; }
 
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;

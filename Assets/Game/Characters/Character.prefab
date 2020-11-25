@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2577244230715274178}
   - component: {fileID: 2577244230715274180}
   - component: {fileID: 2577244230683634024}
-  - component: {fileID: 5457741463998381566}
+  - component: {fileID: 9095856943185703648}
   - component: {fileID: 5068147197356942232}
   - component: {fileID: 7182988458230370668}
   - component: {fileID: 2577244230683634025}
@@ -99,7 +99,7 @@ NavMeshAgent:
   m_BaseOffset: -0.125
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &5457741463998381566
+--- !u!54 &9095856943185703648
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -158,6 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c7249ade040974cacc047dbcd29508, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pathEndThreshold: 0.1
+  maxSpeed: 5.66
+  rotationSpeed: 5
 --- !u!114 &9141521544119063457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,6 +176,7 @@ MonoBehaviour:
   weaponRange: 2
   timeBetweenAttacks: 1.5
   weaponDamage: 5
+  chaseSpeedFraction: 0.95
   target: {fileID: 0}
 --- !u!114 &-1873187468937196512
 MonoBehaviour:
@@ -186,4 +190,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d969bf621ea50f84ca22ab8dc3eecf5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  healthPoints: 100

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Movement
 {
-    public class Mover : MonoBehaviour, IAction
+    public class Mover : MonoBehaviour, IAction, ISaveable
     {
         // Tunables
         [SerializeField] float pathEndThreshold = 0.1f;
@@ -111,6 +112,18 @@ namespace RPG.Movement
             if (navMeshAgent == null) { navMeshAgent = GetComponent<NavMeshAgent>(); }
             navMeshAgent.Warp(position);
             transform.rotation = rotation;
+        }
+
+        public object CaptureState()
+        {
+            return new SerializableVector3(transform.position);
+        }
+
+        public void RestoreState(object state)
+        {
+            if (navMeshAgent == null) { navMeshAgent = GetComponent<NavMeshAgent>(); }
+            SerializableVector3 position = state as SerializableVector3;
+            navMeshAgent.Warp(position.ToVector());
         }
     }
 }

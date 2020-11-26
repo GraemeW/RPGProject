@@ -9,7 +9,7 @@ namespace RPG.SceneManagement
     public class Fader : MonoBehaviour
     {
         // Tunables
-        float fadeSpeed = 2.0f;
+        [SerializeField] float fadeSpeed = 2.0f;
 
         // State
         float currentFade = 0f;
@@ -50,6 +50,12 @@ namespace RPG.SceneManagement
             currentFade = Mathf.Clamp(initialFade, 0f, 1f);
             canvasGroup.alpha = currentFade;
             this.fadeTarget = Mathf.Clamp(fadeTarget, 0f, 1f);
+        }
+
+        public void FadeOutImmediate()
+        {
+            if (canvasGroup == null) { canvasGroup = GetComponent<CanvasGroup>(); }
+            canvasGroup.alpha = 1f;
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.SceneManagement
 {
@@ -17,7 +18,7 @@ namespace RPG.SceneManagement
 
         [SerializeField] int sceneIndexToLoad = 0;
         [SerializeField] Transform spawnPoint = null;
-        [SerializeField] DestinationIdentifier destination;
+        [SerializeField] DestinationIdentifier destination = 0;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -29,18 +30,23 @@ namespace RPG.SceneManagement
 
         private IEnumerator Transition()
         {
-            // Fade In
+            DontDestroyOnLoad(gameObject);
+
+            // Fade Out
             Fader fader = FindObjectOfType<Fader>();
             fader.ToggleFade(true);
             yield return fader.Fade();
+            FindObjectOfType<SavingWrapper>().Save(); // Save world state
 
             // Move Position
-            DontDestroyOnLoad(gameObject);
             yield return SceneManager.LoadSceneAsync(sceneIndexToLoad);
+            FindObjectOfType<SavingWrapper>().Load(); // Load world state
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
 
-            // Fade Out
+            FindObjectOfType<SavingWrapper>().Save();
+
+            // Fade In
             if (fader == null) { fader = FindObjectOfType<Fader>(); }
             fader.ToggleFade(false);
             yield return fader.Fade();

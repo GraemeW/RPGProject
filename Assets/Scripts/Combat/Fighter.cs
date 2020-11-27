@@ -9,9 +9,14 @@ namespace RPG.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         // Tunables
+        [Header("Weapon")]
+        [SerializeField] GameObject weapon = null;
+        [SerializeField] Transform handTransform = null;
+        [SerializeField] AnimatorOverrideController weaponOverride = null;
         [SerializeField] float weaponRange = 2.0f;
         [SerializeField] float timeBetweenAttacks = 1.5f;
         [SerializeField] float weaponDamage = 5.0f;
+        [Header("Chase")]
         [SerializeField] float chaseSpeedFraction = 0.95f;
 
         // Cached References
@@ -28,6 +33,7 @@ namespace RPG.Combat
             mover = GetComponent<Mover>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
+            SpawnWeapon();
         }
 
         private void Update()
@@ -50,6 +56,14 @@ namespace RPG.Combat
             {
                 mover.MoveTo(target.transform.position, chaseSpeedFraction);
             }
+        }
+
+        private void SpawnWeapon()
+        {
+            if (weapon == null) { return; }
+            GameObject spawnedWeapon = Instantiate(weapon, handTransform);
+            spawnedWeapon.transform.parent = handTransform;
+            animator.runtimeAnimatorController = weaponOverride;
         }
 
         private void AttackBehavior()

@@ -9,7 +9,7 @@ namespace RPG.SceneManagement
     public class SavingWrapper : MonoBehaviour
     {
         const string defaultSaveFile = "save";
-        bool deleteSaveFileOnStart = false;
+        [SerializeField] bool deleteSaveFileOnStart = false;
 
         IEnumerator Start()
         {

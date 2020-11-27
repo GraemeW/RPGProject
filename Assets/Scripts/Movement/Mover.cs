@@ -114,16 +114,29 @@ namespace RPG.Movement
             transform.rotation = rotation;
         }
 
+        [System.Serializable] struct MoverSaveData
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+
         public object CaptureState()
         {
-            return new SerializableVector3(transform.position);
+            MoverSaveData data = new MoverSaveData
+            {
+                position = new SerializableVector3(transform.position),
+                rotation = new SerializableVector3(transform.rotation.eulerAngles)
+            };
+            return data;
         }
 
         public void RestoreState(object state)
         {
             if (navMeshAgent == null) { navMeshAgent = GetComponent<NavMeshAgent>(); }
-            SerializableVector3 position = state as SerializableVector3;
-            navMeshAgent.Warp(position.ToVector());
+
+            MoverSaveData data = (MoverSaveData)state;
+            navMeshAgent.Warp(data.position.ToVector());
+            transform.rotation = Quaternion.Euler(data.rotation.ToVector());
         }
     }
 }

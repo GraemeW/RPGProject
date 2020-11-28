@@ -10,7 +10,7 @@ namespace RPG.Combat
     {
         // Tunables
         [SerializeField] float speed = 15.0f;
-        [SerializeField] float timeOut = 5.0f;
+        [SerializeField] float maxLifeTime = 8.0f;
         [SerializeField] bool homing = false;
         [SerializeField] GameObject hitEffectPrefab = null;
 
@@ -35,6 +35,7 @@ namespace RPG.Combat
             if (other.GetComponent<Health>() != target) { return; }
             if (other.GetComponent<Health>().IsDead()) { return; }
             target.TakeDamage(damage);
+            speed = 0f;
             TriggerVFX();
             Destroy(gameObject);
         }
@@ -43,8 +44,7 @@ namespace RPG.Combat
         {
             if (hitEffectPrefab != null)
             {
-                GameObject hitEffect = Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-                Destroy(hitEffect, 0.5f);
+                Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
             }
         }
 
@@ -59,7 +59,7 @@ namespace RPG.Combat
         private void CheckForTimeout()
         {
             timeAlive += Time.deltaTime;
-            if (timeAlive > timeOut)
+            if (timeAlive > maxLifeTime)
             {
                 Destroy(gameObject);
             }

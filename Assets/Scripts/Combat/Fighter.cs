@@ -84,6 +84,7 @@ namespace RPG.Combat
             Instantiate(weaponPickup, pickupPosition, Quaternion.identity);
 
             currentWeapon = unarmed;
+            currentWeapon.Spawn(rightHand, leftHand, animator);
         }
 
         public void DestroyWeapon()

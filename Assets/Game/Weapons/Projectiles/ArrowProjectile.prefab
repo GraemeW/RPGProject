@@ -193,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 25
-  timeOut: 5
+  maxLifeTime: 8
   homing: 0
   hitEffectPrefab: {fileID: 2302457091093092515, guid: 32151fe639775a449b588255fca5e3ae,
     type: 3}

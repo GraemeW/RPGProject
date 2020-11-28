@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 983899882230790978, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: characterClass
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1046373644337586578, guid: 6911d75006a4ad746be4bcf71b97238b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -78,5 +83,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: fb1fe4758bbbfb04fa98c58bf818da13,
         type: 2}
+    - target: {fileID: 6024822175908479473, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: defaultWeaponName
+      value: BowRed
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6911d75006a4ad746be4bcf71b97238b, type: 3}

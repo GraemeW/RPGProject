@@ -4,16 +4,17 @@ using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
+using RPG.Resources;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         // Tunables
         [Header("Weapon")]
         [SerializeField] Transform rightHand = null;
         [SerializeField] Transform leftHand = null;
-        [SerializeField] Weapon defaultWeapon = null;
+        [SerializeField] string defaultWeaponName = "Unarmed";
         [SerializeField] Weapon unarmed = null;
         float dropWeaponOffset = 3.0f;
 
@@ -29,7 +30,7 @@ namespace RPG.Combat
         // State
         private Health target = null;
         float timeSinceLastAttack = Mathf.Infinity;
-        Weapon currentWeapon = null;
+        public Weapon currentWeapon = null;
         GameObject spawnedWeaponInstance = null;
 
         private void Start()
@@ -38,7 +39,17 @@ namespace RPG.Combat
             health = GetComponent<Health>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
-            EquipWeapon(defaultWeapon);
+
+            EquipWeaponOnLoad();
+        }
+
+        private void EquipWeaponOnLoad()
+        {
+            Weapon weapon = UnityEngine.Resources.Load<Weapon>(defaultWeaponName);
+            if (currentWeapon != null) { weapon = currentWeapon; } // override to weapon loaded via save file
+
+            if (weapon != null) { EquipWeapon(weapon); }
+            else { EquipWeapon(unarmed); }
         }
 
         private void Update()
@@ -65,7 +76,6 @@ namespace RPG.Combat
 
         public void EquipWeapon(Weapon weapon)
         {
-            if (currentWeapon == weapon) { return; }
             if (health.IsDead()) { return; }
             DropWeapon();
             currentWeapon = weapon;
@@ -77,11 +87,12 @@ namespace RPG.Combat
             if (spawnedWeaponInstance == null) { return; }
             Destroy(spawnedWeaponInstance);
 
-            WeaponPickup weaponPickup = currentWeapon.GetWeaponPickup();
-            if (weaponPickup == null ) { return; }
+            WeaponPickup weaponPickupPrefab = currentWeapon.GetWeaponPickup();
+            if (weaponPickupPrefab == null ) { return; }
 
             Vector3 pickupPosition = transform.position + transform.forward * dropWeaponOffset + transform.up * dropWeaponOffset * 0.5f;
-            Instantiate(weaponPickup, pickupPosition, Quaternion.identity);
+            WeaponPickup weaponPickup = Instantiate(weaponPickupPrefab, pickupPosition, Quaternion.identity);
+            weaponPickup.SetRespawning(false);
 
             currentWeapon = unarmed;
             currentWeapon.Spawn(rightHand, leftHand, animator);
@@ -160,6 +171,18 @@ namespace RPG.Combat
             if (target == null) { return; }
             if (!currentWeapon.HasProjectile()) { return; }
             currentWeapon.LaunchProjectile(rightHand, leftHand, target, currentWeapon.GetWeaponDamage());
+        }
+
+        public object CaptureState()
+        {
+            string currentWeaponName = unarmed.name;
+            if (currentWeapon != null) { currentWeaponName = currentWeapon.name; }
+            return currentWeaponName;
+        }
+
+        public void RestoreState(object state)
+        {
+            currentWeapon = UnityEngine.Resources.Load<Weapon>((string)state);
         }
     }
 }

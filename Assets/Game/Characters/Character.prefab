@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2577244230683634025}
   - component: {fileID: 9141521544119063457}
   - component: {fileID: -1873187468937196512}
+  - component: {fileID: 2370794506121242898}
   - component: {fileID: 7389056421418592210}
   m_Layer: 0
   m_Name: Character
@@ -174,11 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb4c3eb9b211f72448c44c154fb57670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponRange: 2
-  timeBetweenAttacks: 1.5
-  weaponDamage: 5
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
+  defaultWeaponName: Unarmed
+  unarmed: {fileID: 0}
   chaseSpeedFraction: 0.95
-  target: {fileID: 0}
+  currentWeapon: {fileID: 0}
 --- !u!114 &-1873187468937196512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +194,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthPoints: 100
+  triggeredHostile:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2370794506121242898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2577244230715274182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e6efeb9a1a22aa4f80f992f368650cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingLevel: 1
+  characterClass: 1
+  progression: {fileID: 11400000, guid: 885b9119dd89a1840b1f476f7d9836ac, type: 2}
 --- !u!114 &7389056421418592210
 MonoBehaviour:
   m_ObjectHideFlags: 0

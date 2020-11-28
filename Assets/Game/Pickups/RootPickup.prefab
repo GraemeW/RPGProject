@@ -62,6 +62,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 11400000, guid: c69efe21610da7e468ef9b171cba71e0, type: 2}
+  respawning: 1
+  respawnTime: 5
 --- !u!136 &3942160710866877072
 CapsuleCollider:
   m_ObjectHideFlags: 0

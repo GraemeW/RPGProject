@@ -3,20 +3,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using RPG.Core;
 using RPG.Saving;
+using RPG.Stats;
 
-namespace RPG.Core
+namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
-        // Tunables
-        [SerializeField] float healthPoints = 100f;
-
         // Cached References
         Animator animator = null;
+        BaseStats baseStats = null;
 
         // State
         bool isDead = false;
+        float defaultHealthPoints = 10f;
+        [SerializeField] float currentHealthPoints = -1f; // REMOVE:  Serialized for debug
 
         // Events
         public UnityEvent triggeredHostile;
@@ -24,15 +26,18 @@ namespace RPG.Core
         private void Start()
         {
             animator = GetComponent<Animator>();
+            baseStats = GetComponent<BaseStats>();
+            defaultHealthPoints = baseStats.GetHealth();
+            if (Mathf.Approximately(currentHealthPoints, -1f)) { currentHealthPoints = defaultHealthPoints; }
         }
 
         public void TakeDamage(float damage)
         {
             if (damage > 0) { triggeredHostile.Invoke(); }
 
-            healthPoints = Mathf.Max(healthPoints - damage, 0f);
+            currentHealthPoints = Mathf.Max(currentHealthPoints - damage, 0f);
             // TODO:  GUI for current health
-            if (Mathf.Approximately(healthPoints, 0f) || healthPoints <= 0)
+            if (Mathf.Approximately(currentHealthPoints, 0f) || currentHealthPoints <= 0)
             {
                 Die();
             }
@@ -55,12 +60,12 @@ namespace RPG.Core
 
         public object CaptureState()
         {
-            return healthPoints;
+            return currentHealthPoints;
         }
 
         public void RestoreState(object state)
         {
-            healthPoints = (float)state;
+            currentHealthPoints = (float)state;
             TakeDamage(0f);
         }
     }

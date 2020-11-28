@@ -34,6 +34,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2370794506121242898, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: characterClass
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2577244230715274178, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -148,6 +153,11 @@ PrefabInstance:
       propertyPath: leftHand
       value: 
       objectReference: {fileID: 2860138452408422652}
+    - target: {fileID: 9141521544119063457, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: chaseSpeedFraction
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95298c93f3923ee429d25b701b1675aa, type: 3}
 --- !u!1 &3428702427824993763 stripped

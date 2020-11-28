@@ -66,6 +66,7 @@ namespace RPG.Movement
         {
             hasPath = false;
             rotationQueuedOnPathEnd = false;
+            if (!navMeshAgent.enabled) { return; }
             navMeshAgent.isStopped = true;
         }
 

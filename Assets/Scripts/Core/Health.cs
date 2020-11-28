@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using RPG.Saving;
 
 namespace RPG.Core
@@ -17,6 +18,9 @@ namespace RPG.Core
         // State
         bool isDead = false;
 
+        // Events
+        public UnityEvent triggeredHostile;
+
         private void Start()
         {
             animator = GetComponent<Animator>();
@@ -24,9 +28,11 @@ namespace RPG.Core
 
         public void TakeDamage(float damage)
         {
+            if (damage > 0) { triggeredHostile.Invoke(); }
+
             healthPoints = Mathf.Max(healthPoints - damage, 0f);
             // TODO:  GUI for current health
-            if (healthPoints <= 0)
+            if (Mathf.Approximately(healthPoints, 0f) || healthPoints <= 0)
             {
                 Die();
             }

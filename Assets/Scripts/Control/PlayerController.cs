@@ -27,11 +27,20 @@ namespace RPG.Control
 
         void Update()
         {
+            DropWeapon();
             if (health.IsDead()) { return; }
             if (!isEnabled) { return; }
 
             if (InteractWithCombat()) return;
             if (InteractWithMovement()) return;
+        }
+
+        private void DropWeapon()
+        {
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                fighter.DropWeapon();
+            }
         }
 
         private bool InteractWithCombat()

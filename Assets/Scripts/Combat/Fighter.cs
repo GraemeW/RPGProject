@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Movement;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Combat
 {
@@ -10,12 +11,12 @@ namespace RPG.Combat
     {
         // Tunables
         [Header("Weapon")]
-        [SerializeField] GameObject weapon = null;
-        [SerializeField] Transform handTransform = null;
-        [SerializeField] AnimatorOverrideController weaponOverride = null;
-        [SerializeField] float weaponRange = 2.0f;
-        [SerializeField] float timeBetweenAttacks = 1.5f;
-        [SerializeField] float weaponDamage = 5.0f;
+        [SerializeField] Transform rightHand = null;
+        [SerializeField] Transform leftHand = null;
+        [SerializeField] Weapon defaultWeapon = null;
+        [SerializeField] Weapon unarmed = null;
+        float dropWeaponOffset = 3.0f;
+
         [Header("Chase")]
         [SerializeField] float chaseSpeedFraction = 0.95f;
 
@@ -23,17 +24,21 @@ namespace RPG.Combat
         Mover mover = null;
         ActionScheduler actionScheduler = null;
         Animator animator = null;
+        Health health = null;
 
         // State
-        public Health target = null;
+        private Health target = null;
         float timeSinceLastAttack = Mathf.Infinity;
+        Weapon currentWeapon = null;
+        GameObject spawnedWeaponInstance = null;
 
         private void Start()
         {
             mover = GetComponent<Mover>();
+            health = GetComponent<Health>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
         private void Update()
@@ -58,20 +63,42 @@ namespace RPG.Combat
             }
         }
 
-        private void SpawnWeapon()
+        public void EquipWeapon(Weapon weapon)
         {
-            if (weapon == null) { return; }
-            GameObject spawnedWeapon = Instantiate(weapon, handTransform);
-            spawnedWeapon.transform.parent = handTransform;
-            animator.runtimeAnimatorController = weaponOverride;
+            if (currentWeapon == weapon) { return; }
+            if (health.IsDead()) { return; }
+            DropWeapon();
+            currentWeapon = weapon;
+            spawnedWeaponInstance = weapon.Spawn(rightHand, leftHand, animator);
         }
+
+        public void DropWeapon()
+        {
+            if (spawnedWeaponInstance == null) { return; }
+            Destroy(spawnedWeaponInstance);
+
+            WeaponPickup weaponPickup = currentWeapon.GetWeaponPickup();
+            if (weaponPickup == null ) { return; }
+
+            Vector3 pickupPosition = transform.position + transform.forward * dropWeaponOffset + transform.up * dropWeaponOffset * 0.5f;
+            Instantiate(weaponPickup, pickupPosition, Quaternion.identity);
+
+            currentWeapon = unarmed;
+        }
+
+        public void DestroyWeapon()
+        {
+            if (spawnedWeaponInstance == null) { return; }
+            Destroy(spawnedWeaponInstance);
+            currentWeapon = unarmed;
+        }    
 
         private void AttackBehavior()
         {
             transform.LookAt(target.transform.position);
-            if (timeSinceLastAttack > timeBetweenAttacks)
+            if (timeSinceLastAttack > currentWeapon.GetTimeBetweenAttacks())
             {
-                // This will trigger a Hit() event
+                // This will trigger a Hit() or Shoot() event
                 TriggerAttack();
                 timeSinceLastAttack = 0f;
             }
@@ -85,7 +112,7 @@ namespace RPG.Combat
 
         private bool GetIsInRange()
         {
-            return Vector3.Distance(transform.position, target.transform.position) < weaponRange;
+            return Vector3.Distance(transform.position, target.transform.position) < currentWeapon.GetWeaponRange();
         }
 
         public bool CanAttack(GameObject combatTarget)
@@ -99,6 +126,11 @@ namespace RPG.Combat
         {
             actionScheduler.StartAction(this);
             this.target = combatTarget.GetComponent<Health>();
+        }
+
+        public Health GetTarget()
+        {
+            return target;
         }
 
         public void Cancel()
@@ -119,7 +151,14 @@ namespace RPG.Combat
         public void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(weaponDamage);
+            target.TakeDamage(currentWeapon.GetWeaponDamage());
+        }
+
+        public void Shoot()
+        {
+            if (target == null) { return; }
+            if (!currentWeapon.HasProjectile()) { return; }
+            currentWeapon.LaunchProjectile(rightHand, leftHand, target, currentWeapon.GetWeaponDamage());
         }
     }
 }

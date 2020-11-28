@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
+using UnityEngine.Events;
 using System;
 
 namespace RPG.Control
@@ -13,6 +14,7 @@ namespace RPG.Control
         // Tunables
         [Header("Chase Properties")]
         [SerializeField] float chaseDistance = 5.0f;
+        [SerializeField] float hostileChaseDistance = 10.0f;
         [SerializeField] float suspicionTime = 3.0f;
         [Header("Patrolling Properties")]
         [SerializeField] PatrolPath patrolPath = null;
@@ -32,6 +34,7 @@ namespace RPG.Control
         float timeSinceLastSawPlayer = Mathf.Infinity;
         int currentWaypointIndex = 0;
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
+        float currentChaseDistance = 5.0f;
 
         private void Start()
         {
@@ -42,6 +45,7 @@ namespace RPG.Control
 
             guardPosition = transform.position;
             guardRotation = transform.rotation;
+            currentChaseDistance = chaseDistance;
         }
 
         private void Update()
@@ -50,7 +54,6 @@ namespace RPG.Control
 
             if (InAttackRange() && fighter.CanAttack(player))
             {
-                timeSinceLastSawPlayer = 0f;
                 AttackBehavior();
             }
             else if (timeSinceLastSawPlayer < suspicionTime)
@@ -64,9 +67,18 @@ namespace RPG.Control
             timeSinceLastSawPlayer += Time.deltaTime;
         }
 
-        private void AttackBehavior()
+        public void AttackBehavior() // // This is triggered by Health event:  triggeredHostile
         {
+            if (health.IsDead()) { return; }
+            timeSinceLastSawPlayer = 0f;
+            currentChaseDistance = hostileChaseDistance;
             fighter.Attack(player);
+        }
+
+        public void CancelAllBehavior()
+        {
+            fighter.Cancel();
+            mover.Cancel();
         }
 
         private void SuspicionBehavior()
@@ -77,6 +89,7 @@ namespace RPG.Control
         private void PatrolBehavior()
         {
             Vector3 nextPosition = guardPosition;
+            currentChaseDistance = chaseDistance;
             if (patrolPath != null)
             {
                 if (AtWaypoint())
@@ -111,14 +124,14 @@ namespace RPG.Control
         private bool InAttackRange()
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return (distanceToPlayer < chaseDistance);
+            return (distanceToPlayer < currentChaseDistance);
         }
 
         // Called by Unity
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, chaseDistance);
+            Gizmos.DrawWireSphere(transform.position, currentChaseDistance);
             if (patrolPath != null) { patrolPath.OnDrawGizmosSelected(); }
         }
     }

@@ -163,14 +163,14 @@ namespace RPG.Combat
         public void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(currentWeapon.GetWeaponDamage());
+            target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
         }
 
         public void Shoot()
         {
             if (target == null) { return; }
             if (!currentWeapon.HasProjectile()) { return; }
-            currentWeapon.LaunchProjectile(rightHand, leftHand, target, currentWeapon.GetWeaponDamage());
+            currentWeapon.LaunchProjectile(gameObject, rightHand, leftHand, target, currentWeapon.GetWeaponDamage());
         }
 
         public object CaptureState()

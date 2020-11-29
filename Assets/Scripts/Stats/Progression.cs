@@ -8,39 +8,59 @@ namespace RPG.Stats
     public class Progression : ScriptableObject
     {
         // Tunables
-        [SerializeField] ProgressionCharacterClass[] characterClasses;
+        [SerializeField] ProgressionCharacterClass[] characterClasses = default;
 
         // Functionality
-        public float GetHealth(CharacterClass characterClass, int level)
+
+        public float GetStat(Stat stat, CharacterClass characterClass, int level)
+        {
+            ProgressionStat progressionStat = GetMatchedStat(GetMatchedClass(characterClass), stat);
+            float statValue = progressionStat.levels[GetSafeLevel(level, progressionStat)];
+            return statValue;
+        }
+
+       private ProgressionCharacterClass GetMatchedClass(CharacterClass characterClass)
         {
             foreach (ProgressionCharacterClass progressionCharacterClass in characterClasses)
             {
                 if (progressionCharacterClass.characterClass == characterClass)
                 {
-                    int levelClamped = Mathf.Clamp(level, 0, progressionCharacterClass.combatPropertiesPerLevel.Length - 1);
-                    CombatProperties combatProperties = progressionCharacterClass.combatPropertiesPerLevel[levelClamped];
-                    return combatProperties.health;
+                    return progressionCharacterClass;
                 }
             }
-            return 0f;
+            return default;
         }
 
+        private ProgressionStat GetMatchedStat(ProgressionCharacterClass progressionCharacterClass, Stat stat)
+        {
+            foreach (ProgressionStat progressionStat in progressionCharacterClass.stats)
+            {
+                if (progressionStat.stat == stat)
+                {
+                    return progressionStat;
+                }
+            }
+            return default;
+        }
 
+        private int GetSafeLevel(int level, ProgressionStat progressionStat)
+        {
+            return Mathf.Clamp(level - 1, 0, progressionStat.levels.Length - 1);
+        }
 
         // Data structures
         [System.Serializable]
         class ProgressionCharacterClass
         {
-            public CharacterClass characterClass;
-            public CombatProperties[] combatPropertiesPerLevel;
+            public CharacterClass characterClass = CharacterClass.Grunt;
+            public ProgressionStat[] stats;
         }
 
         [System.Serializable]
-        struct CombatProperties
+        class ProgressionStat
         {
-            public float health;
+            public Stat stat;
+            public float[] levels;
         }
-
-
     }
 }

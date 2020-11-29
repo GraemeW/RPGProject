@@ -16,6 +16,7 @@ namespace RPG.Combat
 
         // State
         Health target = null;
+        GameObject instigator = null;
         float damage = 0f;
         float timeAlive = 0f;
 
@@ -34,7 +35,7 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != target) { return; }
             if (other.GetComponent<Health>().IsDead()) { return; }
-            target.TakeDamage(damage);
+            target.TakeDamage(instigator, damage);
             speed = 0f;
             TriggerVFX();
             Destroy(gameObject);
@@ -65,8 +66,9 @@ namespace RPG.Combat
             }
         }
 
-        public void SetTarget(Health target, float damage)
+        public void SetTarget(GameObject instigator, Health target, float damage)
         {
+            this.instigator = instigator;
             this.target = target;
             this.damage = damage;
         }

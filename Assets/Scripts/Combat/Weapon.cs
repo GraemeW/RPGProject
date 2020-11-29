@@ -56,13 +56,13 @@ namespace RPG.Combat
             Destroy(oldWeapon);
         }
 
-        public void LaunchProjectile(Transform rightHand, Transform leftHand, Health target, float damage)
+        public void LaunchProjectile(GameObject instigator, Transform rightHand, Transform leftHand, Health target, float damage)
         {
             if (projectilePrefab == null) { return; }
             Transform hand = GetHandedness(rightHand, leftHand);
 
             Projectile projectile = Instantiate(projectilePrefab, hand.position + Vector3.forward * projectileOffset, Quaternion.identity);
-            projectile.SetTarget(target, damage);
+            projectile.SetTarget(instigator, target, damage);
         }
 
         private Transform GetHandedness(Transform rightHand, Transform leftHand)

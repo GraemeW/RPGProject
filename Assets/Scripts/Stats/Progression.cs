@@ -10,42 +10,34 @@ namespace RPG.Stats
         // Tunables
         [SerializeField] ProgressionCharacterClass[] characterClasses = default;
 
-        // Functionality
+        // State
+        Dictionary<CharacterClass, Dictionary<Stat, float[]>> lookupTable = null;
+        
+
 
         public float GetStat(Stat stat, CharacterClass characterClass, int level)
         {
-            ProgressionStat progressionStat = GetMatchedStat(GetMatchedClass(characterClass), stat);
-            float statValue = progressionStat.levels[GetSafeLevel(level, progressionStat)];
-            return statValue;
+            BuildLookup();
+            float[] levels = lookupTable[characterClass][stat];
+            int safeLevel = Mathf.Clamp(level - 1, 0, levels.Length - 1);
+            return levels[safeLevel];
         }
 
-       private ProgressionCharacterClass GetMatchedClass(CharacterClass characterClass)
+        private void BuildLookup()
         {
+            if (lookupTable != null) { return; }
+            lookupTable = new Dictionary<CharacterClass, Dictionary<Stat, float[]>>();
+            
             foreach (ProgressionCharacterClass progressionCharacterClass in characterClasses)
             {
-                if (progressionCharacterClass.characterClass == characterClass)
+                Dictionary<Stat, float[]> statDictionary = new Dictionary<Stat, float[]>();
+                foreach (ProgressionStat progressionStat in progressionCharacterClass.stats)
                 {
-                    return progressionCharacterClass;
+                    statDictionary[progressionStat.stat] = progressionStat.levels;
                 }
+                lookupTable[progressionCharacterClass.characterClass] = statDictionary;
             }
-            return default;
-        }
-
-        private ProgressionStat GetMatchedStat(ProgressionCharacterClass progressionCharacterClass, Stat stat)
-        {
-            foreach (ProgressionStat progressionStat in progressionCharacterClass.stats)
-            {
-                if (progressionStat.stat == stat)
-                {
-                    return progressionStat;
-                }
-            }
-            return default;
-        }
-
-        private int GetSafeLevel(int level, ProgressionStat progressionStat)
-        {
-            return Mathf.Clamp(level - 1, 0, progressionStat.levels.Length - 1);
+           
         }
 
         // Data structures

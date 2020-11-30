@@ -66,7 +66,7 @@ namespace RPG.Control
             timeSinceLastSawPlayer += Time.deltaTime;
         }
 
-        public void AttackBehavior() // // This is triggered by Health event:  triggeredHostile
+        public void AttackBehavior()
         {
             if (health.IsDead()) { return; }
             timeSinceLastSawPlayer = 0f;

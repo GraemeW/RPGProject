@@ -27,7 +27,7 @@ namespace RPG.Resources
         {
             animator = GetComponent<Animator>();
             baseStats = GetComponent<BaseStats>();
-            defaultHealthPoints = baseStats.GetStat(Stat.health);
+            defaultHealthPoints = baseStats.GetStat(Stat.Health);
             if (Mathf.Approximately(currentHealthPoints, -1f)) { currentHealthPoints = defaultHealthPoints; }  // Overridden by load save file
         }
 
@@ -58,7 +58,7 @@ namespace RPG.Resources
         {
             Experience experience = instigator.GetComponent<Experience>();
             if (experience == null) { return; }
-            experience.GainExperience(baseStats.GetStat(Stat.experience));
+            experience.GainExperience(baseStats.GetStat(Stat.ExperienceReward));
         }
 
         public int GetPercentage()
@@ -72,9 +72,15 @@ namespace RPG.Resources
             return isDead;
         }
 
-        public void SetHealthToDefault()
+        public void SetDefaultHealth()
         {
-            defaultHealthPoints = baseStats.GetStat(Stat.health);
+            if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
+            defaultHealthPoints = baseStats.GetStat(Stat.Health);
+        }
+
+        public void RestoreHealthToMax()
+        {
+            SetDefaultHealth();
             currentHealthPoints = defaultHealthPoints;
         }
 

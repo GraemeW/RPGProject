@@ -11,7 +11,12 @@ namespace RPG.SceneManagement
         const string defaultSaveFile = "save";
         [SerializeField] bool deleteSaveFileOnStart = false;
 
-        IEnumerator Start()
+        private void Awake()
+        {
+            StartCoroutine(LoadLastScene());
+        }
+
+        IEnumerator LoadLastScene()
         {
             if (deleteSaveFileOnStart)
             {
@@ -35,6 +40,10 @@ namespace RPG.SceneManagement
             if (Input.GetKeyDown(KeyCode.S))
             {
                 Save();
+            }
+            if (Input.GetKeyDown(KeyCode.Delete))
+            {
+                Delete();
             }
         }
 

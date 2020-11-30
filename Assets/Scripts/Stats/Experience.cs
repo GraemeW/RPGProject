@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Stats;
+using RPG.Resources;
 using RPG.Saving;
+using UnityEngine.Events;
+using System;
 
-namespace RPG.Resources
+namespace RPG.Stats
 {
     public class Experience : MonoBehaviour, ISaveable
     {
@@ -19,28 +21,34 @@ namespace RPG.Resources
         BaseStats baseStats = null;
         Health health = null;
 
+        // Events
+        public event Action OnExperienceGained;
+
         private void Start()
         {
             baseStats = GetComponent<BaseStats>();
             health = GetComponent<Health>();
             if (Mathf.Approximately(currentPoints, -1f)) { currentPoints = initialExperiencePoints; }  // Overridden by load save file
-            pointsToNextLevel = baseStats.GetStat(Stat.experience);
+            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
         }
 
         public void GainExperience(float points)
         {
             currentPoints += points;
-            if (currentPoints >= pointsToNextLevel)
-            {
-                LevelUp();
-            }
+            OnExperienceGained();
+            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
         }
 
         public void OverrideExperience(float points)
         {
             currentPoints = points;
+
             if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
-            pointsToNextLevel = baseStats.GetStat(Stat.experience);
+            baseStats.SetLevel();
+            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
+
+            if (health == null) { health = GetComponent<Health>(); }
+            health.SetDefaultHealth();
         }
 
         public float GetPoints()
@@ -50,43 +58,21 @@ namespace RPG.Resources
 
         public int GetPercentage()
         {
-            float healthPercentage = currentPoints / pointsToNextLevel * 100;
+            int lastLevel = baseStats.GetLevel() - 1;
+            float pointsToLastLevel = 0f;
+            if (lastLevel > 0) { pointsToLastLevel = baseStats.GetStatForLevel(Stat.ExperienceToLevelUp, lastLevel); }
+            float healthPercentage = (currentPoints - pointsToLastLevel) / (pointsToNextLevel - pointsToLastLevel) * 100;
             return Mathf.RoundToInt(healthPercentage);
         }
 
-        private void LevelUp()
-        {
-            baseStats.LevelUp();
-            health.SetHealthToDefault();
-            currentPoints = 0;
-            pointsToNextLevel = baseStats.GetStat(Stat.experience);
-        }
-
-
-        [System.Serializable]
-        struct LevelState
-        {
-            public int level;
-            public float experiencePoints;
-        }
         public object CaptureState()
         {
-            if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
-            LevelState levelState = new LevelState
-            {
-                level = baseStats.GetLevel(),
-                experiencePoints = currentPoints
-            };
-
-            return levelState;
+            return currentPoints;
         }
 
         public void RestoreState(object state)
         {
-            LevelState levelState = (LevelState)state;
-            if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
-            baseStats.SetLevel(levelState.level);
-            OverrideExperience(levelState.experiencePoints);
+            OverrideExperience((float)state);
         }
     }
 

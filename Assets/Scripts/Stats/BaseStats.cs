@@ -1,44 +1,83 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Saving;
 using RPG.Resources;
+using System;
 
 namespace RPG.Stats
 {
     public class BaseStats : MonoBehaviour
     {
         // Tunables
-        [SerializeField][Range(1,99)] int startingLevel = 1;
         [SerializeField] CharacterClass characterClass = CharacterClass.Grunt;
         [SerializeField] Progression progression = null;
+        [Range(1, 99)] [SerializeField] int defaultLevel = 1; // Override if experience class exists
 
         // State
-        [SerializeField] int currentLevel = -1;   // REMOVE:  Serialized for debug
+        int currentLevel = 0;
+
+        // Cached References
+        Health health = null;
+        Experience experience = null;
 
         private void Start()
         {
-            if (Mathf.Approximately(currentLevel, -1f)) { currentLevel = startingLevel; } // Overridden by load save file
+            health = GetComponent<Health>();
+            experience = GetComponent<Experience>();
+            if (experience != null)
+            {
+                experience.OnExperienceGained += LevelUp;
+            }
+            currentLevel = CalculateLevel();
         }
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, currentLevel);
+            return progression.GetStat(stat, characterClass, GetLevel());
+        }
+
+        public float GetStatForLevel(Stat stat, int level)
+        {
+            return progression.GetStat(stat, characterClass, level);
         }
 
         public int GetLevel()
         {
+            if (currentLevel < 1) { currentLevel = CalculateLevel(); }
             return currentLevel;
         }
 
-        public void SetLevel(int level)
+        public void SetLevel()
         {
-            currentLevel = level;
+            currentLevel = CalculateLevel();
+        }
+
+        public int CalculateLevel()
+        {
+            if (experience == null) { experience = GetComponent<Experience>(); }
+            if (experience == null) { return defaultLevel; } // Default behavior for enemies
+
+            float currentExperiencePoints = GetComponent<Experience>().GetPoints();
+            int penultimateLevel = progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+            for (int level = 1; level <= penultimateLevel; level++)
+            {
+                float experienceToLevelUp = progression.GetStat(Stat.ExperienceToLevelUp, characterClass, level);
+                if (experienceToLevelUp > currentExperiencePoints)
+                {
+                    return level;
+                }
+            }
+            return penultimateLevel + 1;
         }
 
         public void LevelUp()
         {
-            currentLevel++;
+            int newLevel = CalculateLevel();
+            if (newLevel > currentLevel)
+            {
+                currentLevel = newLevel;
+                health.RestoreHealthToMax();
+            }
         }
     }
 }

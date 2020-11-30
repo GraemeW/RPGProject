@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-namespace RPG.Resources
+namespace RPG.Stats
 {
     public class PlayerExperienceDisplay : MonoBehaviour
     {

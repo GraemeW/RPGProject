@@ -11,6 +11,9 @@ namespace RPG.Resources
 {
     public class Health : MonoBehaviour, ISaveable
     {
+        // Tunables
+        [SerializeField] float levelUpHealthFraction = 0.7f;
+
         // Cached References
         Animator animator = null;
         BaseStats baseStats = null;
@@ -29,6 +32,7 @@ namespace RPG.Resources
             baseStats = GetComponent<BaseStats>();
             defaultHealthPoints = baseStats.GetStat(Stat.Health);
             if (Mathf.Approximately(currentHealthPoints, -1f)) { currentHealthPoints = defaultHealthPoints; }  // Overridden by load save file
+            baseStats.OnLevelUp += RestoreHealthToMax;
         }
 
         public void TakeDamage(GameObject instigator, float damage)
@@ -80,8 +84,10 @@ namespace RPG.Resources
 
         public void RestoreHealthToMax()
         {
+            float currentHealthFraction = currentHealthPoints / defaultHealthPoints;
             SetDefaultHealth();
-            currentHealthPoints = defaultHealthPoints;
+            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints = defaultHealthPoints * levelUpHealthFraction; }
+            else { currentHealthPoints = defaultHealthPoints * currentHealthFraction; }
         }
 
         public object CaptureState()

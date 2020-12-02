@@ -12,21 +12,23 @@ namespace RPG.Stats
         [SerializeField] CharacterClass characterClass = CharacterClass.Grunt;
         [SerializeField] Progression progression = null;
         [Range(1, 99)] [SerializeField] int defaultLevel = 1; // Override if experience class exists
+        [SerializeField] GameObject levelUpVFXPrefab = null;
 
         // State
         int currentLevel = 0;
 
         // Cached References
-        Health health = null;
         Experience experience = null;
+
+        // Events
+        public event Action OnLevelUp;
 
         private void Start()
         {
-            health = GetComponent<Health>();
             experience = GetComponent<Experience>();
             if (experience != null)
             {
-                experience.OnExperienceGained += LevelUp;
+                experience.OnExperienceGained += UpdateLevel;
             }
             currentLevel = CalculateLevel();
         }
@@ -70,13 +72,18 @@ namespace RPG.Stats
             return penultimateLevel + 1;
         }
 
-        public void LevelUp()
+        public void UpdateLevel()
         {
             int newLevel = CalculateLevel();
             if (newLevel > currentLevel)
             {
                 currentLevel = newLevel;
-                health.RestoreHealthToMax();
+                OnLevelUp();
+                if (levelUpVFXPrefab != null)
+                {
+                    GameObject levelUpVFX = Instantiate(levelUpVFXPrefab, transform.position, Quaternion.identity);
+                    levelUpVFX.transform.parent = transform;
+                }
             }
         }
     }

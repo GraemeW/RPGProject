@@ -32,11 +32,13 @@ namespace RPG.Resources
             baseStats = GetComponent<BaseStats>();
             defaultHealthPoints = baseStats.GetStat(Stat.Health);
             if (Mathf.Approximately(currentHealthPoints, -1f)) { currentHealthPoints = defaultHealthPoints; }  // Overridden by load save file
-            baseStats.OnLevelUp += RestoreHealthToMax;
+            baseStats.OnLevelUp += RestoreHealthOnLevelUp;
         }
 
         public void TakeDamage(GameObject instigator, float damage)
         {
+            UnityEngine.Debug.Log(gameObject.name + " took damage " + damage); // TODO:  REMOVE -- for debug purposes only
+
             if (damage > 0) { triggeredHostile.Invoke(); }
 
             currentHealthPoints = Mathf.Max(currentHealthPoints - damage, 0f);
@@ -65,6 +67,16 @@ namespace RPG.Resources
             experience.GainExperience(baseStats.GetStat(Stat.ExperienceReward));
         }
 
+        public float GetHealthPoints()
+        {
+            return currentHealthPoints;
+        }
+
+        public float GetMaxHealthPoints()
+        {
+            return defaultHealthPoints;
+        }
+
         public int GetPercentage()
         {
             float healthPercentage = currentHealthPoints / defaultHealthPoints * 100;
@@ -82,7 +94,7 @@ namespace RPG.Resources
             defaultHealthPoints = baseStats.GetStat(Stat.Health);
         }
 
-        public void RestoreHealthToMax()
+        public void RestoreHealthOnLevelUp()
         {
             float currentHealthFraction = currentHealthPoints / defaultHealthPoints;
             SetDefaultHealth();

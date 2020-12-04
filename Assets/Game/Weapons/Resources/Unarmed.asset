@@ -18,6 +18,6 @@ MonoBehaviour:
   isRightHanded: 1
   weaponRange: 2
   timeBetweenAttacks: 1.5
-  weaponDamage: 5
+  weaponDamage: 3
   projectilePrefab: {fileID: 0}
   projectileOffset: 0.5

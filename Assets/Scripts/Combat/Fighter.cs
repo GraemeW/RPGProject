@@ -5,10 +5,11 @@ using RPG.Movement;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Resources;
+using RPG.Stats;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
     {
         // Tunables
         [Header("Weapon")]
@@ -26,6 +27,7 @@ namespace RPG.Combat
         ActionScheduler actionScheduler = null;
         Animator animator = null;
         Health health = null;
+        BaseStats baseStats = null;
 
         // State
         private Health target = null;
@@ -39,6 +41,7 @@ namespace RPG.Combat
             health = GetComponent<Health>();
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
+            baseStats = GetComponent<BaseStats>();
 
             EquipWeaponOnLoad();
         }
@@ -159,18 +162,31 @@ namespace RPG.Combat
             animator.SetTrigger("stopAttack");
         }
 
+        public IEnumerable<float> GetAdditiveModifier(Stat stat)
+        {
+            if (stat == Stat.Damage)
+            {
+                yield return currentWeapon.GetWeaponDamage();
+            }
+        }
+
         // Animation Event
         public void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(gameObject, currentWeapon.GetWeaponDamage());
+            target.TakeDamage(gameObject, GetCalculatedDamage());
         }
 
         public void Shoot()
         {
             if (target == null) { return; }
             if (!currentWeapon.HasProjectile()) { return; }
-            currentWeapon.LaunchProjectile(gameObject, rightHand, leftHand, target, currentWeapon.GetWeaponDamage());
+            currentWeapon.LaunchProjectile(gameObject, rightHand, leftHand, target, GetCalculatedDamage());
+        }
+
+        private float GetCalculatedDamage()
+        {
+            return baseStats.GetStat(Stat.Damage);
         }
 
         public object CaptureState()

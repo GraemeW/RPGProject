@@ -16,6 +16,7 @@ namespace RPG.Combat
         [SerializeField] float weaponRange = 2.0f;
         [SerializeField] float timeBetweenAttacks = 1.5f;
         [SerializeField] float weaponDamage = 5.0f;
+        [SerializeField] float weaponPercentageBonus = 0.0f;
         [Header("Ranged Specific")]
         [SerializeField] Projectile projectilePrefab = null;
         [SerializeField] float projectileOffset = 0.5f;
@@ -86,6 +87,11 @@ namespace RPG.Combat
         public float GetWeaponDamage()
         {
             return weaponDamage;
+        }
+
+        public float GetPercentageBonus()
+        {
+            return weaponPercentageBonus;
         }
 
         public WeaponPickup GetWeaponPickup()

@@ -21,6 +21,7 @@ MonoBehaviour:
   weaponRange: 15
   timeBetweenAttacks: 1
   weaponDamage: 5
+  weaponPercentageBonus: 10
   projectilePrefab: {fileID: 7987602205847113296, guid: 046b46e3cf4769443863036f87cea02b,
     type: 3}
   projectileOffset: 0.5

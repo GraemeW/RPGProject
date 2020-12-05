@@ -157,6 +157,11 @@ PrefabInstance:
       propertyPath: characterClass
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2370794506121242898, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: shouldUseModifiers
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2577244230683634024, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_Speed

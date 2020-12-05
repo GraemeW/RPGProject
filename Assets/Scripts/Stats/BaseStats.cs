@@ -13,6 +13,7 @@ namespace RPG.Stats
         [SerializeField] Progression progression = null;
         [Range(1, 99)] [SerializeField] int defaultLevel = 1; // Override if experience class exists
         [SerializeField] GameObject levelUpVFXPrefab = null;
+        [SerializeField] bool shouldUseModifiers = false;
 
         // State
         int currentLevel = 0;
@@ -35,7 +36,44 @@ namespace RPG.Stats
 
         public float GetStat(Stat stat)
         {
-            return progression.GetStat(stat, characterClass, GetLevel()) + GetAdditiveModifier(stat);
+            return (GetBaseStat(stat) + GetAdditiveModifier(stat)) * (1 + GetPercentageModifier(stat) / 100f);
+        }
+
+        private float GetBaseStat(Stat stat)
+        {
+            return progression.GetStat(stat, characterClass, GetLevel());
+        }
+
+        private float GetAdditiveModifier(Stat stat)
+        {
+            if (!shouldUseModifiers) return 0f;
+
+            float sumModifier = 0f;
+            IModifierProvider[] modifierProviders = GetComponents<IModifierProvider>();
+            foreach (IModifierProvider modifierProvider in modifierProviders)
+            {
+                foreach (float modifier in modifierProvider.GetAdditiveModifiers(stat))
+                {
+                    sumModifier += modifier;
+                }
+            }
+            return sumModifier;
+        }
+
+        private float GetPercentageModifier(Stat stat)
+        {
+            if (!shouldUseModifiers) return 0f;
+
+            float percentageModifier = 0f;
+            IModifierProvider[] modifierProviders = GetComponents<IModifierProvider>();
+            foreach (IModifierProvider modifierProvider in modifierProviders)
+            {
+                foreach (float modifier in modifierProvider.GetPercentageModifiers(stat))
+                {
+                    percentageModifier += modifier;
+                }
+            }
+            return percentageModifier;
         }
 
         public float GetStatForLevel(Stat stat, int level)
@@ -52,20 +90,6 @@ namespace RPG.Stats
         public void SetLevel()
         {
             currentLevel = CalculateLevel();
-        }
-
-        private float GetAdditiveModifier(Stat stat)
-        {
-            float sumModifier = 0f;
-            IModifierProvider[] modifierProviders = GetComponents<IModifierProvider>();
-            foreach (IModifierProvider modifierProvider in modifierProviders)
-            {
-                foreach (float modifier in modifierProvider.GetAdditiveModifier(stat))
-                {
-                    sumModifier += modifier;
-                }
-            }
-            return sumModifier;
         }
 
         private int CalculateLevel()

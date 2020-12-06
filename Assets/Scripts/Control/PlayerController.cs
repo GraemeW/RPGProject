@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
-using System;
-using UnityEngine.EventSystems;
 
 namespace RPG.Control
 {
@@ -21,6 +20,7 @@ namespace RPG.Control
         }
 
         // Tunables
+        [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
         [SerializeField] CursorMapping[] cursorMappings = null;
 
         // Cached References
@@ -42,13 +42,13 @@ namespace RPG.Control
         {
             // Special handling
             if (InteractWithUI()) return;
-            if (health.IsDead()) 
+            if (health.IsDead())
             {
                 SetCursor(CursorType.None);
-                return; 
+                return;
             }
             if (!isEnabled) { return; }
-            
+
             // Actions w/out return
             DropWeapon();
 
@@ -56,6 +56,9 @@ namespace RPG.Control
             if (InteractWithComponent()) return;
             if (InteractWithMovement()) return;
             SetCursor(CursorType.None);
+
+            // Click on uninteractable region cancels all actions
+            CancelAllActions();
         }
 
         private bool InteractWithUI()
@@ -84,7 +87,7 @@ namespace RPG.Control
                 IRaycastable[] raycastables = hitInfo.transform.GetComponents<IRaycastable>();
                 foreach (IRaycastable raycastable in raycastables)
                 {
-                    if (raycastable.HandleRaycast(this, "Fire2"))
+                    if (raycastable.HandleRaycast(this, "Fire2", "Fire1"))
                     {
                         SetCursor(raycastable.GetCursorType());
                         return true;
@@ -106,19 +109,42 @@ namespace RPG.Control
             return hitsInfo;
         }
 
-        public bool InteractWithMovement()
+        public bool InteractWithMovement(bool skipMouseClick = false)
         {
-            bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hitInfo);
+            bool hasHit = RaycastNavmesh(out Vector3 target);
             if (hasHit)
             {
-                if (Input.GetButton("Fire1"))
+                if (Input.GetButton("Fire1") || skipMouseClick)
                 {
-                    mover.StartMoveAction(hitInfo.point, 1f);
+                    mover.StartMoveAction(target, 1f);
                 }
                 SetCursor(CursorType.Movement);
                 return true;
             }
             return false;
+        }
+
+        private bool RaycastNavmesh(out Vector3 target)
+        {
+            target = new Vector3();
+            bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hitInfo);
+            if (!hasHit) { return false; }
+
+            if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit navMeshHit, maxNavMeshProjectedDistance, NavMesh.AllAreas))
+            {
+                target = navMeshHit.position;
+                return true;
+            }
+            return false;
+        }
+
+        private void CancelAllActions()
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
+                fighter.Cancel();
+                mover.Cancel();
+            }
         }
 
         private void SetCursor(CursorType type)

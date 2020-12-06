@@ -9,13 +9,13 @@ namespace RPG.Combat
     [RequireComponent(typeof(Health))]
     public class CombatTarget : MonoBehaviour, IRaycastable
     {
-        public bool HandleRaycast(PlayerController callingController, string interactButton = "Fire1")
+        public bool HandleRaycast(PlayerController callingController, string interactButtonOne, string interactButtonTwo)
         {
             Fighter fighter = callingController.GetComponent<Fighter>();
             if (fighter == null) { return false; }
             if (!fighter.CanAttack(gameObject)) { return false; }
 
-            if (Input.GetButtonDown(interactButton))
+            if (Input.GetButtonDown(interactButtonTwo))
             {
                 fighter.Attack(gameObject);
             }

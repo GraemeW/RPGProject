@@ -2951,35 +2951,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnvironmentSandboxB
       objectReference: {fileID: 0}
-    - target: {fileID: 178985768962339789, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 513478905822832013, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 2241366974126684258, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 3625218326663295578, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 6584804061178605371, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 8614165476103292443, guid: 0f12650c5032f3b4ca80c2f5326cf0c1,
-        type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f12650c5032f3b4ca80c2f5326cf0c1, type: 3}

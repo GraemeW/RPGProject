@@ -77,9 +77,12 @@ namespace RPG.SceneManagement
             return CursorType.Portal;
         }
 
-        public bool HandleRaycast(PlayerController callingController, string interactButton = "Fire1")
+        public bool HandleRaycast(PlayerController callingController, string interactButtonOne, string interactButtonTwo)
         {
-            callingController.InteractWithMovement();
+            if (Input.GetButtonDown(interactButtonOne) || Input.GetButtonDown(interactButtonTwo))
+            {
+                callingController.InteractWithMovement(true);
+            }
             return true;
         }
     }

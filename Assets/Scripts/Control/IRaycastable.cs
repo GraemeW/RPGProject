@@ -3,6 +3,6 @@
     public interface IRaycastable
     {
         CursorType GetCursorType();
-        bool HandleRaycast(PlayerController callingController, string interactButton = "Fire1");
+        bool HandleRaycast(PlayerController callingController, string interactButtonOne = "Fire1", string interactButtonTwo = "Fire2");
     }
 }

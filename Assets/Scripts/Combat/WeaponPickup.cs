@@ -58,14 +58,18 @@ namespace RPG.Combat
             }
         }
 
-        public bool HandleRaycast(PlayerController callingController, string interactButton)
+        public bool HandleRaycast(PlayerController callingController, string interactButtonOne, string interactButtonTwo)
         {
             Fighter fighter = callingController.GetComponent<Fighter>();
             if (fighter == null) { return false; }
 
-            if (Input.GetButtonDown(interactButton))
+            if (Input.GetButtonDown(interactButtonOne))
             {
                 Pickup(fighter);
+            }
+            if (Input.GetButtonDown(interactButtonTwo))
+            {
+                callingController.InteractWithMovement(true);
             }
             return true;
         }

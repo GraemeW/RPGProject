@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3011053969384512514}
   - component: {fileID: 3011053969384512515}
   - component: {fileID: 8815738460815112023}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneIndexToLoad: 0
   spawnPoint: {fileID: 4250139291866711917}
-  matchedPortalIndex: -1
+  destination: 0
 --- !u!1 &5497594506443925142
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +70,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4250139291866711917}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: SpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}

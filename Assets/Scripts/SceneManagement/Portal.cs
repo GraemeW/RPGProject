@@ -4,12 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPG.Movement;
-using RPG.Core;
-using RPG.Saving;
+using RPG.Control;
 
 namespace RPG.SceneManagement
 {
-    public class Portal : MonoBehaviour
+    public class Portal : MonoBehaviour, IRaycastable
     {
         enum DestinationIdentifier
         {
@@ -71,6 +70,17 @@ namespace RPG.SceneManagement
                 if (portal.destination == destination) { break; }
             }
             return leadingPortal;
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Portal;
+        }
+
+        public bool HandleRaycast(PlayerController callingController, string interactButton = "Fire1")
+        {
+            callingController.InteractWithMovement();
+            return true;
         }
     }
 }

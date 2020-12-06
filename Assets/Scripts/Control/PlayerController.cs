@@ -5,19 +5,13 @@ using RPG.Movement;
 using RPG.Combat;
 using RPG.Resources;
 using System;
+using UnityEngine.EventSystems;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         // Data Types
-        enum CursorType
-        {
-            None,
-            Movement,
-            Combat
-        }
-
         [System.Serializable]
         struct CursorMapping
         {
@@ -46,13 +40,32 @@ namespace RPG.Control
 
         void Update()
         {
-            DropWeapon();
-            if (health.IsDead()) { return; }
+            // Special handling
+            if (InteractWithUI()) return;
+            if (health.IsDead()) 
+            {
+                SetCursor(CursorType.None);
+                return; 
+            }
             if (!isEnabled) { return; }
+            
+            // Actions w/out return
+            DropWeapon();
 
-            if (InteractWithCombat()) return;
+            // Actions w/ return
+            if (InteractWithComponent()) return;
             if (InteractWithMovement()) return;
             SetCursor(CursorType.None);
+        }
+
+        private bool InteractWithUI()
+        {
+            if (EventSystem.current.IsPointerOverGameObject()) // returns bool on if over UI element
+            {
+                SetCursor(CursorType.UI);
+                return true;
+            }
+            return false;
         }
 
         private void DropWeapon()
@@ -63,28 +76,37 @@ namespace RPG.Control
             }
         }
 
-        private bool InteractWithCombat()
+        private bool InteractWithComponent()
         {
-            RaycastHit[] hitsInfo = Physics.RaycastAll(GetMouseRay());
+            RaycastHit[] hitsInfo = RaycastAllSorted();
             foreach (RaycastHit hitInfo in hitsInfo)
             {
-                CombatTarget combatTarget = hitInfo.transform.GetComponent<CombatTarget>();
-                if (combatTarget == null) { continue; }
-
-                GameObject target = combatTarget.gameObject;
-                if (!fighter.CanAttack(target)) { continue; }    
-
-                if (Input.GetButton("Fire1"))
+                IRaycastable[] raycastables = hitInfo.transform.GetComponents<IRaycastable>();
+                foreach (IRaycastable raycastable in raycastables)
                 {
-                    fighter.Attack(target);
+                    if (raycastable.HandleRaycast(this, "Fire2"))
+                    {
+                        SetCursor(raycastable.GetCursorType());
+                        return true;
+                    }
                 }
-                SetCursor(CursorType.Combat);
-                return true;
             }
             return false;
         }
 
-        private bool InteractWithMovement()
+        RaycastHit[] RaycastAllSorted()
+        {
+            RaycastHit[] hitsInfo = Physics.RaycastAll(GetMouseRay());
+            float[] distances = new float[hitsInfo.Length];
+            for (int hitIndex = 0; hitIndex < hitsInfo.Length; hitIndex++)
+            {
+                distances[hitIndex] = hitsInfo[hitIndex].distance;
+            }
+            Array.Sort(distances, hitsInfo);
+            return hitsInfo;
+        }
+
+        public bool InteractWithMovement()
         {
             bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hitInfo);
             if (hasHit)

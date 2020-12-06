@@ -854,12 +854,6 @@ PrefabInstance:
       propertyPath: startingLevel
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3222262049086091063, guid: e287a89e1069b554795df193ad46916b,
-        type: 3}
-      propertyPath: levelUpVFXPrefab
-      value: 
-      objectReference: {fileID: 6547723670282874194, guid: d184f42a917e53543a5d2e9f42ff4d90,
-        type: 3}
     - target: {fileID: 3428702427824993763, guid: e287a89e1069b554795df193ad46916b,
         type: 3}
       propertyPath: m_Name

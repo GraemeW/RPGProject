@@ -26,6 +26,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0aaac4d29b6537f42870e2f764de6abe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorMappings:
+  - type: 0
+    texture: {fileID: 2800000, guid: 21628736160fcc9488493401da3ef621, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 1
+    texture: {fileID: 2800000, guid: 44a99ee545fd8ba46a452b12c1f9378b, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 2
+    texture: {fileID: 2800000, guid: 2d18e23e3ce249b4489b8bcdd02d3f48, type: 3}
+    hotspot: {x: 0, y: 0}
   isEnabled: 1
 --- !u!114 &6840897129350579198
 MonoBehaviour:
@@ -57,6 +67,12 @@ PrefabInstance:
       propertyPath: shouldUseModifiers
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2370794506121242898, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: levelUpVFXPrefab
+      value: 
+      objectReference: {fileID: 6547723670282874194, guid: d184f42a917e53543a5d2e9f42ff4d90,
+        type: 3}
     - target: {fileID: 2577244230715274178, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_LocalPosition.x

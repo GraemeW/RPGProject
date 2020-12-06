@@ -30,7 +30,7 @@ namespace RPG.Combat
             enemyHealth = playerFighter.GetTarget();
             if (enemyHealth != null)
             {
-                enemyHealthValue.text = string.Format("{0:0}/{1:0}", enemyHealth.GetHealthPoints(), enemyHealth.GetMaxHealthPoints());
+                enemyHealthValue.text = string.Format("{0:0}/{1:0}", enemyHealth.GetHealthPoints(), enemyHealth.GetMaxPoints());
             }
             else
             {

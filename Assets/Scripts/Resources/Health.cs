@@ -32,7 +32,7 @@ namespace RPG.Resources
             animator = GetComponent<Animator>();
             baseStats = GetComponent<BaseStats>();
 
-            currentHealthPoints = new LazyValue<float>(GetInitialHealth);
+            currentHealthPoints = new LazyValue<float>(GetMaxPoints);
         }
 
         private void Start()
@@ -40,7 +40,7 @@ namespace RPG.Resources
             currentHealthPoints.ForceInit();
         }
 
-        private float GetInitialHealth()
+        public float GetMaxPoints()
         {
             defaultHealthPoints = baseStats.GetStat(Stat.Health);
             return defaultHealthPoints;
@@ -91,11 +91,6 @@ namespace RPG.Resources
         public float GetHealthPoints()
         {
             return currentHealthPoints.value;
-        }
-
-        public float GetMaxHealthPoints()
-        {
-            return defaultHealthPoints;
         }
 
         public int GetPercentage()

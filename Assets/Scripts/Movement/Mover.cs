@@ -26,7 +26,7 @@ namespace RPG.Movement
         bool rotationQueuedOnPathEnd = false;
         Quaternion queuedRotation;
 
-        private void Start()
+        private void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
             animator = GetComponent<Animator>();

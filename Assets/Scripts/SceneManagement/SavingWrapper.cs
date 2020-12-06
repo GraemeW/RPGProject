@@ -23,10 +23,10 @@ namespace RPG.SceneManagement
                 Delete();
                 yield break;
             }
+            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
 
             Fader fader = FindObjectOfType<Fader>();
             fader.FadeOutImmediate();
-            yield return GetComponent<SavingSystem>().LoadLastScene(defaultSaveFile);
             fader.ToggleFade(false);
             yield return fader.Fade();
         }

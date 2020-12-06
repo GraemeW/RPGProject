@@ -13,7 +13,7 @@ namespace RPG.Stats
         // Cached References
         Experience playerExperience = null;
 
-        private void Start()
+        private void Awake()
         {
             playerExperience = GameObject.FindGameObjectWithTag("Player").GetComponent<Experience>();
         }

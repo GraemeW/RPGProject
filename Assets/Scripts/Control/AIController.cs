@@ -5,6 +5,7 @@ using RPG.Combat;
 using RPG.Core;
 using RPG.Movement;
 using RPG.Resources;
+using RPG.Utils;
 
 namespace RPG.Control
 {
@@ -28,23 +29,44 @@ namespace RPG.Control
         GameObject player = null;
 
         // States
-        Vector3 guardPosition;
-        Quaternion guardRotation;
+        LazyValue<Vector3> guardPosition;
+        LazyValue<Quaternion> guardRotation;
         float timeSinceLastSawPlayer = Mathf.Infinity;
         int currentWaypointIndex = 0;
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
-        float currentChaseDistance = 5.0f;
+        LazyValue<float> currentChaseDistance;
 
-        private void Start()
+        private void Awake()
         {
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
             player = GameObject.FindWithTag("Player");
+            guardPosition = new LazyValue<Vector3>(GetInitialPosition);
+            guardRotation = new LazyValue<Quaternion>(GetInitialRotation);
+            currentChaseDistance = new LazyValue<float>(GetInitialChaseDistance);
+        }
 
-            guardPosition = transform.position;
-            guardRotation = transform.rotation;
-            currentChaseDistance = chaseDistance;
+        private Vector3 GetInitialPosition()
+        {
+            return transform.position;
+        }
+
+        private Quaternion GetInitialRotation()
+        {
+            return transform.rotation;
+        }
+
+        private float GetInitialChaseDistance()
+        {
+            return chaseDistance;
+        }
+
+        private void Start()
+        {
+            guardPosition.ForceInit();
+            guardRotation.ForceInit();
+            currentChaseDistance.ForceInit();
         }
 
         private void Update()
@@ -70,7 +92,7 @@ namespace RPG.Control
         {
             if (health.IsDead()) { return; }
             timeSinceLastSawPlayer = 0f;
-            currentChaseDistance = hostileChaseDistance;
+            currentChaseDistance.value = hostileChaseDistance;
             fighter.Attack(player);
         }
 
@@ -87,8 +109,8 @@ namespace RPG.Control
 
         private void PatrolBehavior()
         {
-            Vector3 nextPosition = guardPosition;
-            currentChaseDistance = chaseDistance;
+            Vector3 nextPosition = guardPosition.value;
+            currentChaseDistance.value = chaseDistance;
             if (patrolPath != null)
             {
                 if (AtWaypoint())
@@ -100,7 +122,7 @@ namespace RPG.Control
             }
 
             mover.StartMoveAction(nextPosition, patrolSpeedFraction);
-            if (patrolPath == null) { mover.QueueRotationAfterMove(guardRotation); }
+            if (patrolPath == null) { mover.QueueRotationAfterMove(guardRotation.value); }
         }
 
         private Vector3 GetCurrentWaypoint()
@@ -123,14 +145,14 @@ namespace RPG.Control
         private bool InAttackRange()
         {
             float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
-            return (distanceToPlayer < currentChaseDistance);
+            return (distanceToPlayer < currentChaseDistance.value);
         }
 
         // Called by Unity
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, currentChaseDistance);
+            Gizmos.DrawWireSphere(transform.position, currentChaseDistance.value);
             if (patrolPath != null) { patrolPath.OnDrawGizmosSelected(); }
         }
     }

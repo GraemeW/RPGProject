@@ -18,7 +18,7 @@ namespace RPG.Control
         // State
         public bool isEnabled = true;
 
-        void Start()
+        void Awake()
         {
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();

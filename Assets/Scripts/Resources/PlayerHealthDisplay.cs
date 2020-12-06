@@ -14,7 +14,7 @@ namespace RPG.Resources
         // Cached References
         Health playerHealth = null;
 
-        private void Start()
+        private void Awake()
         {
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
         }

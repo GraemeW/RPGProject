@@ -15,7 +15,7 @@ namespace RPG.Combat
         Fighter playerFighter = null;
         Health enemyHealth = null;
 
-        private void Start()
+        private void Awake()
         {
             playerFighter = GameObject.FindGameObjectWithTag("Player").GetComponent<Fighter>();
         }

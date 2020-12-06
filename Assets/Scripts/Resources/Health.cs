@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Stats;
+using RPG.Utils;
 
 namespace RPG.Resources
 {
@@ -21,18 +22,38 @@ namespace RPG.Resources
         // State
         bool isDead = false;
         float defaultHealthPoints = 10f;
-        [SerializeField] float currentHealthPoints = -1f; // REMOVE:  Serialized for debug
+        LazyValue<float> currentHealthPoints;
 
         // Events
         public UnityEvent triggeredHostile;
 
-        private void Start()
+        private void Awake()
         {
             animator = GetComponent<Animator>();
             baseStats = GetComponent<BaseStats>();
+
+            currentHealthPoints = new LazyValue<float>(GetInitialHealth);
+        }
+
+        private void Start()
+        {
+            currentHealthPoints.ForceInit();
+        }
+
+        private float GetInitialHealth()
+        {
             defaultHealthPoints = baseStats.GetStat(Stat.Health);
-            if (Mathf.Approximately(currentHealthPoints, -1f)) { currentHealthPoints = defaultHealthPoints; }  // Overridden by load save file
+            return defaultHealthPoints;
+        }
+
+        private void OnEnable()
+        {
             baseStats.OnLevelUp += RestoreHealthOnLevelUp;
+        }
+
+        private void OnDisable()
+        {
+            baseStats.OnLevelUp -= RestoreHealthOnLevelUp;
         }
 
         public void TakeDamage(GameObject instigator, float damage)
@@ -41,9 +62,9 @@ namespace RPG.Resources
 
             if (damage > 0) { triggeredHostile.Invoke(); }
 
-            currentHealthPoints = Mathf.Max(currentHealthPoints - damage, 0f);
+            currentHealthPoints.value = Mathf.Max(currentHealthPoints.value - damage, 0f);
             // TODO:  GUI for current health
-            if (Mathf.Approximately(currentHealthPoints, 0f) || currentHealthPoints <= 0)
+            if (Mathf.Approximately(currentHealthPoints.value, 0f) || currentHealthPoints.value <= 0)
             {
                 Die();
                 AwardExperience(instigator);
@@ -69,7 +90,7 @@ namespace RPG.Resources
 
         public float GetHealthPoints()
         {
-            return currentHealthPoints;
+            return currentHealthPoints.value;
         }
 
         public float GetMaxHealthPoints()
@@ -79,7 +100,7 @@ namespace RPG.Resources
 
         public int GetPercentage()
         {
-            float healthPercentage = currentHealthPoints / defaultHealthPoints * 100;
+            float healthPercentage = currentHealthPoints.value / defaultHealthPoints * 100;
             return Mathf.RoundToInt(healthPercentage);
         }
 
@@ -96,20 +117,20 @@ namespace RPG.Resources
 
         public void RestoreHealthOnLevelUp()
         {
-            float currentHealthFraction = currentHealthPoints / defaultHealthPoints;
+            float currentHealthFraction = currentHealthPoints.value / defaultHealthPoints;
             SetDefaultHealth();
-            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints = defaultHealthPoints * levelUpHealthFraction; }
-            else { currentHealthPoints = defaultHealthPoints * currentHealthFraction; }
+            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints.value = defaultHealthPoints * levelUpHealthFraction; }
+            else { currentHealthPoints.value = defaultHealthPoints * currentHealthFraction; }
         }
 
         public object CaptureState()
         {
-            return currentHealthPoints;
+            return currentHealthPoints.value;
         }
 
         public void RestoreState(object state)
         {
-            currentHealthPoints = (float)state;
+            currentHealthPoints.value = (float)state;
             TakeDamage(gameObject, 0f);
         }
     }

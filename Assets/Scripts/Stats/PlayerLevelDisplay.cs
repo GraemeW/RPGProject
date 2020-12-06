@@ -13,7 +13,7 @@ namespace RPG.Stats
         // Cached References
         BaseStats baseStats = null;
 
-        private void Start()
+        private void Awake()
         {
             baseStats = GameObject.FindGameObjectWithTag("Player").GetComponent<BaseStats>();
         }

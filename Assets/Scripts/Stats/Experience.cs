@@ -1,10 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Resources;
 using RPG.Saving;
-using UnityEngine.Events;
-using System;
+using RPG.Utils;
 
 namespace RPG.Stats
 {
@@ -14,8 +14,8 @@ namespace RPG.Stats
         [SerializeField] float initialExperiencePoints = 0f;
 
         // State
-        float currentPoints = -1f;
-        float pointsToNextLevel = Mathf.Infinity;
+        LazyValue<float> currentPoints;
+        LazyValue<float> pointsToNextLevel;
 
         // Cached references
         BaseStats baseStats = null;
@@ -24,28 +24,44 @@ namespace RPG.Stats
         // Events
         public event Action OnExperienceGained;
 
-        private void Start()
+        private void Awake()
         {
             baseStats = GetComponent<BaseStats>();
             health = GetComponent<Health>();
-            if (Mathf.Approximately(currentPoints, -1f)) { currentPoints = initialExperiencePoints; }  // Overridden by load save file
-            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
+            currentPoints = new LazyValue<float>(GetInitialPoints);
+            pointsToNextLevel = new LazyValue<float>(GetInitialPointsToNextLevel);
+        }
+
+        private float GetInitialPoints()
+        {
+            return initialExperiencePoints;
+        }
+
+        private float GetInitialPointsToNextLevel()
+        {
+            return baseStats.GetStat(Stat.ExperienceToLevelUp);
+        }
+
+        private void Start()
+        {
+            currentPoints.ForceInit();
+            pointsToNextLevel.ForceInit();
         }
 
         public void GainExperience(float points)
         {
-            currentPoints += points;
+            currentPoints.value += points;
             OnExperienceGained();
-            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
+            pointsToNextLevel.value = baseStats.GetStat(Stat.ExperienceToLevelUp);
         }
 
         public void OverrideExperience(float points)
         {
-            currentPoints = points;
+            currentPoints.value = points;
 
             if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
             baseStats.SetLevel();
-            pointsToNextLevel = baseStats.GetStat(Stat.ExperienceToLevelUp);
+            pointsToNextLevel.value = baseStats.GetStat(Stat.ExperienceToLevelUp);
 
             if (health == null) { health = GetComponent<Health>(); }
             health.SetDefaultHealth();
@@ -53,7 +69,7 @@ namespace RPG.Stats
 
         public float GetPoints()
         {
-            return currentPoints;
+            return currentPoints.value;
         }
 
         public int GetPercentage()
@@ -61,13 +77,13 @@ namespace RPG.Stats
             int lastLevel = baseStats.GetLevel() - 1;
             float pointsToLastLevel = 0f;
             if (lastLevel > 0) { pointsToLastLevel = baseStats.GetStatForLevel(Stat.ExperienceToLevelUp, lastLevel); }
-            float healthPercentage = (currentPoints - pointsToLastLevel) / (pointsToNextLevel - pointsToLastLevel) * 100;
+            float healthPercentage = (currentPoints.value - pointsToLastLevel) / (pointsToNextLevel.value - pointsToLastLevel) * 100;
             return Mathf.RoundToInt(healthPercentage);
         }
 
         public object CaptureState()
         {
-            return currentPoints;
+            return currentPoints.value;
         }
 
         public void RestoreState(object state)

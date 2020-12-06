@@ -1,8 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.Resources;
-using System;
+using RPG.Utils;
 
 namespace RPG.Stats
 {
@@ -16,7 +16,7 @@ namespace RPG.Stats
         [SerializeField] bool shouldUseModifiers = false;
 
         // State
-        int currentLevel = 0;
+        LazyValue<int> currentLevel;
 
         // Cached References
         Experience experience = null;
@@ -24,14 +24,31 @@ namespace RPG.Stats
         // Events
         public event Action OnLevelUp;
 
-        private void Start()
+        private void Awake()
         {
             experience = GetComponent<Experience>();
+            currentLevel = new LazyValue<int>(CalculateLevel);
+        }
+
+        private void Start()
+        {
+            currentLevel.ForceInit();
+        }
+
+        private void OnEnable()
+        {
             if (experience != null)
             {
                 experience.OnExperienceGained += UpdateLevel;
             }
-            currentLevel = CalculateLevel();
+        }
+
+        private void OnDisable()
+        {
+            if (experience != null)
+            {
+                experience.OnExperienceGained -= UpdateLevel;
+            }
         }
 
         public float GetStat(Stat stat)
@@ -83,13 +100,13 @@ namespace RPG.Stats
 
         public int GetLevel()
         {
-            if (currentLevel < 1) { currentLevel = CalculateLevel(); }
-            return currentLevel;
+            if (currentLevel.value < 1) { currentLevel.value = CalculateLevel(); }
+            return currentLevel.value;
         }
 
         public void SetLevel()
         {
-            currentLevel = CalculateLevel();
+            currentLevel.ForceInit();
         }
 
         private int CalculateLevel()
@@ -113,9 +130,9 @@ namespace RPG.Stats
         public void UpdateLevel()
         {
             int newLevel = CalculateLevel();
-            if (newLevel > currentLevel)
+            if (newLevel > currentLevel.value)
             {
-                currentLevel = newLevel;
+                currentLevel.value = newLevel;
                 OnLevelUp();
                 if (levelUpVFXPrefab != null)
                 {

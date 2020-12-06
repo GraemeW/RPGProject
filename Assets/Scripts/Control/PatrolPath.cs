@@ -19,7 +19,7 @@ namespace RPG.Control
         bool loopedOnce = false;
         int incrementDirection = 1;
 
-        private void Start()
+        private void Awake()
         {
             loopedOnce = false;
             incrementDirection = 1;

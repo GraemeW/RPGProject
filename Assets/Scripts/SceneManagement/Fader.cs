@@ -18,7 +18,7 @@ namespace RPG.SceneManagement
         // Cached References
         CanvasGroup canvasGroup = null;
 
-        private void Start()
+        private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
         }

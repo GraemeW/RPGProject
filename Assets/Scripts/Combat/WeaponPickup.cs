@@ -67,7 +67,7 @@ namespace RPG.Combat
             {
                 Pickup(fighter);
             }
-            if (Input.GetButtonDown(interactButtonTwo))
+            else if (Input.GetButtonDown(interactButtonTwo))
             {
                 callingController.InteractWithMovement(true);
             }

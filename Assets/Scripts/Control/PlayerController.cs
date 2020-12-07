@@ -10,9 +10,12 @@ namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        // Static
+        static readonly string LAYER_PICKUP = "Pickup";
+
         // Data Types
         [System.Serializable]
-        struct CursorMapping
+        public struct CursorMapping
         {
             public CursorType type;
             public Texture2D texture;
@@ -21,6 +24,7 @@ namespace RPG.Control
 
         // Tunables
         [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
+        [SerializeField] float maxNavPathLength = 40f;
         [SerializeField] CursorMapping[] cursorMappings = null;
 
         // Cached References
@@ -58,7 +62,7 @@ namespace RPG.Control
             SetCursor(CursorType.None);
 
             // Click on uninteractable region cancels all actions
-            CancelAllActions();
+            CancelAction();
         }
 
         private bool InteractWithUI()
@@ -127,23 +131,44 @@ namespace RPG.Control
         private bool RaycastNavmesh(out Vector3 target)
         {
             target = new Vector3();
-            bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hitInfo);
+            int ignorePickupLayerMask = ~LayerMask.GetMask(LAYER_PICKUP);
+            bool hasHit = Physics.Raycast(GetMouseRay(), out RaycastHit hitInfo, Mathf.Infinity, ignorePickupLayerMask);
             if (!hasHit) { return false; }
 
-            if (NavMesh.SamplePosition(hitInfo.point, out NavMeshHit navMeshHit, maxNavMeshProjectedDistance, NavMesh.AllAreas))
-            {
-                target = navMeshHit.position;
-                return true;
-            }
-            return false;
+            bool hasPosition = NavMesh.SamplePosition(hitInfo.point, out NavMeshHit navMeshHit, maxNavMeshProjectedDistance, NavMesh.AllAreas);
+            if (!hasPosition) { return false; }
+
+            target = navMeshHit.position;
+            NavMeshPath path = new NavMeshPath();
+            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
+
+            if (!hasPath) { return false; }
+            if (!(path.status == NavMeshPathStatus.PathComplete)) { return false; }
+            if (GetPathLength(path) > maxNavPathLength) { return false; }
+
+            return true;
         }
 
-        private void CancelAllActions()
+        private float GetPathLength(NavMeshPath path)
+        {
+            float totalPathDistance = 0f;
+            if (path.corners.Length < 2) return totalPathDistance;
+            for (int cornerIndex = 1; cornerIndex < path.corners.Length; cornerIndex++) //index off of 1 to avoid underrun
+            {
+                totalPathDistance += Vector3.Distance(path.corners[cornerIndex - 1], path.corners[cornerIndex]);
+            }
+            return totalPathDistance;
+        }
+
+        private void CancelAction()
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                fighter.Cancel();
                 mover.Cancel();
+            }
+            if (Input.GetButtonDown("Fire2"))
+            {
+                fighter.Cancel();
             }
         }
 

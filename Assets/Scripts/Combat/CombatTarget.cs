@@ -15,7 +15,7 @@ namespace RPG.Combat
             if (fighter == null) { return false; }
             if (!fighter.CanAttack(gameObject)) { return false; }
 
-            if (Input.GetButtonDown(interactButtonTwo))
+            if (Input.GetButtonDown(interactButtonOne) || Input.GetButton(interactButtonTwo))
             {
                 fighter.Attack(gameObject);
             }

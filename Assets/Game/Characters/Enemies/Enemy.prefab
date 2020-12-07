@@ -55,7 +55,7 @@ PrefabInstance:
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: triggeredHostile.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -66,6 +66,11 @@ PrefabInstance:
         type: 3}
       propertyPath: triggeredDeath.m_PersistentCalls.m_Calls.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -152,6 +157,51 @@ PrefabInstance:
       propertyPath: triggeredDeath.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4318276893589604148}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: AttackBehavior
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 268893758078818765, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: damageTextColor.g
+      value: 0.9579295
+      objectReference: {fileID: 0}
+    - target: {fileID: 268893758078818765, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: damageTextColor.b
+      value: 0.5411765
+      objectReference: {fileID: 0}
+    - target: {fileID: 268893758078818765, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: damageTextColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2370794506121242898, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: characterClass
@@ -227,10 +277,40 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 3620472648596364949, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4114466016616775820, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800795318631208588, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8620796
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.9056604
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.4485582
+      objectReference: {fileID: 0}
+    - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4285720540
       objectReference: {fileID: 0}
     - target: {fileID: 9141521544119063457, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

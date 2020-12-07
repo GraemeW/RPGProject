@@ -49,14 +49,14 @@ namespace RPG.Stats
         class ProgressionCharacterClass
         {
             public CharacterClass characterClass = CharacterClass.Grunt;
-            public ProgressionStat[] stats;
+            public ProgressionStat[] stats = default;
         }
 
         [System.Serializable]
         class ProgressionStat
         {
-            public Stat stat;
-            public float[] levels;
+            public Stat stat = default;
+            public float[] levels = default;
         }
     }
 }

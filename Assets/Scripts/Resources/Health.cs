@@ -25,7 +25,12 @@ namespace RPG.Resources
         LazyValue<float> currentHealthPoints;
 
         // Events
-        public UnityEvent triggeredHostile;
+        public TakeDamageEvent takeDamage;
+
+        [System.Serializable]
+        public class TakeDamageEvent : UnityEvent<float>
+        {
+        }
 
         private void Awake()
         {
@@ -60,7 +65,10 @@ namespace RPG.Resources
         {
             UnityEngine.Debug.Log(gameObject.name + " took damage " + damage); // TODO:  REMOVE -- for debug purposes only
 
-            if (damage > 0) { triggeredHostile.Invoke(); }
+            if (damage > 0)
+            { 
+                takeDamage.Invoke(damage);
+            }
 
             currentHealthPoints.value = Mathf.Max(currentHealthPoints.value - damage, 0f);
             // TODO:  GUI for current health

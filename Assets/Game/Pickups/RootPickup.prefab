@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4858692814265145821}
   - component: {fileID: 654353503662343822}
   - component: {fileID: 3942160710866877072}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RootPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

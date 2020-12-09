@@ -4,14 +4,14 @@ using UnityEngine.EventSystems;
 using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Combat;
-using RPG.Resources;
+using RPG.Attributes;
 
 namespace RPG.Control
 {
     public class PlayerController : MonoBehaviour
     {
         // Static
-        static readonly string LAYER_PICKUP = "Pickup";
+        static readonly string LAYER_PICKUP = "Interactable";
 
         // Data Types
         [System.Serializable]

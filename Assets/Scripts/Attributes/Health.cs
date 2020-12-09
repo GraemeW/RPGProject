@@ -8,7 +8,7 @@ using RPG.Saving;
 using RPG.Stats;
 using RPG.Utils;
 
-namespace RPG.Resources
+namespace RPG.Attributes
 {
     public class Health : MonoBehaviour, ISaveable
     {
@@ -103,8 +103,19 @@ namespace RPG.Resources
 
         public int GetPercentage()
         {
-            float healthPercentage = currentHealthPoints.value / defaultHealthPoints * 100;
+            float healthPercentage = GetFraction() * 100;
             return Mathf.RoundToInt(healthPercentage);
+        }
+
+        public float GetFraction()
+        {
+            float healthFraction = currentHealthPoints.value / defaultHealthPoints;
+            return healthFraction;
+        }
+
+        public bool isMaxHealth()
+        {
+            return Mathf.Approximately(currentHealthPoints.value, defaultHealthPoints);
         }
 
         public bool IsDead()

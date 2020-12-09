@@ -14,9 +14,9 @@ namespace RPG.UI.DamageText
             Destroy(gameObject);
         }
 
-        public void SetText(float text)
+        public void SetText(float damageAmount)
         {
-            damageTextElement.text = text.ToString();
+            damageTextElement.text = Mathf.RoundToInt(damageAmount).ToString();
         }
 
         public void SetColor(Color color)

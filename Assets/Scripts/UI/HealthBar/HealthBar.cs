@@ -23,6 +23,7 @@ namespace RPG.UI.HealthBar
         private void Start()
         {
             barScale = healthBarForeground.transform.localScale;
+            canvas.enabled = false;
         }
 
         private void Update()

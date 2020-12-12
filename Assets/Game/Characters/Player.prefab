@@ -68,6 +68,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 30395421143650110, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2370794506121242898, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: characterClass
@@ -148,6 +153,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3620472648596364949, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4800795318631208588, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

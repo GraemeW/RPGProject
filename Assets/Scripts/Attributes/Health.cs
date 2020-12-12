@@ -26,6 +26,7 @@ namespace RPG.Attributes
 
         // Events
         public TakeDamageEvent takeDamage;
+        public UnityEvent die;
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -43,6 +44,7 @@ namespace RPG.Attributes
         private void Start()
         {
             currentHealthPoints.ForceInit();
+            GetMaxPoints();
         }
 
         public float GetMaxPoints()
@@ -71,9 +73,9 @@ namespace RPG.Attributes
             }
 
             currentHealthPoints.value = Mathf.Max(currentHealthPoints.value - damage, 0f);
-            // TODO:  GUI for current health
             if (Mathf.Approximately(currentHealthPoints.value, 0f) || currentHealthPoints.value <= 0)
             {
+                die.Invoke();
                 Die();
                 AwardExperience(instigator);
             }

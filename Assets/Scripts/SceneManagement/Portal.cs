@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using RPG.Movement;
 using RPG.Control;
+using RPG.Core;
 
 namespace RPG.SceneManagement
 {
@@ -34,11 +35,13 @@ namespace RPG.SceneManagement
             // Fade Out
             Fader fader = FindObjectOfType<Fader>();
             fader.ToggleFade(true);
+            TogglePlayerControl(false);
             yield return fader.Fade();
             FindObjectOfType<SavingWrapper>().Save(); // Save world state
 
             // Move Position
             yield return SceneManager.LoadSceneAsync(sceneIndexToLoad);
+            TogglePlayerControl(false);
             FindObjectOfType<SavingWrapper>().Load(); // Load world state
             Portal otherPortal = GetOtherPortal();
             UpdatePlayer(otherPortal);
@@ -49,7 +52,7 @@ namespace RPG.SceneManagement
             if (fader == null) { fader = FindObjectOfType<Fader>(); }
             fader.ToggleFade(false);
             yield return fader.Fade();
-
+            TogglePlayerControl(true);
             Destroy(gameObject);
         }
 
@@ -57,6 +60,13 @@ namespace RPG.SceneManagement
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<Mover>().TeleportToPosition(otherPortal.spawnPoint.position, otherPortal.spawnPoint.rotation);
+        }
+
+        private void TogglePlayerControl(bool toggle)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            PlayerController playerController = player.GetComponent<PlayerController>();
+            playerController.isEnabled = toggle;
         }
 
         private Portal GetOtherPortal()

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Attributes;
+using UnityEngine.Events;
 
 namespace RPG.Combat
 {
@@ -20,9 +21,14 @@ namespace RPG.Combat
         float damage = 0f;
         float timeAlive = 0f;
 
+        // Events
+        public UnityEvent spawn;
+        public UnityEvent hit;
+
         private void Start()
         {
             transform.LookAt(GetAimLocation());
+            spawn.Invoke();
         }
 
         private void Update()
@@ -35,9 +41,10 @@ namespace RPG.Combat
         {
             if (other.GetComponent<Health>() != target) { return; }
             if (other.GetComponent<Health>().IsDead()) { return; }
+            hit.Invoke();
+            TriggerVFX();
             target.TakeDamage(instigator, damage);
             speed = 0f;
-            TriggerVFX();
             Destroy(gameObject);
         }
 

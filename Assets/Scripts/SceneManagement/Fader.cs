@@ -14,6 +14,7 @@ namespace RPG.SceneManagement
         // State
         float currentFade = 0f;
         float fadeTarget = 0f;
+        Coroutine currentActiveFadeRoutine = null;
 
         // Cached References
         CanvasGroup canvasGroup = null;
@@ -23,7 +24,17 @@ namespace RPG.SceneManagement
             canvasGroup = GetComponent<CanvasGroup>();
         }
 
-        public IEnumerator Fade()
+        public Coroutine Fade()
+        {
+            if (currentActiveFadeRoutine != null)
+            {
+                StopCoroutine(currentActiveFadeRoutine);
+            }
+            currentActiveFadeRoutine = StartCoroutine(FadeRoutine());
+            return currentActiveFadeRoutine;
+        }
+
+        private IEnumerator FadeRoutine()
         {
             while (Fading()) { yield return null; }
         }
@@ -31,10 +42,7 @@ namespace RPG.SceneManagement
         private bool Fading()
         {
             if (Mathf.Approximately(currentFade, fadeTarget)) { return false; }
-
-            float preMultiplier = 1.0f;
-            if (fadeTarget < currentFade) { preMultiplier = -1.0f; }
-            currentFade = Mathf.Clamp(currentFade + preMultiplier * fadeSpeed * Time.deltaTime, 0f, 1f);
+            currentFade = Mathf.MoveTowards(currentFade, fadeTarget, Time.deltaTime * fadeSpeed);
             GetComponent<CanvasGroup>().alpha = currentFade;
             return true;
         }

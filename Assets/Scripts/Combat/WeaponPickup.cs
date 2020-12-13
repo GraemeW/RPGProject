@@ -2,6 +2,7 @@
 using UnityEngine;
 using RPG.Control;
 using RPG.Attributes;
+using RPG.Movement;
 
 namespace RPG.Combat
 {
@@ -75,6 +76,9 @@ namespace RPG.Combat
 
         public bool HandleRaycast(PlayerController callingController, string interactButtonOne, string interactButtonTwo)
         {
+            Mover callingControllerMover = callingController.GetComponent<Mover>();
+            if (!callingControllerMover.CanMoveTo(transform.position)) { return false; }
+
             if (Input.GetButtonDown(interactButtonOne))
             {
                 Pickup(callingController.gameObject);

@@ -40,7 +40,7 @@ namespace RPG.Combat
         private void OnTriggerEnter(Collider other)
         {
             if (other.GetComponent<Health>() != target) { return; }
-            if (other.GetComponent<Health>().IsDead()) { return; }
+            if (target.IsDead()) { return; }
             hit.Invoke();
             TriggerVFX();
             target.TakeDamage(instigator, damage);
@@ -59,7 +59,11 @@ namespace RPG.Combat
         private void MoveToTarget()
         {
             if (target == null) { Destroy(gameObject); }
-            if (homing) { transform.LookAt(GetAimLocation()); }
+            if (homing)
+            {
+                if (target.IsDead()) { Destroy(gameObject); }
+                transform.LookAt(GetAimLocation());
+            }
             float moveDistance = Time.deltaTime * speed;
             transform.Translate(Vector3.forward * moveDistance);
         }

@@ -24,7 +24,6 @@ namespace RPG.Control
 
         // Tunables
         [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
-        [SerializeField] float maxNavPathLength = 40f;
         [SerializeField] CursorMapping[] cursorMappings = null;
 
         // Cached References
@@ -118,6 +117,8 @@ namespace RPG.Control
             bool hasHit = RaycastNavmesh(out Vector3 target);
             if (hasHit)
             {
+                if (!mover.CanMoveTo(target)) { return false; }
+
                 if (Input.GetButton("Fire1") || skipMouseClick)
                 {
                     mover.StartMoveAction(target, 1f);
@@ -139,25 +140,7 @@ namespace RPG.Control
             if (!hasPosition) { return false; }
 
             target = navMeshHit.position;
-            NavMeshPath path = new NavMeshPath();
-            bool hasPath = NavMesh.CalculatePath(transform.position, target, NavMesh.AllAreas, path);
-
-            if (!hasPath) { return false; }
-            if (!(path.status == NavMeshPathStatus.PathComplete)) { return false; }
-            if (GetPathLength(path) > maxNavPathLength) { return false; }
-
             return true;
-        }
-
-        private float GetPathLength(NavMeshPath path)
-        {
-            float totalPathDistance = 0f;
-            if (path.corners.Length < 2) return totalPathDistance;
-            for (int cornerIndex = 1; cornerIndex < path.corners.Length; cornerIndex++) //index off of 1 to avoid underrun
-            {
-                totalPathDistance += Vector3.Distance(path.corners[cornerIndex - 1], path.corners[cornerIndex]);
-            }
-            return totalPathDistance;
         }
 
         private void CancelAction()

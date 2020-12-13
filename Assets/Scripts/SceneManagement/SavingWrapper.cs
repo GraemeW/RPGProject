@@ -35,7 +35,7 @@ namespace RPG.SceneManagement
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
-                Load();
+                LoadFull();
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -50,6 +50,11 @@ namespace RPG.SceneManagement
         public void Load()
         {
             GetComponent<SavingSystem>().Load(defaultSaveFile);
+        }
+
+        private void LoadFull()
+        {
+            StartCoroutine(LoadLastScene());
         }
 
         public void Save()

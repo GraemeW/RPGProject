@@ -56,4 +56,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101b8684d4aea8d478c5748b2fc4ce0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deleteSaveFileOnStart: 0
+  deleteSaveFileOnStart: 1

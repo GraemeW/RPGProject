@@ -152,7 +152,7 @@ namespace RPG.Control
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, currentChaseDistance.value);
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
             if (patrolPath != null) { patrolPath.OnDrawGizmosSelected(); }
         }
     }

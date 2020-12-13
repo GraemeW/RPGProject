@@ -6,19 +6,25 @@ using UnityEngine.SceneManagement;
 using RPG.Movement;
 using RPG.Control;
 using RPG.Core;
+using UnityEngine.Events;
 
 namespace RPG.SceneManagement
 {
     public class Portal : MonoBehaviour, IRaycastable
     {
+        // Data Classes
         enum DestinationIdentifier
         {
             A, B, C, D, E
         }
 
+        // Tunables
         [SerializeField] int sceneIndexToLoad = 0;
         [SerializeField] Transform spawnPoint = null;
         [SerializeField] DestinationIdentifier destination = 0;
+
+        // Events
+        public UnityEvent transition;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -32,6 +38,7 @@ namespace RPG.SceneManagement
         {
             DontDestroyOnLoad(gameObject);
 
+            transition.Invoke();
             // Fade Out
             Fader fader = FindObjectOfType<Fader>();
             fader.ToggleFade(true);

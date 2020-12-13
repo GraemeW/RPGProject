@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
 using RPG.Control;
+using RPG.Attributes;
 
 namespace RPG.Combat
 {
     public class WeaponPickup : MonoBehaviour, IRaycastable
     {
-        [SerializeField] Weapon weapon = null;
+        [SerializeField] WeaponConfig weaponConfig = null;
+        [SerializeField] float healthToRestore = 0.0f;
         [SerializeField] bool respawning = true;
         [SerializeField] float respawnTime = 5.0f;
 
@@ -25,20 +27,33 @@ namespace RPG.Combat
 
         private void OnCollisionEnter(Collision other)
         {
-            Fighter fighter = other.transform.GetComponent<Fighter>();
-            if (fighter == null) { return; }
-
-            Pickup(fighter);
+            Pickup(other.gameObject);
         }
 
-        private void Pickup(Fighter fighter)
+        private void Pickup(GameObject subject)
         {
-            if (fighter.transform.CompareTag("Player"))
+            if (subject.CompareTag("Player"))
             {
-               fighter.EquipWeapon(weapon);
                 // TODO:  Add pickup FX
+                HandleWeaponProperties(subject);
+                HandleMiscProperties(subject);
                 StartCoroutine(HideForSeconds(respawnTime));
             }
+        }
+
+        private void HandleWeaponProperties(GameObject subject)
+        {
+            Fighter fighter = subject.GetComponent<Fighter>();
+            if (fighter == null) { return; }
+            if (weaponConfig == null) { return; }
+            fighter.EquipWeapon(weaponConfig);
+        }
+
+        private void HandleMiscProperties(GameObject subject)
+        {
+            Health health = subject.GetComponent<Health>();
+            if (health == null) { return; }
+            health.Heal(healthToRestore);
         }
 
         private IEnumerator HideForSeconds(float seconds)
@@ -60,12 +75,9 @@ namespace RPG.Combat
 
         public bool HandleRaycast(PlayerController callingController, string interactButtonOne, string interactButtonTwo)
         {
-            Fighter fighter = callingController.GetComponent<Fighter>();
-            if (fighter == null) { return false; }
-
             if (Input.GetButtonDown(interactButtonOne))
             {
-                Pickup(fighter);
+                Pickup(callingController.gameObject);
             }
             else if (Input.GetButtonDown(interactButtonTwo))
             {

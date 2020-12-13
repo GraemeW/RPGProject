@@ -21,7 +21,7 @@ namespace RPG.Attributes
 
         // State
         bool isDead = false;
-        float defaultHealthPoints = 10f;
+        float maxHealthPoints = 10f;
         LazyValue<float> currentHealthPoints;
 
         // Events
@@ -49,8 +49,8 @@ namespace RPG.Attributes
 
         public float GetMaxPoints()
         {
-            defaultHealthPoints = baseStats.GetStat(Stat.Health);
-            return defaultHealthPoints;
+            maxHealthPoints = baseStats.GetStat(Stat.Health);
+            return maxHealthPoints;
         }
 
         private void OnEnable()
@@ -65,8 +65,6 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            UnityEngine.Debug.Log(gameObject.name + " took damage " + damage); // TODO:  REMOVE -- for debug purposes only
-
             if (damage > 0)
             { 
                 takeDamage.Invoke(damage);
@@ -75,10 +73,16 @@ namespace RPG.Attributes
             currentHealthPoints.value = Mathf.Max(currentHealthPoints.value - damage, 0f);
             if (Mathf.Approximately(currentHealthPoints.value, 0f) || currentHealthPoints.value <= 0)
             {
-                die.Invoke();
+                if (damage > 0) { die.Invoke(); }
                 Die();
                 AwardExperience(instigator);
             }
+        }
+
+        public void Heal(float points)
+        {
+            if (isDead) { return; }
+            currentHealthPoints.value = Mathf.Min(currentHealthPoints.value + points, maxHealthPoints);
         }
 
         private void Die()
@@ -111,13 +115,13 @@ namespace RPG.Attributes
 
         public float GetFraction()
         {
-            float healthFraction = currentHealthPoints.value / defaultHealthPoints;
+            float healthFraction = currentHealthPoints.value / maxHealthPoints;
             return healthFraction;
         }
 
         public bool isMaxHealth()
         {
-            return Mathf.Approximately(currentHealthPoints.value, defaultHealthPoints);
+            return Mathf.Approximately(currentHealthPoints.value, maxHealthPoints);
         }
 
         public bool IsDead()
@@ -128,15 +132,15 @@ namespace RPG.Attributes
         public void SetDefaultHealth()
         {
             if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
-            defaultHealthPoints = baseStats.GetStat(Stat.Health);
+            maxHealthPoints = baseStats.GetStat(Stat.Health);
         }
 
         public void RestoreHealthOnLevelUp()
         {
-            float currentHealthFraction = currentHealthPoints.value / defaultHealthPoints;
+            float currentHealthFraction = currentHealthPoints.value / maxHealthPoints;
             SetDefaultHealth();
-            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints.value = defaultHealthPoints * levelUpHealthFraction; }
-            else { currentHealthPoints.value = defaultHealthPoints * currentHealthFraction; }
+            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints.value = maxHealthPoints * levelUpHealthFraction; }
+            else { currentHealthPoints.value = maxHealthPoints * currentHealthFraction; }
         }
 
         public object CaptureState()

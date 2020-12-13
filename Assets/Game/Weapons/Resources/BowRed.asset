@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a70bdfb1fa12f47af151ba7fa83269, type: 3}
   m_Name: BowRed
   m_EditorClassIdentifier: 
-  weaponPrefab: {fileID: 2436066497853879131, guid: 2f32df20a6e602446ba5ee503460e05e,
+  weaponPrefab: {fileID: 6593574613740710709, guid: 2f32df20a6e602446ba5ee503460e05e,
     type: 3}
   weaponPickup: {fileID: 8762247448207978082, guid: 8f20425e845de8947a431c48f395986e,
     type: 3}

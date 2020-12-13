@@ -87,6 +87,12 @@ PrefabInstance:
       propertyPath: respawning
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 654353503662343822, guid: 76787b628aa04be4f9df66c5eb5fa44b,
+        type: 3}
+      propertyPath: weaponConfig
+      value: 
+      objectReference: {fileID: 11400000, guid: e28e7773a15c13b48b971aeda284b819,
+        type: 2}
     - target: {fileID: 5152910023922030331, guid: 76787b628aa04be4f9df66c5eb5fa44b,
         type: 3}
       propertyPath: m_LocalPosition.x

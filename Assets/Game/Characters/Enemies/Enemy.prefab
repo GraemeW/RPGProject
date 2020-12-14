@@ -41,6 +41,8 @@ MonoBehaviour:
   chaseDistance: 5
   hostileChaseDistance: 20
   suspicionTime: 3
+  aggravationTime: 3
+  shoutDistance: 5
   patrolPath: {fileID: 0}
   waypointTolerance: 1
   waypointDwellTime: 2
@@ -71,6 +73,11 @@ PrefabInstance:
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.size
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -175,7 +182,7 @@ PrefabInstance:
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: AttackBehavior
+      value: Aggravate
       objectReference: {fileID: 0}
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -210,6 +217,31 @@ PrefabInstance:
     - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: takeDamage.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1249209094538022082}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: HandleDeath
+      objectReference: {fileID: 0}
+    - target: {fileID: -1873187468937196512, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: die.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 268893758078818765, guid: 95298c93f3923ee429d25b701b1675aa,
@@ -305,7 +337,7 @@ PrefabInstance:
     - target: {fileID: 3620472648596364949, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4114466016616775820, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -320,7 +352,7 @@ PrefabInstance:
     - target: {fileID: 5466788518247895174, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

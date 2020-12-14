@@ -25,6 +25,7 @@ namespace RPG.Control
         // Tunables
         [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
         [SerializeField] CursorMapping[] cursorMappings = null;
+        [SerializeField] float raycastRadius = 0.6f;
 
         // Cached References
         Mover mover = null;
@@ -102,7 +103,7 @@ namespace RPG.Control
 
         RaycastHit[] RaycastAllSorted()
         {
-            RaycastHit[] hitsInfo = Physics.RaycastAll(GetMouseRay());
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
             float[] distances = new float[hitsInfo.Length];
             for (int hitIndex = 0; hitIndex < hitsInfo.Length; hitIndex++)
             {

@@ -22,6 +22,12 @@ namespace RPG.Combat
             return true;
         }
 
+        public void HandleDeath()
+        {
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Collider>().enabled = false;
+        }
+
         public CursorType GetCursorType()
         {
             return CursorType.Combat;

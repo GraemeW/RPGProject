@@ -10,6 +10,10 @@ namespace RPG.Inventories
     /// </summary>
     public class ItemDropper : MonoBehaviour, ISaveable
     {
+        // Tunables
+        [SerializeField] int listCleanupSize = 50;
+        [SerializeField] float dropOffset = 2.5f;
+
         // STATE
         private List<Pickup> droppedItems = new List<Pickup>();
 
@@ -45,13 +49,15 @@ namespace RPG.Inventories
         /// <returns>The location the drop should be spawned.</returns>
         protected virtual Vector3 GetDropLocation()
         {
-            return transform.position;
+            Vector3 dropLocation = transform.position + transform.forward * dropOffset + transform.up * dropOffset * 0.5f;
+            return dropLocation;
         }
 
         // PRIVATE
 
         public void SpawnPickup(InventoryItem item, Vector3 spawnLocation, int number)
         {
+            if (droppedItems.Count > listCleanupSize) { RemoveDestroyedDrops(); }
             var pickup = item.SpawnPickup(spawnLocation, number);
             droppedItems.Add(pickup);
         }

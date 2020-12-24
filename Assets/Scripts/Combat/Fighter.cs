@@ -94,6 +94,7 @@ namespace RPG.Combat
 
         public void DropWeapon()
         {
+            // TODO:  REMOVE, after incorporating weapon handling into new pickup paradigm
             if (currentWeapon == null) { return; }
             Destroy(currentWeapon.gameObject);
 

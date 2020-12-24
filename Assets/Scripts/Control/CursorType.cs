@@ -5,8 +5,9 @@
         None,
         Movement,
         Combat,
-        UI, 
+        UI,
+        Portal,
         Pickup,
-        Portal
+        FullPickup
     }
 }

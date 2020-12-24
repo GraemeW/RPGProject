@@ -41,10 +41,13 @@ MonoBehaviour:
     texture: {fileID: 2800000, guid: 2e71a8202d3b4a3448ec85ced5a40265, type: 3}
     hotspot: {x: 0, y: 0}
   - type: 4
-    texture: {fileID: 2800000, guid: a75c68d8f8b30c24788e1ae1ea050ac4, type: 3}
+    texture: {fileID: 2800000, guid: 7d4a349e204be984cbd483b7ba288543, type: 3}
     hotspot: {x: 0, y: 0}
   - type: 5
-    texture: {fileID: 2800000, guid: 7d4a349e204be984cbd483b7ba288543, type: 3}
+    texture: {fileID: 2800000, guid: a75c68d8f8b30c24788e1ae1ea050ac4, type: 3}
+    hotspot: {x: 0, y: 0}
+  - type: 6
+    texture: {fileID: 2800000, guid: b4a13a85f8d49c7429c198552be54627, type: 3}
     hotspot: {x: 0, y: 0}
   raycastRadius: 0.6
   isEnabled: 1
@@ -98,6 +101,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialExperiencePoints: 0
+--- !u!114 &8941700040582391265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428702427824993763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8c756a4f32f0d945bb0d60bb0f29ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dropOffset: 2.5
 --- !u!1001 &887498608397665829
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -194,7 +210,7 @@ PrefabInstance:
     - target: {fileID: 3620472648596364949, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4800795318631208588, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -204,7 +220,7 @@ PrefabInstance:
     - target: {fileID: 5466788518247895174, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5817410703520281142, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

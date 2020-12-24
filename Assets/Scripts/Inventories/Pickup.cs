@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RPG.Control;
+using UnityEngine;
 
 namespace RPG.Inventories
 {
@@ -30,7 +31,7 @@ namespace RPG.Inventories
         /// </summary>
         /// <param name="item">The type of item this prefab represents.</param>
         /// <param name="number">The number of items represented.</param>
-        public void Setup(InventoryItem item, int number)
+        public void Setup(InventoryItem item, int number, bool runoverEnabled = true)
         {
             this.item = item;
             if (!item.IsStackable())
@@ -38,6 +39,9 @@ namespace RPG.Inventories
                 number = 1;
             }
             this.number = number;
+
+            PickupRunover pickupRunover = GetComponent<PickupRunover>();
+            if (pickupRunover != null) { pickupRunover.SetRunover(runoverEnabled); }
         }
 
         public InventoryItem GetItem()

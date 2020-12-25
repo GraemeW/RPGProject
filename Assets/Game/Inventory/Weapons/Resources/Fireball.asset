@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a70bdfb1fa12f47af151ba7fa83269, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  itemID: 6e29ce55-d838-46d1-997f-f2f2eda27674
+  displayName: Fireball
+  description: It's hot
+  icon: {fileID: 21300000, guid: db427fab3e94daf4caa704d9314a77a1, type: 3}
+  pickup: {fileID: 4374894024147302244, guid: 968fbd6d8d1ecd147a99ebb8f4d931e0, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponPrefab: {fileID: 4273401346676904220, guid: 0b9b3df2376e4e04c97d0bf2e16527ef,
-    type: 3}
-  weaponPickup: {fileID: 6387228575527687066, guid: 968fbd6d8d1ecd147a99ebb8f4d931e0,
     type: 3}
   animatorOverride: {fileID: 22100000, guid: c7f084efef1fbbb42a1adc451bca24d2, type: 2}
   isRightHanded: 0

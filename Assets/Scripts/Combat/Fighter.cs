@@ -7,10 +7,11 @@ using RPG.Saving;
 using RPG.Attributes;
 using RPG.Stats;
 using RPG.Utils;
+using RPG.Inventories;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable, IModifierProvider
+    public class Fighter : MonoBehaviour, IAction, ISaveable
     {
         // Tunables
         [Header("Weapon")]
@@ -29,6 +30,7 @@ namespace RPG.Combat
         Animator animator = null;
         Health health = null;
         BaseStats baseStats = null;
+        Equipment equipment = null;
 
         // State
         private Health target = null;
@@ -43,7 +45,13 @@ namespace RPG.Combat
             actionScheduler = GetComponent<ActionScheduler>();
             animator = GetComponent<Animator>();
             baseStats = GetComponent<BaseStats>();
+            equipment = GetComponent<Equipment>();
             currentWeaponConfig = new LazyValue<WeaponConfig>(GetInitialWeapon);
+
+            if (equipment != null)
+            {
+                equipment.equipmentUpdated += UpdateWeapon;
+            }
         }
 
         private WeaponConfig GetInitialWeapon()
@@ -87,26 +95,20 @@ namespace RPG.Combat
         public void EquipWeapon(WeaponConfig weaponConfig)
         {
             if (health.IsDead()) { return; }
-            DropWeapon();
             currentWeaponConfig.value = weaponConfig;
             currentWeapon = weaponConfig.Spawn(rightHand, leftHand, animator);
         }
 
-        public void DropWeapon()
+        private void UpdateWeapon()
         {
-            // TODO:  REMOVE, after incorporating weapon handling into new pickup paradigm
-            if (currentWeapon == null) { return; }
-            Destroy(currentWeapon.gameObject);
+            WeaponConfig weaponInEquipment = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
+            if (weaponInEquipment == null) { weaponInEquipment = unarmed; }
 
-            WeaponPickup weaponPickupPrefab = currentWeaponConfig.value.GetWeaponPickup();
-            if (weaponPickupPrefab == null ) { return; }
-
-            Vector3 pickupPosition = transform.position + transform.forward * dropWeaponOffset + transform.up * dropWeaponOffset * 0.5f;
-            WeaponPickup weaponPickup = Instantiate(weaponPickupPrefab, pickupPosition, Quaternion.identity);
-            weaponPickup.SetRespawning(false);
-
-            currentWeaponConfig.value = unarmed;
-            currentWeapon = currentWeaponConfig.value.Spawn(rightHand, leftHand, animator);
+            if (weaponInEquipment != currentWeapon)
+            {
+                Destroy(currentWeapon.gameObject);
+                EquipWeapon(weaponInEquipment);
+            }
         }
 
         private void AttackBehavior()
@@ -165,22 +167,6 @@ namespace RPG.Combat
         {
             animator.ResetTrigger("attack");
             animator.SetTrigger("stopAttack");
-        }
-
-        public IEnumerable<float> GetAdditiveModifiers(Stat stat)
-        {
-            if (stat == Stat.Damage)
-            {
-                yield return currentWeaponConfig.value.GetWeaponDamage();
-            }
-        }
-
-        public IEnumerable<float> GetPercentageModifiers(Stat stat)
-        {
-            if (stat == Stat.Damage)
-            {
-                yield return currentWeaponConfig.value.GetPercentageBonus();
-            }
         }
 
         // Animation Event

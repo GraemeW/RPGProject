@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using RPG.Movement;
 using RPG.Combat;
 using RPG.Attributes;
+using RPG.Inventories;
 
 namespace RPG.Control
 {
@@ -26,6 +27,10 @@ namespace RPG.Control
         [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float raycastRadius = 0.6f;
+        [Header("Interact Types")]
+        string movementInteract = "Fire1";
+        string componentInteract = "Fire2";
+        string uiInteract = "Fire1";
 
         // Cached References
         Mover mover = null;
@@ -34,6 +39,7 @@ namespace RPG.Control
 
         // State
         public bool isEnabled = true;
+        bool isInteractingWithUI = false;
 
         void Awake()
         {
@@ -52,11 +58,9 @@ namespace RPG.Control
                 return;
             }
             if (!isEnabled) { return; }
+            CheckSpecialAbilityKeys();
 
-            // Actions w/out return
-            DropWeapon();
-
-            // Actions w/ return
+            // Actions
             if (InteractWithComponent()) return;
             if (InteractWithMovement()) return;
             SetCursor(CursorType.None);
@@ -67,20 +71,20 @@ namespace RPG.Control
 
         private bool InteractWithUI()
         {
+            if (Input.GetButtonUp(uiInteract)) { isInteractingWithUI = false; }
+
             if (EventSystem.current.IsPointerOverGameObject()) // returns bool on if over UI element
             {
                 SetCursor(CursorType.UI);
+                if (Input.GetButtonDown(uiInteract))
+                {
+                    isInteractingWithUI = true;
+                }
                 return true;
             }
-            return false;
-        }
 
-        private void DropWeapon()
-        {
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                fighter.DropWeapon();
-            }
+            if (isInteractingWithUI) { return true; }
+            return false;
         }
 
         private bool InteractWithComponent()
@@ -91,7 +95,7 @@ namespace RPG.Control
                 IRaycastable[] raycastables = hitInfo.transform.GetComponents<IRaycastable>();
                 foreach (IRaycastable raycastable in raycastables)
                 {
-                    if (raycastable.HandleRaycast(this, "Fire2", "Fire1"))
+                    if (raycastable.HandleRaycast(this, componentInteract, movementInteract))
                     {
                         SetCursor(raycastable.GetCursorType());
                         return true;
@@ -99,6 +103,35 @@ namespace RPG.Control
                 }
             }
             return false;
+        }
+
+        private void CheckSpecialAbilityKeys()
+        {
+            var actionStore = GetComponent<ActionStore>();
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                actionStore.Use(0, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                actionStore.Use(1, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                actionStore.Use(2, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                actionStore.Use(3, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                actionStore.Use(4, gameObject);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                actionStore.Use(5, gameObject);
+            }
         }
 
         RaycastHit[] RaycastAllSorted()
@@ -120,7 +153,7 @@ namespace RPG.Control
             {
                 if (!mover.CanMoveTo(target)) { return false; }
 
-                if (Input.GetButton("Fire1") || skipMouseClick)
+                if (Input.GetButton(movementInteract) || skipMouseClick)
                 {
                     mover.StartMoveAction(target, 1f);
                 }
@@ -146,11 +179,11 @@ namespace RPG.Control
 
         private void CancelAction()
         {
-            if (Input.GetButtonDown("Fire1"))
+            if (Input.GetButtonDown(movementInteract))
             {
                 mover.Cancel();
             }
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown(componentInteract))
             {
                 fighter.Cancel();
             }

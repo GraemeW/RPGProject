@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a70bdfb1fa12f47af151ba7fa83269, type: 3}
   m_Name: Unarmed
   m_EditorClassIdentifier: 
+  itemID: b05ab17d-b126-4a93-b4c6-c6db5435c4aa
+  displayName: Fists
+  description: These guns mean business
+  icon: {fileID: 0}
+  pickup: {fileID: 6494234044896430859, guid: c526bb52c5384fb4f838ab6687bb3f44, type: 3}
+  stackable: 0
+  allowedEquipLocation: 5
   weaponPrefab: {fileID: 6926124339724946654, guid: 4176c67554954784aa6031590bc8b1b1,
     type: 3}
-  weaponPickup: {fileID: 0}
   animatorOverride: {fileID: 22100000, guid: 5a523d35425336c47b945e0a163434da, type: 2}
   isRightHanded: 0
   weaponRange: 2

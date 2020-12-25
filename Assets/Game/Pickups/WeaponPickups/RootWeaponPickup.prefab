@@ -105,7 +105,6 @@ GameObject:
   - component: {fileID: 3942160710866877072}
   - component: {fileID: 7854835651481018992}
   - component: {fileID: 432110518593392209}
-  - component: {fileID: 7884817175181767396}
   m_Layer: 9
   m_Name: RootWeaponPickup
   m_TagString: Untagged
@@ -180,17 +179,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99bb3c21e7fe0eb448f894c94315c0c1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &7884817175181767396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5152910023922030332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0b8c424475a974bb554e4465cbed41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

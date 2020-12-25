@@ -19,7 +19,6 @@ namespace RPG.Combat
         [SerializeField] Transform leftHand = null;
         [SerializeField] string defaultWeaponName = "Unarmed";
         [SerializeField] WeaponConfig unarmed = null;
-        float dropWeaponOffset = 3.0f;
 
         [Header("Chase")]
         [SerializeField] float chaseSpeedFraction = 0.95f;

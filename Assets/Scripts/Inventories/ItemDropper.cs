@@ -12,7 +12,7 @@ namespace RPG.Inventories
     {
         // Tunables
         [SerializeField] int listCleanupSize = 50;
-        [SerializeField] float dropOffset = 2.5f;
+        float dropOffset = 2.5f;
 
         // STATE
         private List<Pickup> droppedItems = new List<Pickup>();

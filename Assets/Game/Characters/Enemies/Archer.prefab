@@ -88,5 +88,20 @@ PrefabInstance:
       propertyPath: defaultWeaponName
       value: BowRed
       objectReference: {fileID: 0}
+    - target: {fileID: 9106790504189503682, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: equippedItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106790504189503682, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: equippedItems.Array.data[0].equipLocation
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106790504189503682, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: equippedItems.Array.data[0].equippedItemID
+      value: 4a0c5555-20d7-4658-8c49-fe842d9eccfc
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6911d75006a4ad746be4bcf71b97238b, type: 3}

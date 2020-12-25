@@ -65,7 +65,17 @@ PrefabInstance:
     - target: {fileID: 1046373644337586582, guid: 6911d75006a4ad746be4bcf71b97238b,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Brawler
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106790504189503682, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: equippedItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9106790504189503682, guid: 6911d75006a4ad746be4bcf71b97238b,
+        type: 3}
+      propertyPath: equippedItems.Array.data[0].equippedItemID
+      value: 94d6d82e-1e7c-42d9-ae78-bfc74d0233a3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6911d75006a4ad746be4bcf71b97238b, type: 3}

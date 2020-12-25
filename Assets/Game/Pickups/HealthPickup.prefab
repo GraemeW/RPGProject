@@ -1,5 +1,17 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7947117644706078865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6929465519836792007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0b8c424475a974bb554e4465cbed41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2857736757533512251
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16,6 +28,11 @@ PrefabInstance:
         type: 3}
       propertyPath: healthToRestore
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3281869862780172739, guid: 76787b628aa04be4f9df66c5eb5fa44b,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3942160710866877072, guid: 76787b628aa04be4f9df66c5eb5fa44b,
         type: 3}
@@ -104,6 +121,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76787b628aa04be4f9df66c5eb5fa44b, type: 3}
+--- !u!1 &6929465519836792007 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5152910023922030332, guid: 76787b628aa04be4f9df66c5eb5fa44b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2857736757533512251}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6929465519836792000 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5152910023922030331, guid: 76787b628aa04be4f9df66c5eb5fa44b,
@@ -120,6 +143,10 @@ PrefabInstance:
     - target: {fileID: 199514, guid: 626f1b816ba1ee64a9f7cea6ceb529cd, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Pumpkin_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 199514, guid: 626f1b816ba1ee64a9f7cea6ceb529cd, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 489180, guid: 626f1b816ba1ee64a9f7cea6ceb529cd, type: 3}
       propertyPath: m_LocalPosition.x

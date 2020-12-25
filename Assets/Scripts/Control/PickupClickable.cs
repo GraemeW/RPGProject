@@ -28,8 +28,9 @@ namespace RPG.Control
 
         public bool HandleRaycast(PlayerController callingController, string interactButtonOne = "Fire1", string interactButtonTwo = "Fire2")
         {
+            /* --> Deprecated:  Pickups handled by clicking, movement limiting not critical
             Mover callingControllerMover = callingController.GetComponent<Mover>();
-            if (!callingControllerMover.CanMoveTo(transform.position)) { return false; }
+            if (!callingControllerMover.CanMoveTo(transform.position)) { return false; }*/
 
             if (Input.GetButtonDown(interactButtonOne))
             {

@@ -51,6 +51,18 @@ MonoBehaviour:
     hotspot: {x: 0, y: 0}
   raycastRadius: 0.6
   isEnabled: 1
+--- !u!114 &1528922170823987441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428702427824993763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95876fce6f704734a98211b373b3fada, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2017387960725215943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76,6 +88,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 20
+--- !u!114 &6286201982833024999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428702427824993763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d8025c540ade14aa1f4e3af72c5f5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listCleanupSize: 50
+  minDropOffset: 1
+  maxDropOffset: 2.5
+  dropHeight: 0.5
+  checkForReachable: 0
+  navmeshSampledDistance: 0.7
 --- !u!114 &6840897129350579198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,32 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialExperiencePoints: 0
---- !u!114 &8941700040582391265
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3428702427824993763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e8c756a4f32f0d945bb0d60bb0f29ef8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  listCleanupSize: 50
-  dropOffset: 2.5
---- !u!114 &1528922170823987441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3428702427824993763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95876fce6f704734a98211b373b3fada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &887498608397665829
 PrefabInstance:
   m_ObjectHideFlags: 0

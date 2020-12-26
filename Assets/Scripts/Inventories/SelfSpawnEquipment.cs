@@ -13,20 +13,20 @@ namespace RPG.Inventories
         [System.Serializable]
         class EquipmentSet
         {
-            public EquipLocation equipLocation = EquipLocation.Weapon;
-            public string equippedItemID = "";
+            public EquipLocation location = EquipLocation.Weapon;
+            public EquipableItem item = default;
         }
 
         private void Start()
         {
             if (GetComponent<Health>().IsDead()) { return; }
 
-            foreach (EquipmentSet equipmentSet in equippedItems)
+            foreach (EquipmentSet equippedItem in equippedItems)
             {
-                EquipableItem itemToEquip = InventoryItem.GetFromID(equipmentSet.equippedItemID) as EquipableItem;
-                if (itemToEquip != null)
+                if (equippedItem.item == null) { continue; }
+                if (equippedItem.item.GetAllowedEquipLocation() == equippedItem.location)
                 {
-                    AddItem(equipmentSet.equipLocation, itemToEquip);
+                    AddItem(equippedItem.location, equippedItem.item);
                 }
             }
         }

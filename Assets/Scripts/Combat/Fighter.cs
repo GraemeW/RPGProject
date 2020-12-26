@@ -105,7 +105,7 @@ namespace RPG.Combat
 
             if (weaponInEquipment != currentWeapon)
             {
-                Destroy(currentWeapon.gameObject);
+                if (currentWeapon != null) { Destroy(currentWeapon.gameObject); }
                 EquipWeapon(weaponInEquipment);
             }
         }

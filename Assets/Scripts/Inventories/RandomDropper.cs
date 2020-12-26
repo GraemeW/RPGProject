@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using RPG.Stats;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static RPG.Inventories.DropLibrary;
 
 namespace RPG.Inventories
 {
@@ -15,8 +17,7 @@ namespace RPG.Inventories
         [SerializeField] bool checkForReachable = false;
         [SerializeField] float navmeshSampledDistance = 0.7f;
         [Header("Death Drop Properties")]
-        [SerializeField] InventoryItem[] dropLibrary;
-        [SerializeField] int numberOfDrops = 2;
+        [SerializeField] DropLibrary dropLibrary;
 
         // Constants
         const int MAX_ATTEMPTS = 10;
@@ -24,10 +25,10 @@ namespace RPG.Inventories
         public void RandomDrop()
         {
             if (dropLibrary == null) { return; }
-            for (int dropIndex = 0; dropIndex < numberOfDrops; dropIndex++)
+            int level = GetComponent<BaseStats>().GetLevel();
+            foreach (Dropped dropped in dropLibrary.GetRandomDrops(level))
             {
-                int itemIndex = Random.Range(0, dropLibrary.Length);
-                DropItem(dropLibrary[itemIndex]);
+                DropItem(dropped.item, dropped.number);
             }
         }
 

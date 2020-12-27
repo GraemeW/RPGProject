@@ -8,7 +8,7 @@ namespace RPG.Dialogue
     public class Dialogue : ScriptableObject
     {
         [SerializeField] List<DialogueNode> dialogueNodes = new List<DialogueNode>();
-
+        [SerializeField] Dictionary<string, DialogueNode> nodeLookup = new Dictionary<string, DialogueNode>();
 
 
 #if UNITY_EDITOR
@@ -19,8 +19,18 @@ namespace RPG.Dialogue
                 DialogueNode blankDialogueNode = new DialogueNode();
                 dialogueNodes.Add(blankDialogueNode);
             }
+            OnValidate();
         }
 #endif
+
+        private void OnValidate()
+        {
+            nodeLookup = new Dictionary<string, DialogueNode>();
+            foreach (DialogueNode dialogueNode in dialogueNodes)
+            {
+                nodeLookup.Add(dialogueNode.uniqueID, dialogueNode);
+            }
+        }
 
         public IEnumerable<DialogueNode> GetAllNodes()
         {
@@ -30,6 +40,30 @@ namespace RPG.Dialogue
         public DialogueNode GetRootNode()
         {
             return dialogueNodes[0];
+        }
+
+        public DialogueNode GetNodeFromID(string uniqueID)
+        {
+            foreach (DialogueNode dialogueNode in dialogueNodes)
+            {
+                if (dialogueNode.uniqueID == uniqueID)
+                {
+                    return dialogueNode;
+                }
+            }
+            return null;
+        }
+
+        public IEnumerable<DialogueNode> GetAllChildren(DialogueNode parentNode)
+        {
+            if (parentNode == null || parentNode.children == null || parentNode.children.Length == 0) { yield break; }
+            foreach (string childUniqueID in parentNode.children)
+            {
+                if (nodeLookup.ContainsKey(childUniqueID))
+                {
+                    yield return nodeLookup[childUniqueID];
+                }
+            }
         }
     }
 }

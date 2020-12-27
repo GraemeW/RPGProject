@@ -13,21 +13,12 @@ MonoBehaviour:
   m_Name: New Dialogue
   m_EditorClassIdentifier: 
   dialogueNodes:
-  - uniqueID: 1234
-    text: asdf
+  - uniqueID: 
+    text: 
     children: []
     rect:
       serializedVersion: 2
-      x: 57
-      y: 211
+      x: 30
+      y: 30
       width: 400
-      height: 100
-  - uniqueID: 1234
-    text: asdf
-    children: []
-    rect:
-      serializedVersion: 2
-      x: 17
-      y: 40
-      width: 400
-      height: 100
+      height: 150

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: New Dialogue
   m_EditorClassIdentifier: 
   dialogueNodes:
-  - uniqueID: 
-    text: 
+  - uniqueID: ef7af9d5-7a6d-4945-ba7f-e2e5bbd8082a
+    text: Default Text to Overwrite
     children: []
     rect:
       serializedVersion: 2

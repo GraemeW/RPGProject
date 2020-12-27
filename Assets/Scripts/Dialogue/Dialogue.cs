@@ -16,8 +16,10 @@ namespace RPG.Dialogue
         {
             if (dialogueNodes.Count == 0)
             {
-                DialogueNode blankDialogueNode = new DialogueNode();
-                dialogueNodes.Add(blankDialogueNode);
+                DialogueNode rootNode = new DialogueNode();
+                rootNode.uniqueID = System.Guid.NewGuid().ToString();
+                rootNode.text = "Default Text to Overwrite";
+                dialogueNodes.Add(rootNode);
             }
             OnValidate();
         }
@@ -56,7 +58,7 @@ namespace RPG.Dialogue
 
         public IEnumerable<DialogueNode> GetAllChildren(DialogueNode parentNode)
         {
-            if (parentNode == null || parentNode.children == null || parentNode.children.Length == 0) { yield break; }
+            if (parentNode == null || parentNode.children == null || parentNode.children.Count == 0) { yield break; }
             foreach (string childUniqueID in parentNode.children)
             {
                 if (nodeLookup.ContainsKey(childUniqueID))
@@ -64,6 +66,19 @@ namespace RPG.Dialogue
                     yield return nodeLookup[childUniqueID];
                 }
             }
+        }
+
+        public void CreateNode(DialogueNode parentNode)
+        {
+            if (parentNode == null) { return; }
+
+            DialogueNode childNode = new DialogueNode();
+            childNode.uniqueID = System.Guid.NewGuid().ToString(); ;
+            childNode.text = "Default Text to Overwrite";
+
+            parentNode.children.Add(childNode.uniqueID);
+            dialogueNodes.Add(childNode);
+            OnValidate();
         }
     }
 }

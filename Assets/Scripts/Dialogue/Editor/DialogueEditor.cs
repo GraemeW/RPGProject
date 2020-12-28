@@ -109,7 +109,7 @@ namespace RPG.Dialogue.Editor
                 if (creatingNode != null)
                 {
                     Undo.RecordObject(selectedDialogue, "Add Dialogue Node");
-                    selectedDialogue.CreateNode(creatingNode);
+                    DialogueNode newChildNode = selectedDialogue.CreateChildNode(creatingNode);
                     creatingNode = null;
                 }
             }
@@ -138,10 +138,12 @@ namespace RPG.Dialogue.Editor
                 if (draggingNode != null)
                 {
                     draggingOffset = draggingNode.rect.position - mousePosition;
+                    Selection.activeObject = draggingNode;
                 }
                 else
                 {
                     draggingOffset = mousePosition + scrollPosition;
+                    Selection.activeObject = selectedDialogue;
                 }
             }
             else if (Event.current.type == EventType.MouseDrag && draggingNode != null)
@@ -169,7 +171,7 @@ namespace RPG.Dialogue.Editor
 
             // Node Properties
             EditorGUIUtility.labelWidth = labelOffset;
-            EditorGUILayout.LabelField("Unique ID:", dialogueNode.uniqueID);
+            EditorGUILayout.LabelField("Unique ID:", dialogueNode.name);
 
             // Text Input
             EditorGUILayout.BeginScrollView(Vector2.zero);
@@ -204,7 +206,7 @@ namespace RPG.Dialogue.Editor
         {
             // Set tags to create/delete at end of OnGUI to avoid operating on list while iterating over it
             GUILayout.BeginHorizontal();
-            if (!dialogueNode.isRootNode)
+            if (!dialogueNode.GetRootNode())
             {
                 if (GUILayout.Button("-", GUILayout.Width(dialogueNode.rect.width * addRemoveButtonMultiplier)))
                 {

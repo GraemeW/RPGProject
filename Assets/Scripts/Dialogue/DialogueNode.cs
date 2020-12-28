@@ -5,18 +5,27 @@ using UnityEngine;
 namespace RPG.Dialogue
 {
     [System.Serializable]
-    public class DialogueNode
+    public class DialogueNode : ScriptableObject
     {
-        public string uniqueID = "";
         public string text = "";
         public List<string> children = new List<string>();
         public Rect rect = new Rect(30, 30, 400, 200);
-        public bool isRootNode = false;
+        bool isRootNode = false;
 
-        public DialogueNode(int width, int height)
+        public void Initialize(int width, int height)
         {
             rect.width = width;
             rect.height = height;
+        }
+
+        public void SetRootNode(bool isRoot)
+        {
+            isRootNode = isRoot;
+        }
+
+        public bool GetRootNode()
+        {
+            return isRootNode;
         }
     }
 }

@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
   m_Name: New Dialogue
   m_EditorClassIdentifier: 
+  newNodeOffset: {x: 50, y: 50}
+  width: 400
+  height: 200
   dialogueNodes:
-  - uniqueID: ef7af9d5-7a6d-4945-ba7f-e2e5bbd8082a
+  - uniqueID: 8a77a7de-3426-4fd4-9343-8f26ac1ff737
     text: Default Text to Overwrite
     children: []
     rect:
@@ -21,4 +24,5 @@ MonoBehaviour:
       x: 30
       y: 30
       width: 400
-      height: 150
+      height: 200
+    isRootNode: 1

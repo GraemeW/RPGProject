@@ -10,6 +10,13 @@ namespace RPG.Dialogue
         public string uniqueID = "";
         public string text = "";
         public List<string> children = new List<string>();
-        public Rect rect = new Rect(30, 30, 400, 150);
+        public Rect rect = new Rect(30, 30, 400, 200);
+        public bool isRootNode = false;
+
+        public DialogueNode(int width, int height)
+        {
+            rect.width = width;
+            rect.height = height;
+        }
     }
 }

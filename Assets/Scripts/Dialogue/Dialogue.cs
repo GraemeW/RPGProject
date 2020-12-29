@@ -9,14 +9,13 @@ namespace RPG.Dialogue
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         // Tunables
-        [SerializeField] Vector2 newNodeOffset = new Vector2(50f, 50f);
+        [SerializeField] Vector2 newNodeOffset = new Vector2(100f, 25f);
         [SerializeField] int nodeWidth = 400;
         [SerializeField] int nodeHeight = 200;
 
         // State
-        List<DialogueNode> dialogueNodes = new List<DialogueNode>();
-        Dictionary<string, DialogueNode> nodeLookup = new Dictionary<string, DialogueNode>();
-
+        [HideInInspector][SerializeField] List<DialogueNode> dialogueNodes = new List<DialogueNode>();
+        [HideInInspector][SerializeField] Dictionary<string, DialogueNode> nodeLookup = new Dictionary<string, DialogueNode>();
 
 #if UNITY_EDITOR
         private void Awake()
@@ -58,8 +57,8 @@ namespace RPG.Dialogue
 
         public IEnumerable<DialogueNode> GetAllChildren(DialogueNode parentNode)
         {
-            if (parentNode == null || parentNode.children == null || parentNode.children.Count == 0) { yield break; }
-            foreach (string childUniqueID in parentNode.children)
+            if (parentNode == null || parentNode.GetChildren() == null || parentNode.GetChildren().Count == 0) { yield break; }
+            foreach (string childUniqueID in parentNode.GetChildren())
             {
                 if (nodeLookup.ContainsKey(childUniqueID))
                 {
@@ -68,18 +67,29 @@ namespace RPG.Dialogue
             }
         }
 
+        public bool IsRelated(DialogueNode parentNode, DialogueNode childNode)
+        {
+            if (parentNode.GetChildren().Contains(childNode.name))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
+        // Dialogue editing functionality
+#if UNITY_EDITOR
         private DialogueNode CreateNode()
         {
             DialogueNode dialogueNode = CreateInstance<DialogueNode>();
-            dialogueNode.Initialize(nodeWidth, nodeHeight);
-            dialogueNode.name = System.Guid.NewGuid().ToString(); ;
-            dialogueNode.text = "Default Text to Overwrite";
-
-#if UNITY_EDITOR
             Undo.RegisterCreatedObjectUndo(dialogueNode, "Created Dialogue Node Object");
-#endif
+            dialogueNode.Initialize(nodeWidth, nodeHeight);
+            dialogueNode.name = System.Guid.NewGuid().ToString();
+            dialogueNode.SetText("Default Text to Overwrite");
 
+            Undo.RecordObject(this, "Add Dialogue Node");
             dialogueNodes.Add(dialogueNode);
+
             return dialogueNode;
         }
 
@@ -88,8 +98,19 @@ namespace RPG.Dialogue
             if (parentNode == null) { return null; }
 
             DialogueNode childNode = CreateNode();
-            childNode.rect.position += parentNode.rect.position + newNodeOffset;
-            parentNode.children.Add(childNode.name);
+            Vector2 offsetPosition = new Vector2(parentNode.GetRect().xMax + newNodeOffset.x, 
+                parentNode.GetRect().yMin + (parentNode.GetRect().height + newNodeOffset.y)* parentNode.GetChildren().Count);
+            childNode.SetPosition(offsetPosition);
+            if (parentNode.GetSpeaker() == SpeakerType.player)
+            {
+                childNode.SetSpeaker(SpeakerType.speakerOne);
+            }
+            else
+            {
+                childNode.SetSpeaker(SpeakerType.player);
+            }
+
+            parentNode.AddChild(childNode.name);
             OnValidate();
 
             return childNode;
@@ -113,50 +134,39 @@ namespace RPG.Dialogue
         {
             if (nodeToDelete == null) { return; }
 
+            Undo.RecordObject(this, "Delete Dialogue Node");
             dialogueNodes.Remove(nodeToDelete);
             CleanDanglingChildren(nodeToDelete);
             OnValidate();
 
-#if UNITY_EDITOR
             Undo.DestroyObjectImmediate(nodeToDelete);
-#endif
         }
 
         private void CleanDanglingChildren(DialogueNode nodeToDelete)
         {
             foreach (DialogueNode dialogueNode in dialogueNodes)
             {
-                dialogueNode.children.Remove(nodeToDelete.name);
+                dialogueNode.RemoveChild(nodeToDelete.name);
             }
-        }
-
-        public bool IsRelated(DialogueNode parentNode, DialogueNode childNode)
-        {
-            if (parentNode.children.Contains(childNode.name))
-            {
-                return true;
-            }
-            return false;
         }
 
         public void ToggleRelation(DialogueNode parentNode, DialogueNode childNode)
         {
             if (IsRelated(parentNode, childNode))
             {
-                parentNode.children.Remove(childNode.name);
+                parentNode.RemoveChild(childNode.name);
             }
             else
             {
-                parentNode.children.Add(childNode.name);
+                parentNode.AddChild(childNode.name);
             }
             OnValidate();
         }
+#endif
 
-#if UNITY_EDITOR
         public void OnBeforeSerialize()
         {
-            CreateRootNodeIfMissing();
-
+#if UNITY_EDITOR
             if (AssetDatabase.GetAssetPath(this) != "")
             {
                 foreach (DialogueNode dialogueNode in GetAllNodes())
@@ -167,11 +177,11 @@ namespace RPG.Dialogue
                     }
                 }
             }
+#endif
         }
 
         public void OnAfterDeserialize() // Unused, required for interface
         {
         }
-#endif
     }
 }

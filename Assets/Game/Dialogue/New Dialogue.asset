@@ -1,91 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4706672449404330365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 0995557a-bb12-42f3-a0c3-327dbd71e1d3
-  m_EditorClassIdentifier: 
-  speaker: 0
-  text: Default Text to Overwrite
-  children:
-  - dbe052d8-b150-401f-b2ad-ebd14ba9e188
-  rect:
-    serializedVersion: 2
-    x: 530
-    y: 480
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0
---- !u!114 &-4551822293380278552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 7bcfcfba-1da7-468a-a527-9701a0d9c759
-  m_EditorClassIdentifier: 
-  speaker: 0
-  text: Default Text to Overwrite
-  children: []
-  rect:
-    serializedVersion: 2
-    x: 2030
-    y: 254
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0
---- !u!114 &-4494946909688549742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: c20d5df8-9ca1-44c3-ab3d-7ef8b9c1f486
-  m_EditorClassIdentifier: 
-  speaker: 0
-  text: Default Text to Overwrite
-  children:
-  - dbe052d8-b150-401f-b2ad-ebd14ba9e188
-  rect:
-    serializedVersion: 2
-    x: 530
-    y: 30
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,15 +16,9 @@ MonoBehaviour:
   nodeWidth: 400
   nodeHeight: 200
   dialogueNodes:
-  - {fileID: 148035377579641341}
-  - {fileID: -4494946909688549742}
-  - {fileID: 146201315692880717}
-  - {fileID: -4706672449404330365}
-  - {fileID: 2466760699280268202}
-  - {fileID: 3296084899421338902}
-  - {fileID: 1654859758878094143}
-  - {fileID: -4551822293380278552}
---- !u!114 &146201315692880717
+  - {fileID: 7931213971020706002}
+  - {fileID: 836283683977532524}
+--- !u!114 &836283683977532524
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,16 +28,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: a860a4d7-9e43-44b2-8bb9-f912dee5586e
+  m_Name: e37ab985-6c5f-4a06-bcfd-de52eae5f72d
   m_EditorClassIdentifier: 
-  speaker: 0
-  text: Default Text to Overwrite
-  children:
-  - 3cdb5554-01fa-4774-ac5e-71be3a0a2730
+  speaker: 1
+  speakerName: Dude5000
+  text: 'TEST2
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+    sed sollicitudin erat, non tristique dolor. Nam fermentum tincidunt sem sit amet
+    luctus. '
+  children: []
   rect:
     serializedVersion: 2
     x: 530
-    y: 255
+    y: 30
     width: 400
     height: 200
   draggingRect:
@@ -138,8 +50,7 @@ MonoBehaviour:
     y: 0
     width: 400
     height: 45
-  isRootNode: 0
---- !u!114 &148035377579641341
+--- !u!114 &7931213971020706002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,14 +60,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 26fbb839-3f44-4818-acaa-378ca9fd0f07
+  m_Name: 9308a248-7dcf-4728-8619-26a02e3b8e30
   m_EditorClassIdentifier: 
   speaker: 1
-  text: Default Text to Overwrite
+  speakerName: Dude4999
+  text: 'TEST1
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+    sed sollicitudin erat, non tristique dolor. Nam fermentum tincidunt sem sit amet
+    luctus. '
   children:
-  - c20d5df8-9ca1-44c3-ab3d-7ef8b9c1f486
-  - a860a4d7-9e43-44b2-8bb9-f912dee5586e
-  - 0995557a-bb12-42f3-a0c3-327dbd71e1d3
+  - e37ab985-6c5f-4a06-bcfd-de52eae5f72d
   rect:
     serializedVersion: 2
     x: 30
@@ -169,90 +83,3 @@ MonoBehaviour:
     y: 0
     width: 400
     height: 45
-  isRootNode: 1
---- !u!114 &1654859758878094143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 531db10f-0199-4509-a0a5-440a982c751f
-  m_EditorClassIdentifier: 
-  speaker: 3
-  text: Default Text to Overwrite
-  children:
-  - 7bcfcfba-1da7-468a-a527-9701a0d9c759
-  rect:
-    serializedVersion: 2
-    x: 1530
-    y: 254
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0
---- !u!114 &2466760699280268202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: dbe052d8-b150-401f-b2ad-ebd14ba9e188
-  m_EditorClassIdentifier: 
-  speaker: 1
-  text: Default Text to Overwrite
-  children: []
-  rect:
-    serializedVersion: 2
-    x: 1030
-    y: 30
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0
---- !u!114 &3296084899421338902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 3cdb5554-01fa-4774-ac5e-71be3a0a2730
-  m_EditorClassIdentifier: 
-  speaker: 2
-  text: Default Text to Overwrite
-  children:
-  - 531db10f-0199-4509-a0a5-440a982c751f
-  rect:
-    serializedVersion: 2
-    x: 1030
-    y: 255
-    width: 400
-    height: 200
-  draggingRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 400
-    height: 45
-  isRootNode: 0

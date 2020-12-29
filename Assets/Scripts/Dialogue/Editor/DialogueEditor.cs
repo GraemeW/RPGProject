@@ -34,7 +34,12 @@ namespace RPG.Dialogue.Editor
         [NonSerialized] float scrollMaxX = 1;
         [NonSerialized] float scrollMaxY = 1;
 
-        public object DrawBezier { get; private set; }
+        // Class States
+        static string speakerNameToFill = "";
+        static string speakerOneName = "";
+        static string speakerTwoName = "";
+        static string speakerThreeName = "";
+        static string speakerFourName = "";
 
         [MenuItem("Window/Dialogue Editor")]
         public static void ShowEditorWindow()
@@ -58,18 +63,32 @@ namespace RPG.Dialogue.Editor
         {
             Selection.selectionChanged += OnSelectionChanged;
             SetupNodeStyle();
+            ResetSpeakerNames();
         }
 
         private void SetupNodeStyle()
         {
             nodeStyle = new GUIStyle();
             nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
-            nodeStyle.padding = new RectOffset(nodePadding, nodePadding, nodePadding / 2, nodePadding);
+            nodeStyle.padding = new RectOffset(nodePadding, nodePadding / 2, nodePadding / 2, nodePadding);
             nodeStyle.border = new RectOffset(nodeBorder, nodeBorder, nodeBorder, nodeBorder);
         }
 
-        private void SetupNodeColor(SpeakerType speaker)
+        private void ResetSpeakerNames()
         {
+            speakerNameToFill = "";
+            speakerOneName = "";
+            speakerTwoName = "";
+            speakerThreeName = "";
+            speakerFourName = "";
+        }
+
+        private string SetupNodeSpeaker(SpeakerType speaker, string speakerName)
+        {
+            speakerNameToFill = speakerName;
+            bool autoFillSpeakerName = false;
+            if (string.IsNullOrWhiteSpace(speakerName)) { autoFillSpeakerName = true; }
+
             if (speaker == SpeakerType.player)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node3") as Texture2D;
@@ -77,23 +96,34 @@ namespace RPG.Dialogue.Editor
             else if (speaker == SpeakerType.speakerOne)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node1") as Texture2D;
+                if (autoFillSpeakerName && !string.IsNullOrWhiteSpace(speakerOneName)) { speakerNameToFill = speakerOneName; }
+                if (!autoFillSpeakerName) { speakerOneName = speakerNameToFill; }
             }
             else if (speaker == SpeakerType.speakerTwo)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node2") as Texture2D;
+                if (autoFillSpeakerName && !string.IsNullOrWhiteSpace(speakerOneName)) { speakerNameToFill = speakerTwoName; }
+                if (!autoFillSpeakerName) { speakerTwoName = speakerNameToFill; }
             }
             else if (speaker == SpeakerType.speakerThree)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node5") as Texture2D;
+                if (autoFillSpeakerName && !string.IsNullOrWhiteSpace(speakerOneName)) { speakerNameToFill = speakerThreeName; }
+                if (!autoFillSpeakerName) { speakerThreeName = speakerNameToFill; }
             }
             else if (speaker == SpeakerType.speakerFour)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node6") as Texture2D;
+                if (autoFillSpeakerName && !string.IsNullOrWhiteSpace(speakerOneName)) { speakerNameToFill = speakerFourName; }
+                if (!autoFillSpeakerName) { speakerFourName = speakerNameToFill; }
             }
             else if (speaker == SpeakerType.speakerMore)
             {
                 nodeStyle.normal.background = EditorGUIUtility.Load("node0") as Texture2D;
             }
+            if (string.IsNullOrWhiteSpace(speakerNameToFill)) { speakerNameToFill = "Default"; }
+
+            return speakerNameToFill;
         }
 
         private void OnSelectionChanged()
@@ -198,7 +228,7 @@ namespace RPG.Dialogue.Editor
 
         private void DrawNode(DialogueNode dialogueNode)
         {
-            SetupNodeColor(dialogueNode.GetSpeaker());
+            SetupNodeSpeaker(dialogueNode.GetSpeaker(), dialogueNode.GetSpeakerName());
             GUILayout.BeginArea(dialogueNode.GetRect(), nodeStyle);
 
             // Dragging Header
@@ -210,14 +240,34 @@ namespace RPG.Dialogue.Editor
             EditorGUILayout.LabelField("Unique ID:", dialogueNode.name);
             EditorGUILayout.Space(nodeBorder);
 
+            // Speaker Selection
+            EditorGUILayout.BeginHorizontal();
+            string newSpeakerName = EditorGUILayout.TextField("Speaker:", speakerNameToFill,
+                GUILayout.Width((dialogueNode.GetRect().width - nodePadding * 2) / 2));
+            dialogueNode.SetSpeakerName(newSpeakerName);
+            
+            EditorGUILayout.Space(0f, true);
+            Enum newSpeakerTypeEnum = EditorGUILayout.EnumPopup(dialogueNode.GetSpeaker(),
+                GUILayout.Width((dialogueNode.GetRect().width - nodePadding * 2) / 3));
+            SpeakerType newSpeakerType = (SpeakerType)newSpeakerTypeEnum;
+            if (newSpeakerType != dialogueNode.GetSpeaker())
+            {
+                dialogueNode.SetSpeaker(newSpeakerType);
+                dialogueNode.SetSpeakerName(SetupNodeSpeaker(newSpeakerType, ""));
+            }
+
+            
+            EditorGUILayout.Space(nodeBorder, false);
+            EditorGUILayout.EndHorizontal();
+
             // Text Input
-            EditorGUILayout.BeginScrollView(Vector2.zero);
+            EditorGUILayout.Space(nodeBorder / 2, false);
+            EditorStyles.textField.wordWrap = true;
             string newText = EditorGUILayout.TextArea(dialogueNode.GetText(), 
-                GUILayout.Width(dialogueNode.GetRect().width - nodePadding*2 - nodeBorder*2), 
+                GUILayout.Width(dialogueNode.GetRect().width - nodePadding*2), 
                 GUILayout.Height(textAreaHeight));
 
             dialogueNode.SetText(newText);
-            EditorGUILayout.EndScrollView();
 
             // Additional Functionality
             GUILayout.FlexibleSpace();
@@ -239,7 +289,7 @@ namespace RPG.Dialogue.Editor
         {
             // Set tags to create/delete at end of OnGUI to avoid operating on list while iterating over it
             GUILayout.BeginHorizontal();
-            if (!dialogueNode.IsRootNode())
+            if (dialogueNode != selectedDialogue.GetRootNode())
             {
                 if (GUILayout.Button("-", GUILayout.Width(dialogueNode.GetRect().width * addRemoveButtonMultiplier)))
                 {

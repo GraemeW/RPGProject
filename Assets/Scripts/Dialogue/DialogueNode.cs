@@ -10,16 +10,22 @@ namespace RPG.Dialogue
     public class DialogueNode : ScriptableObject
     {
         [SerializeField] SpeakerType speaker = SpeakerType.speakerOne;
+        [SerializeField] string speakerName = "";
         [SerializeField] string text = "";
         [SerializeField] List<string> children = new List<string>();
         [SerializeField] Rect rect = new Rect(30, 30, 400, 200);
         [HideInInspector][SerializeField] Rect draggingRect = new Rect(0, 0, 400, 45);
-        [HideInInspector][SerializeField] bool isRootNode = false;
 
         public SpeakerType GetSpeaker()
         {
             return speaker;
         }
+
+        public string GetSpeakerName()
+        {
+            return speakerName;
+        }
+
         public string GetText()
         {
             return text;
@@ -45,11 +51,6 @@ namespace RPG.Dialogue
             return draggingRect;
         }
 
-        public bool IsRootNode()
-        {
-            return isRootNode;
-        }
-
 
 #if UNITY_EDITOR
         public void Initialize(int width, int height)
@@ -65,6 +66,20 @@ namespace RPG.Dialogue
             {
                 Undo.RecordObject(this, "Update Dialogue Speaker");
                 this.speaker = speaker;
+                if (this.speaker == SpeakerType.player)
+                {
+                    SetSpeakerName("Player");
+                }
+                EditorUtility.SetDirty(this);
+            }
+        }
+
+        public void SetSpeakerName(string speakerName)
+        {
+            if (speakerName != this.speakerName)
+            {
+                Undo.RecordObject(this, "Update Dialogue Speaker Name");
+                this.speakerName = speakerName;
                 EditorUtility.SetDirty(this);
             }
         }
@@ -107,12 +122,6 @@ namespace RPG.Dialogue
                 this.draggingRect = draggingRect;
                 EditorUtility.SetDirty(this);
             }
-        }
-
-        public void SetRootNode(bool isRoot)
-        {
-            isRootNode = isRoot;
-            EditorUtility.SetDirty(this);
         }
 #endif
     }

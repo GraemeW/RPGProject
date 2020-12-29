@@ -11,7 +11,7 @@ namespace RPG.Dialogue
         // Tunables
         [SerializeField] Vector2 newNodeOffset = new Vector2(100f, 25f);
         [SerializeField] int nodeWidth = 400;
-        [SerializeField] int nodeHeight = 200;
+        [SerializeField] int nodeHeight = 225;
 
         // State
         [HideInInspector][SerializeField] List<DialogueNode> dialogueNodes = new List<DialogueNode>();
@@ -121,7 +121,6 @@ namespace RPG.Dialogue
             if (dialogueNodes.Count == 0)
             {
                 DialogueNode rootNode = CreateNode();
-                rootNode.SetRootNode(true);
 
                 OnValidate();
                 return rootNode;

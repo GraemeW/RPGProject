@@ -74,14 +74,16 @@ namespace RPG.Dialogue
             }
         }
 
-        public void SetSpeakerName(string speakerName)
+        public bool SetSpeakerName(string speakerName)
         {
             if (speakerName != this.speakerName)
             {
                 Undo.RecordObject(this, "Update Dialogue Speaker Name");
                 this.speakerName = speakerName;
                 EditorUtility.SetDirty(this);
+                return true;
             }
+            return false;
         }
 
         public void SetText(string text)

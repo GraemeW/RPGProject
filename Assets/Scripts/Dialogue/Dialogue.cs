@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -160,6 +161,17 @@ namespace RPG.Dialogue
                 parentNode.AddChild(childNode.name);
             }
             OnValidate();
+        }
+
+        public void UpdateSpeakerName(SpeakerType newSpeakerType, string newSpeakerName)
+        {
+            foreach (DialogueNode dialogueNode in dialogueNodes)
+            {
+                if (dialogueNode.GetSpeaker() == newSpeakerType)
+                {
+                    dialogueNode.SetSpeakerName(newSpeakerName);
+                }
+            }
         }
 #endif
 

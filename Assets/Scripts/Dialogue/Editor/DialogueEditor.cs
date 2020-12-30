@@ -63,7 +63,6 @@ namespace RPG.Dialogue.Editor
         {
             Selection.selectionChanged += OnSelectionChanged;
             SetupNodeStyle();
-            ResetSpeakerNames();
         }
 
         private void SetupNodeStyle()
@@ -132,6 +131,7 @@ namespace RPG.Dialogue.Editor
             if (newDialogue != null)
             {
                 selectedDialogue = newDialogue;
+                ResetSpeakerNames();
                 Repaint();
             }
         }
@@ -244,7 +244,7 @@ namespace RPG.Dialogue.Editor
             EditorGUILayout.BeginHorizontal();
             string newSpeakerName = EditorGUILayout.TextField("Speaker:", speakerNameToFill,
                 GUILayout.Width((dialogueNode.GetRect().width - nodePadding * 2) / 2));
-            dialogueNode.SetSpeakerName(newSpeakerName);
+            bool speakerNameChanged = dialogueNode.SetSpeakerName(newSpeakerName);
             
             EditorGUILayout.Space(0f, true);
             Enum newSpeakerTypeEnum = EditorGUILayout.EnumPopup(dialogueNode.GetSpeaker(),
@@ -256,7 +256,10 @@ namespace RPG.Dialogue.Editor
                 dialogueNode.SetSpeakerName(SetupNodeSpeaker(newSpeakerType, ""));
             }
 
-            
+            if (newSpeakerType != SpeakerType.player && speakerNameChanged)
+            {
+                selectedDialogue.UpdateSpeakerName(newSpeakerType, newSpeakerName);
+            }
             EditorGUILayout.Space(nodeBorder, false);
             EditorGUILayout.EndHorizontal();
 

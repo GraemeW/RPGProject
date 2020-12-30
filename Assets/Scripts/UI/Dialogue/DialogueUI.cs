@@ -21,6 +21,9 @@ namespace RPG.UI.Dialogue
         [SerializeField] GameObject choiceButton = null;
         [SerializeField] GameObject choiceResponseParent = null;
 
+        // State
+        bool panelActive = true; // over-rides on start
+
         // Cached References
         CanvasGroup canvasGroup = null;
         PlayerConversant playerConversant = null;
@@ -33,21 +36,17 @@ namespace RPG.UI.Dialogue
 
         private void Start()
         {
-            ClearDialoguePanel();
+            DrawDialoguePanel(false);
         }
 
         private void OnEnable()
         {
-            playerConversant.dialogueInitiated += DrawDialoguePanel;
             playerConversant.dialogueUpdated += UpdateUI;
-            playerConversant.dialogueEnded += ClearDialoguePanel;
         }
 
         private void OnDisable()
         {
-            playerConversant.dialogueInitiated -= DrawDialoguePanel;
             playerConversant.dialogueUpdated -= UpdateUI;
-            playerConversant.dialogueEnded -= ClearDialoguePanel;
         }
 
         public void Next() // Called by unity event on Next button
@@ -65,27 +64,38 @@ namespace RPG.UI.Dialogue
             playerConversant.EndConversation();
         }
 
-        private void DrawDialoguePanel()
+        private void DrawDialoguePanel(bool isEnabled)
         {
-            canvasGroup.alpha = 1;
-            canvasGroup.blocksRaycasts = true;
-            UpdateUI();
+            if (panelActive != isEnabled)
+            {
+                float alphaSetting = 0;
+                if (isEnabled) { alphaSetting = 1; }
+
+                canvasGroup.alpha = alphaSetting;
+                canvasGroup.blocksRaycasts = isEnabled;
+                panelActive = isEnabled;
+            }
         }
 
         private void UpdateUI()
         {
-            ResetUI();
-
-            SetSimpleTextDialogue();
-            if (playerConversant.GetChoiceCount() > 1 && playerConversant.GetNextSpeaker() == SpeakerType.player)
+            if (!playerConversant.IsActive())
             {
-                SetChoiceDialogue();
+                DrawDialoguePanel(false);
+                return;
+            }
+
+            DrawDialoguePanel(true);
+            ResetUI();
+            SetSimpleText();
+            if (playerConversant.IsChoosing())
+            {
+                SetChoiceList();
             }
             else
             {
                 nextButton.gameObject.SetActive(playerConversant.HasNext());
             }
-
             SetSpeakerColor();
         }
 
@@ -96,13 +106,13 @@ namespace RPG.UI.Dialogue
             nextButton.gameObject.SetActive(false);
         }
 
-        private void SetSimpleTextDialogue()
+        private void SetSimpleText()
         {
             currentSpeaker.text = playerConversant.GetCurrentSpeakerName();
             dialogueText.text = playerConversant.GetText();
         }
 
-        private void SetChoiceDialogue()
+        private void SetChoiceList()
         {
             choiceResponseParent.SetActive(true);
             foreach (DialogueNode choiceNode in playerConversant.GetChoices())
@@ -136,12 +146,6 @@ namespace RPG.UI.Dialogue
             {
                 currentSpeaker.color = otherNameColor;
             }
-        }
-
-        private void ClearDialoguePanel()
-        {
-            canvasGroup.alpha = 0;
-            canvasGroup.blocksRaycasts = false;
         }
     }
 }

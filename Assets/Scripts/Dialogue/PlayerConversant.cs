@@ -8,28 +8,34 @@ namespace RPG.Dialogue
     public class PlayerConversant : MonoBehaviour
     {
         // Tunables
-        [SerializeField] Dialogue currentDialogue = null;
+        [SerializeField] Dialogue testDialogue = null;
 
         // State
+        Dialogue currentDialogue = null;
         DialogueNode currentNode = null;
 
         // Events
-        public event Action dialogueInitiated;
         public event Action dialogueUpdated;
-        public event Action dialogueEnded;
 
-        private void Start() // HACK, TODO:  Remove, implement intiiation through player events
+        IEnumerator Start() // HACK, TODO:  Remove, implement intiiation through player events
         {
-            InitiateConversation();
+            yield return new WaitForSeconds(2);
+            InitiateConversation(testDialogue);
         }
 
-        private void InitiateConversation()
+        private void InitiateConversation(Dialogue newDialogue)
         {
+            currentDialogue = newDialogue;
             currentNode = currentDialogue.GetRootNode();
-            if (dialogueInitiated != null)
+            if (dialogueUpdated != null)
             {
-                dialogueInitiated();
+                dialogueUpdated();
             }
+        }
+
+        public bool IsActive()
+        {
+            return (currentDialogue != null && currentNode != null);
         }
 
         public SpeakerType GetCurrentSpeaker()
@@ -70,6 +76,11 @@ namespace RPG.Dialogue
             return currentNode.GetChildren().Count > 0;
         }
 
+        public bool IsChoosing()
+        {
+            return (GetChoiceCount() > 1 && GetNextSpeaker() == SpeakerType.player);
+        }
+
         public void NextWithID(string nodeID)
         {
             if (HasNext())
@@ -99,9 +110,9 @@ namespace RPG.Dialogue
         {
             currentDialogue = null;
             currentNode = null;
-            if (dialogueEnded != null)
+            if (dialogueUpdated != null)
             {
-                dialogueEnded();
+                dialogueUpdated();
             }
         }
     }

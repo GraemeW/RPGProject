@@ -1,5 +1,34 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8490985100265935300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 156af2a4-b210-419d-9798-0c89e9441e98
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Player
+  text: You said this without thinking
+  children:
+  - 92a51e39-6107-4d48-ad35-7a9c3a005e40
+  rect:
+    serializedVersion: 2
+    x: 2029
+    y: 516
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
 --- !u!114 &-8431458115155531221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17,11 +46,38 @@ MonoBehaviour:
   text: Option 1
   children:
   - 54fb778a-8416-4ff3-b3ea-763583ba37d6
-  - 86e23dbe-1ed9-4533-821a-b38cd8c3bd25
   rect:
     serializedVersion: 2
     x: 530
     y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+--- !u!114 &-5830359836416715908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 7b11581e-53cc-4706-a927-4d03238ba2d5
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Player
+  text: Hanstown
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1539
+    y: 518
     width: 400
     height: 225
   draggingRect:
@@ -76,12 +132,12 @@ MonoBehaviour:
   speakerName: GUY
   text: Response B
   children:
-  - 944fcd04-6fc6-41ff-85b7-91a0b23ad967
   - cdfa7bd0-3f16-4e5c-8662-1990dbbbd91a
+  - 7b11581e-53cc-4706-a927-4d03238ba2d5
   rect:
     serializedVersion: 2
-    x: 1032
-    y: 270
+    x: 1039
+    y: 268
     width: 400
     height: 225
   draggingRect:
@@ -116,6 +172,10 @@ MonoBehaviour:
   - {fileID: 7116217574879645258}
   - {fileID: 128045415326781628}
   - {fileID: 1392923997030570777}
+  - {fileID: -8490985100265935300}
+  - {fileID: 5500074390984989631}
+  - {fileID: 1044079270790237920}
+  - {fileID: -5830359836416715908}
 --- !u!114 &128045415326781628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -135,7 +195,7 @@ MonoBehaviour:
   rect:
     serializedVersion: 2
     x: 2030
-    y: 280
+    y: 265
     width: 400
     height: 225
   draggingRect:
@@ -161,11 +221,38 @@ MonoBehaviour:
   text: Response A
   children:
   - 944fcd04-6fc6-41ff-85b7-91a0b23ad967
-  - cdfa7bd0-3f16-4e5c-8662-1990dbbbd91a
   rect:
     serializedVersion: 2
     x: 1030
     y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+--- !u!114 &1044079270790237920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: ceb2b25c-5644-4a4c-a299-a9126b229993
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Player
+  text: More think no speak
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 3029
+    y: 516
     width: 400
     height: 225
   draggingRect:
@@ -189,7 +276,8 @@ MonoBehaviour:
   speaker: 0
   speakerName: Player
   text: DUDE2
-  children: []
+  children:
+  - 156af2a4-b210-419d-9798-0c89e9441e98
   rect:
     serializedVersion: 2
     x: 1530
@@ -224,6 +312,35 @@ MonoBehaviour:
     serializedVersion: 2
     x: 530
     y: 480
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+--- !u!114 &5500074390984989631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 92a51e39-6107-4d48-ad35-7a9c3a005e40
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: GUY
+  text: Stuff to finale
+  children:
+  - ceb2b25c-5644-4a4c-a299-a9126b229993
+  rect:
+    serializedVersion: 2
+    x: 2477
+    y: 526
     width: 400
     height: 225
   draggingRect:

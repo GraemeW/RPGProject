@@ -483,7 +483,6 @@ GameObject:
   - component: {fileID: 7266399883798619388}
   - component: {fileID: 8991737765364657806}
   - component: {fileID: 1176161957204109766}
-  - component: {fileID: 2037297588452745021}
   m_Layer: 5
   m_Name: Dialogue
   m_TagString: Untagged
@@ -609,22 +608,9 @@ MonoBehaviour:
   nextButton: {fileID: 6055092083402943707}
   playerNameColor: {r: 0.390566, g: 0.51006275, b: 1, a: 1}
   otherNameColor: {r: 0.740176, g: 0.48636523, b: 0.8679245, a: 1}
-  simpleTextParent: {fileID: 3693889896304264727}
   choiceButton: {fileID: 5102898127069529212, guid: 4cc8e7257db17fa42965f1cc7ca600e9,
     type: 3}
   choiceResponseParent: {fileID: 7198713897787488857}
---- !u!225 &2037297588452745021
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3092741030808583425}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
 --- !u!1 &3693889896304264727
 GameObject:
   m_ObjectHideFlags: 0

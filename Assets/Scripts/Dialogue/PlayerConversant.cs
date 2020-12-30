@@ -86,14 +86,21 @@ namespace RPG.Dialogue
             if (HasNext())
             {
                 currentNode = currentDialogue.GetNodeFromID(nodeID);
-                if (dialogueUpdated != null)
+                if (HasNext()) // Skip re-showing the player choice
                 {
-                    dialogueUpdated();
+                    Next(); 
+                }
+                else // Unless it's the last stem in the dialogue tree
+                {
+                    if (dialogueUpdated != null)
+                    {
+                        dialogueUpdated();
+                    }
                 }
             }
         }
 
-        public void NextRandom()
+        public void Next()
         {
             if (HasNext())
             {

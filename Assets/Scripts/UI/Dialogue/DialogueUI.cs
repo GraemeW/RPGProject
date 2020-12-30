@@ -21,37 +21,28 @@ namespace RPG.UI.Dialogue
         [SerializeField] GameObject choiceButton = null;
         [SerializeField] GameObject choiceResponseParent = null;
 
-        // State
-        bool panelActive = true; // over-rides on start
-
         // Cached References
-        CanvasGroup canvasGroup = null;
         PlayerConversant playerConversant = null;
 
         private void Awake()
         {
-            canvasGroup = GetComponent<CanvasGroup>();
             playerConversant = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerConversant>();
         }
 
         private void Start()
         {
+            playerConversant.dialogueUpdated += UpdateUI; // Subscribe in Start() because we need to receive messages when disabled
             DrawDialoguePanel(false);
         }
 
-        private void OnEnable()
-        {
-            playerConversant.dialogueUpdated += UpdateUI;
-        }
-
-        private void OnDisable()
+        private void OnDestroy()
         {
             playerConversant.dialogueUpdated -= UpdateUI;
         }
 
         public void Next() // Called by unity event on Next button
         {
-            playerConversant.NextRandom();
+            playerConversant.Next();
         }
 
         public void Choose(string nodeID)
@@ -66,14 +57,9 @@ namespace RPG.UI.Dialogue
 
         private void DrawDialoguePanel(bool isEnabled)
         {
-            if (panelActive != isEnabled)
+            if (gameObject.activeSelf != isEnabled)
             {
-                float alphaSetting = 0;
-                if (isEnabled) { alphaSetting = 1; }
-
-                canvasGroup.alpha = alphaSetting;
-                canvasGroup.blocksRaycasts = isEnabled;
-                panelActive = isEnabled;
+                gameObject.SetActive(isEnabled);
             }
         }
 
@@ -122,6 +108,7 @@ namespace RPG.UI.Dialogue
                 GameObject choiceButton = Instantiate(this.choiceButton, choiceResponseParent.transform);
                 TextMeshProUGUI choiceText = choiceButton.GetComponentInChildren<TextMeshProUGUI>();
                 choiceText.text = choiceNode.GetText();
+                choiceText.color = playerNameColor;
 
                 choiceButton.GetComponent<Button>().onClick.AddListener(delegate { Choose(choiceNode.name); });
             }

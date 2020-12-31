@@ -136,8 +136,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
   m_Name: 86e23dbe-1ed9-4533-821a-b38cd8c3bd25
   m_EditorClassIdentifier: 
-  speaker: 1
-  speakerName: Mr Dude
+  speaker: 2
+  speakerName: Shadow Man
   text: Response B
   children:
   - cdfa7bd0-3f16-4e5c-8662-1990dbbbd91a

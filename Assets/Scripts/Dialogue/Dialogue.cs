@@ -113,14 +113,11 @@ namespace RPG.Dialogue
             foreach (DialogueNode dialogueNode in dialogueNodes)
             {
                 SpeakerType speakerType = dialogueNode.GetSpeaker();
-                string nameOverride = "";
-                if (speakerType == SpeakerType.player && SpeakerNameOverride(speakerType)) { nameOverride = speakerPlayer.GetPlayerName(); }
-                else if (speakerType == SpeakerType.speakerOne && SpeakerNameOverride(speakerType)) { nameOverride = speakerOne.GetConversantName(); }
-                else if (speakerType == SpeakerType.speakerTwo && SpeakerNameOverride(speakerType)) { nameOverride = speakerTwo.GetConversantName(); }
-                else if (speakerType == SpeakerType.speakerThree && SpeakerNameOverride(speakerType)) { nameOverride = speakerThree.GetConversantName(); }
-                else if (speakerType == SpeakerType.speakerFour && SpeakerNameOverride(speakerType)) { nameOverride = speakerFour.GetConversantName(); }
-
-                dialogueNode.SetSpeakerName(nameOverride);
+                if (speakerType == SpeakerType.player && SpeakerNameOverride(speakerType)) { dialogueNode.SetSpeakerName(speakerPlayer.GetPlayerName()); }
+                else if (speakerType == SpeakerType.speakerOne && SpeakerNameOverride(speakerType)) { dialogueNode.SetSpeakerName(speakerOne.GetConversantName()); }
+                else if (speakerType == SpeakerType.speakerTwo && SpeakerNameOverride(speakerType)) { dialogueNode.SetSpeakerName(speakerTwo.GetConversantName()); }
+                else if (speakerType == SpeakerType.speakerThree && SpeakerNameOverride(speakerType)) { dialogueNode.SetSpeakerName(speakerThree.GetConversantName()); }
+                else if (speakerType == SpeakerType.speakerFour && SpeakerNameOverride(speakerType)) { dialogueNode.SetSpeakerName(speakerFour.GetConversantName()); }
             }
         }
 

@@ -26,7 +26,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6860f64df06c0f042a5daee8e401164e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: Scholtenheim
+  playerName: Richie
 --- !u!114 &1140004570355694049
 MonoBehaviour:
   m_ObjectHideFlags: 0

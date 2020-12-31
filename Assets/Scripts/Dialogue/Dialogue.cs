@@ -90,6 +90,8 @@ namespace RPG.Dialogue
             speakerPlayer = playerConversant;
         }
 
+        // Messy speaker business
+        // TODO:  Implement fully extensible (node defines speakers, dialogue builds speaker list, editor updates dropdown accordingly)
         public void SetSpeaker(SpeakerType speakerType, AIConversant aiConversant)
         {
             if (speakerType == SpeakerType.speakerOne) { speakerOne = aiConversant; }

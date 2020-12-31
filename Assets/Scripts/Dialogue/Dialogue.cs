@@ -10,6 +10,14 @@ namespace RPG.Dialogue
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         // Tunables
+        [Header("Speaker Overrides")]
+        PlayerConversant speakerPlayer = null; // Set via script
+        [SerializeField] AIConversant speakerOne = null;
+        [SerializeField] AIConversant speakerTwo = null;
+        [SerializeField] AIConversant speakerThree = null;
+        [SerializeField] AIConversant speakerFour = null;
+
+        [Header("Editor Settings")]
         [SerializeField] Vector2 newNodeOffset = new Vector2(100f, 25f);
         [SerializeField] int nodeWidth = 400;
         [SerializeField] int nodeHeight = 225;
@@ -77,6 +85,44 @@ namespace RPG.Dialogue
             return false;
         }
 
+        public void SetPlayer(PlayerConversant playerConversant)
+        {
+            speakerPlayer = playerConversant;
+        }
+
+        public void SetSpeaker(SpeakerType speakerType, AIConversant aiConversant)
+        {
+            if (speakerType == SpeakerType.speakerOne) { speakerOne = aiConversant; }
+            else if (speakerType == SpeakerType.speakerTwo) { speakerTwo = aiConversant; }
+            else if (speakerType == SpeakerType.speakerThree) { speakerThree = aiConversant; }
+            else if (speakerType == SpeakerType.speakerFour) { speakerFour = aiConversant; }
+        }
+
+        private bool SpeakerNameOverride(SpeakerType speakerType)
+        {
+            if (speakerType == SpeakerType.player) { return (speakerPlayer != null && !string.IsNullOrWhiteSpace(speakerPlayer.GetPlayerName())); }
+            if (speakerType == SpeakerType.speakerOne) { return (speakerOne != null && !string.IsNullOrWhiteSpace(speakerOne.GetConversantName())); }
+            if (speakerType == SpeakerType.speakerTwo) { return (speakerTwo != null && !string.IsNullOrWhiteSpace(speakerTwo.GetConversantName())); }
+            if (speakerType == SpeakerType.speakerThree) { return (speakerThree != null && !string.IsNullOrWhiteSpace(speakerThree.GetConversantName())); }
+            if (speakerType == SpeakerType.speakerFour) { return (speakerFour != null && !string.IsNullOrWhiteSpace(speakerFour.GetConversantName())); }
+            return false;
+        }
+
+        public void OverrideSpeakers()
+        {
+            foreach (DialogueNode dialogueNode in dialogueNodes)
+            {
+                SpeakerType speakerType = dialogueNode.GetSpeaker();
+                string nameOverride = "";
+                if (speakerType == SpeakerType.player && SpeakerNameOverride(speakerType)) { nameOverride = speakerPlayer.GetPlayerName(); }
+                else if (speakerType == SpeakerType.speakerOne && SpeakerNameOverride(speakerType)) { nameOverride = speakerOne.GetConversantName(); }
+                else if (speakerType == SpeakerType.speakerTwo && SpeakerNameOverride(speakerType)) { nameOverride = speakerTwo.GetConversantName(); }
+                else if (speakerType == SpeakerType.speakerThree && SpeakerNameOverride(speakerType)) { nameOverride = speakerThree.GetConversantName(); }
+                else if (speakerType == SpeakerType.speakerFour && SpeakerNameOverride(speakerType)) { nameOverride = speakerFour.GetConversantName(); }
+
+                dialogueNode.SetSpeakerName(nameOverride);
+            }
+        }
 
         // Dialogue editing functionality
 #if UNITY_EDITOR

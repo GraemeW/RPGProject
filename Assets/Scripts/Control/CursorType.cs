@@ -8,6 +8,7 @@
         UI,
         Portal,
         Pickup,
-        FullPickup
+        FullPickup,
+        Dialogue
     }
 }

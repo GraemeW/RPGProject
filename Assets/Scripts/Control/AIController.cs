@@ -7,12 +7,15 @@ using RPG.Movement;
 using RPG.Attributes;
 using RPG.Utils;
 using System;
+using RPG.Saving;
 
 namespace RPG.Control
 {
-    public class AIController : MonoBehaviour
+    public class AIController : MonoBehaviour, ISaveable
     {
         // Tunables
+        [Header("Disposition")]
+        [SerializeField] bool isFriendly = false;
         [Header("Chase Properties")]
         [SerializeField] float chaseDistance = 5.0f;
         [SerializeField] float hostileChaseDistance = 10.0f;
@@ -29,6 +32,7 @@ namespace RPG.Control
         Fighter fighter = null;
         Health health = null;
         Mover mover = null;
+        CombatTarget combatTarget = null;
         GameObject player = null;
 
         // States
@@ -45,6 +49,7 @@ namespace RPG.Control
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
             mover = GetComponent<Mover>();
+            combatTarget = GetComponent<CombatTarget>();
             player = GameObject.FindWithTag("Player");
             guardPosition = new LazyValue<Vector3>(GetInitialPosition);
             guardRotation = new LazyValue<Quaternion>(GetInitialRotation);
@@ -71,11 +76,13 @@ namespace RPG.Control
             guardPosition.ForceInit();
             guardRotation.ForceInit();
             currentChaseDistance.ForceInit();
+            if (isFriendly) { SetFriendly(true); }
         }
 
         private void Update()
         {
             if (health.IsDead()) { return; }
+            if (isFriendly) { return; }
 
             if (IsAggravated() && fighter.CanAttack(player))
             {
@@ -92,8 +99,18 @@ namespace RPG.Control
             timeSinceLastSawPlayer += Time.deltaTime;
         }
 
+        public void SetFriendly(bool isFriendly)
+        {
+            combatTarget.SetActiveTarget(!isFriendly);
+            this.isFriendly = isFriendly;
+        }
+
         public void Aggravate()
         {
+            if (isFriendly)
+            {
+                SetFriendly(false);
+            }
             timeSinceAggravated = 0f;
         }
 
@@ -181,6 +198,16 @@ namespace RPG.Control
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, chaseDistance);
             if (patrolPath != null) { patrolPath.OnDrawGizmosSelected(); }
+        }
+
+        public object CaptureState()
+        {
+            return isFriendly;
+        }
+
+        public void RestoreState(object state)
+        {
+            isFriendly = (bool)state;
         }
     }
 }

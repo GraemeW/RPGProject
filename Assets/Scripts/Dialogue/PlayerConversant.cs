@@ -7,26 +7,44 @@ namespace RPG.Dialogue
 {
     public class PlayerConversant : MonoBehaviour
     {
-        // Tunables
-        [SerializeField] Dialogue testDialogue = null;
+        // Tunable
+        [SerializeField] string playerName = "";
 
         // State
         Dialogue currentDialogue = null;
         DialogueNode currentNode = null;
+        AIConversant currentConversant = null;
 
         // Events
         public event Action dialogueUpdated;
 
-        IEnumerator Start() // HACK, TODO:  Remove, implement intiiation through player events
+        // Methods
+        public string GetPlayerName()
         {
-            yield return new WaitForSeconds(2);
-            InitiateConversation(testDialogue);
+            return playerName;
         }
 
-        private void InitiateConversation(Dialogue newDialogue)
+        public void InitiateConversation(AIConversant newConversant, Dialogue newDialogue)
         {
+            currentConversant = newConversant;
             currentDialogue = newDialogue;
+            currentDialogue.SetPlayer(this);
+            currentDialogue.OverrideSpeakers();
+
             currentNode = currentDialogue.GetRootNode();
+            TriggerEnterAction();
+            if (dialogueUpdated != null)
+            {
+                dialogueUpdated();
+            }
+        }
+
+        public void EndConversation()
+        {
+            TriggerExitAction();
+            currentConversant = null;
+            currentDialogue = null;
+            currentNode = null;
             if (dialogueUpdated != null)
             {
                 dialogueUpdated();
@@ -85,7 +103,9 @@ namespace RPG.Dialogue
         {
             if (HasNext())
             {
+                TriggerExitAction();
                 currentNode = currentDialogue.GetNodeFromID(nodeID);
+                TriggerEnterAction();
                 if (HasNext()) // Skip re-showing the player choice
                 {
                     Next(); 
@@ -95,6 +115,7 @@ namespace RPG.Dialogue
                     if (dialogueUpdated != null)
                     {
                         dialogueUpdated();
+                        TriggerEnterAction();
                     }
                 }
             }
@@ -105,7 +126,9 @@ namespace RPG.Dialogue
             if (HasNext())
             {
                 int nodeIndex = UnityEngine.Random.Range(0, currentNode.GetChildren().Count);
+                TriggerExitAction();
                 currentNode = currentDialogue.GetNodeFromID(currentNode.GetChildren()[nodeIndex]);
+                TriggerEnterAction();
                 if (dialogueUpdated != null)
                 {
                     dialogueUpdated();
@@ -113,13 +136,25 @@ namespace RPG.Dialogue
             }
         }
 
-        public void EndConversation()
+        private void TriggerEnterAction()
         {
-            currentDialogue = null;
-            currentNode = null;
-            if (dialogueUpdated != null)
+            TriggerAction(currentNode.GetOnEnterAction());
+        }
+
+        private void TriggerExitAction()
+        {
+            TriggerAction(currentNode.GetOnExitAction());
+        }
+
+        private void TriggerAction(string action)
+        {
+            if (currentNode != null && !string.IsNullOrWhiteSpace(action))
             {
-                dialogueUpdated();
+                DialogueTrigger[] dialogueTriggers = currentConversant.GetComponents<DialogueTrigger>();
+                foreach (DialogueTrigger dialogueTrigger in dialogueTriggers)
+                {
+                    dialogueTrigger.Trigger(action);
+                }
             }
         }
     }

@@ -2109,6 +2109,228 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 579349750}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &597339218
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1628440826}
+    m_Modifications:
+    - target: {fileID: 3046402981801278214, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: fece70a6-6a23-4e94-89f0-b4ac1d1f5ebb
+      objectReference: {fileID: 0}
+    - target: {fileID: 3369637650680279977, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077683733002809195, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questTriggerPairs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5077683733002809195, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questTriggerPairs.Array.data[0].quest
+      value: 
+      objectReference: {fileID: 11400000, guid: 877cccb8386b9c24696cfa5c0bb8c3ab,
+        type: 2}
+    - target: {fileID: 5077683733002809195, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questTriggerPairs.Array.data[0].trigger
+      value: BeatBoys
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: active
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.data[0].quest
+      value: 
+      objectReference: {fileID: 11400000, guid: 877cccb8386b9c24696cfa5c0bb8c3ab,
+        type: 2}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.data[0].trigger
+      value: BeatBoys
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: dialogue
+      value: 
+      objectReference: {fileID: 11400000, guid: 5194f5af13756f54e93f5c5bfa751393,
+        type: 2}
+    - target: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: conversantName
+      value: Yarfus
+      objectReference: {fileID: 0}
+    - target: {fileID: 6512512585483782576, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: isFriendly
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063378, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_Name
+      value: Brawler (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 36.89219
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.7527323
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.03522
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9582149
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.2860495
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 33.243
+      objectReference: {fileID: 0}
+    - target: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0ba691c5607864942aeefe873f6c12e3, type: 3}
+--- !u!4 &597339219 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8001200045422063382, guid: 0ba691c5607864942aeefe873f6c12e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 597339218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &597339220 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8001200045422063378, guid: 0ba691c5607864942aeefe873f6c12e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 597339218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &597339221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3369637650680279977, guid: 0ba691c5607864942aeefe873f6c12e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 597339218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597339220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8224f62cb79d1de48bfb06794ed063c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &597339222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597339220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eeb08b8feb096e4aaec5be5eaf22fa5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  action: BeatBoys
+  onTrigger:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 597339221}
+        m_TargetAssemblyTypeName: RPG.Quests.QuestCompletion, Assembly-CSharp
+        m_MethodName: SetQuest
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 877cccb8386b9c24696cfa5c0bb8c3ab,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: RPG.Quests.Quest, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: BeatBoys
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 597339221}
+        m_TargetAssemblyTypeName: RPG.Quests.QuestCompletion, Assembly-CSharp
+        m_MethodName: CompleteObjective
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 597339226}
+        m_TargetAssemblyTypeName: RPG.Dialogue.AIConversant, Assembly-CSharp
+        m_MethodName: SetDialogue
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 8b3717251b2e56544853573ef7682831,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: RPG.Dialogue.Dialogue, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &597339226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 597339218}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597339220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22d83e69baab176478dad9c43f7c9d32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &599253635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3597,6 +3819,27 @@ PrefabInstance:
       propertyPath: questTriggerPairs.Array.data[0].trigger
       value: BeatBoys
       objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.data[0].quest
+      value: 
+      objectReference: {fileID: 11400000, guid: 877cccb8386b9c24696cfa5c0bb8c3ab,
+        type: 2}
+    - target: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+        type: 3}
+      propertyPath: questLookup.Array.data[0].trigger
+      value: BeatBoys
+      objectReference: {fileID: 0}
     - target: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
         type: 3}
       propertyPath: dialogue
@@ -3681,18 +3924,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1191854058}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1191854060 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5077683733002809195, guid: 0ba691c5607864942aeefe873f6c12e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 1191854058}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076320725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f62f7a92627bacf49b5a35052233ccbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1216741232
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5067,6 +5298,7 @@ Transform:
   - {fileID: 474083085}
   - {fileID: 1430998381}
   - {fileID: 635378726}
+  - {fileID: 597339219}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6102,7 +6334,7 @@ PrefabInstance:
     - target: {fileID: 2497416319557872709, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -85.000244
+      value: -85
       objectReference: {fileID: 0}
     - target: {fileID: 2497416319557872709, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
@@ -7752,7 +7984,7 @@ PrefabInstance:
     - target: {fileID: 6516840799684839471, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -586.5
+      value: -586.49994
       objectReference: {fileID: 0}
     - target: {fileID: 6516997514430147175, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
@@ -10665,18 +10897,44 @@ MonoBehaviour:
   onTrigger:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1191854060}
+      - m_Target: {fileID: 2076320744}
         m_TargetAssemblyTypeName: RPG.Quests.QuestGiver, Assembly-CSharp
         m_MethodName: GiveQuest
-        m_Mode: 5
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 11400000, guid: 877cccb8386b9c24696cfa5c0bb8c3ab,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: RPG.Quests.Quest, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: BeatBoys
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 597339226}
+        m_TargetAssemblyTypeName: RPG.Dialogue.AIConversant, Assembly-CSharp
+        m_MethodName: SetDialogue
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: a88ffa2231869f7499d02b36d7ecbc4f,
+            type: 2}
+          m_ObjectArgumentAssemblyTypeName: RPG.Dialogue.Dialogue, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2076320744 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5707044149335816033, guid: 0ba691c5607864942aeefe873f6c12e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 1191854058}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076320725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62f7a92627bacf49b5a35052233ccbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2107593371
 PrefabInstance:
   m_ObjectHideFlags: 0

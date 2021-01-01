@@ -24,6 +24,13 @@ namespace RPG.Dialogue
             return conversantName;
         }
 
+        public void SetDialogue(Dialogue dialogue)
+        {
+            if (dialogue == null) { return; }
+            this.dialogue = dialogue;
+            dialogue.SetSpeaker(SpeakerType.speakerOne, this);
+        }
+
         public bool HandleRaycast(PlayerController callingController, string interactButtonOne = "Fire1", string interactButtonTwo = "Fire2")
         {
             if (dialogue == null) { return false; }

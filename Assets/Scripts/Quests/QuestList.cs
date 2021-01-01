@@ -20,7 +20,6 @@ namespace RPG.Quests
 
         public void AddQuest(Quest quest)
         {
-            if (quest == null) { return; }
             if (HasQuest(quest)) { return; }
 
             QuestStatus newQuestStatus = new QuestStatus(quest);
@@ -32,16 +31,35 @@ namespace RPG.Quests
             }
         }
 
-        public bool HasQuest(Quest newQuest)
+        public void CompleteObjective(Quest quest, int objectiveIndex)
         {
+            QuestStatus questStatus = GetQuestStatus(quest);
+            if (questStatus == null) { return; }
+
+            questStatus.SetObjective(objectiveIndex, true);
+            if (questListUpdated != null)
+            {
+                questListUpdated();
+            }
+        }
+
+        public bool HasQuest(Quest quest)
+        {
+            return (GetQuestStatus(quest) != null);
+        }
+
+        public QuestStatus GetQuestStatus(Quest quest)
+        {
+            if (quest == null) { return null; }
+
             foreach (QuestStatus questStatus in questStatuses)
             {
-                if (questStatus.GetQuest().GetUniqueID() == newQuest.GetUniqueID())
+                if (questStatus.GetQuest().GetUniqueID() == quest.GetUniqueID())
                 {
-                    return true;
+                    return questStatus;
                 }
             }
-            return false;
+            return null;
         }
     }
 }

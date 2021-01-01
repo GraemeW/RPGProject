@@ -8,12 +8,12 @@ namespace RPG.Quests
     public class QuestStatus
     {
         Quest quest;
-        bool[] completedObjective;
+        bool[] objectiveStatus;
 
         public QuestStatus(Quest quest)
         {
             this.quest = quest;
-            completedObjective = new bool[quest.GetObjectiveCount()];
+            objectiveStatus = new bool[quest.GetObjectiveCount()];
         }
 
         public Quest GetQuest()
@@ -23,13 +23,18 @@ namespace RPG.Quests
 
         public int GetCompletedObjectiveCount()
         {
-            return completedObjective.Where(c => c).Count();
+            return objectiveStatus.Where(c => c).Count();
         }
 
         public bool GetObjectiveStatusForIndex(int index)
         {
-            return completedObjective[index];
+            return objectiveStatus[index];
         }
 
+        public void SetObjective(int index, bool isComplete)
+        {
+            if (index < 0 || index >= objectiveStatus.Length) { return; }
+            objectiveStatus[index] = isComplete;
+        }
     }
 }

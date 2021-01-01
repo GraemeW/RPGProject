@@ -58,6 +58,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: {fileID: 0}
+  conversantName: 
 --- !u!114 &4318276893589604148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -93,6 +94,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   equippedItems: []
+--- !u!114 &2880896620076163567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046373644337586582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f62f7a92627bacf49b5a35052233ccbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3260960929045008976
 PrefabInstance:
   m_ObjectHideFlags: 0

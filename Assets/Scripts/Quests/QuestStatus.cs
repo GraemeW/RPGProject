@@ -5,11 +5,16 @@ using System.Linq;
 
 namespace RPG.Quests
 {
-    [System.Serializable]
     public class QuestStatus
     {
-        [SerializeField] Quest quest;
-        [SerializeField] bool[] completedObjective;
+        Quest quest;
+        bool[] completedObjective;
+
+        public QuestStatus(Quest quest)
+        {
+            this.quest = quest;
+            completedObjective = new bool[quest.GetObjectiveCount()];
+        }
 
         public Quest GetQuest()
         {
@@ -25,5 +30,6 @@ namespace RPG.Quests
         {
             return completedObjective[index];
         }
+
     }
 }

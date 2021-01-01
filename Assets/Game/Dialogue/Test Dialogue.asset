@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
-  m_Name: New Dialogue
+  m_Name: Test Dialogue
   m_EditorClassIdentifier: 
   speakerOne: {fileID: 0}
   speakerTwo: {fileID: 0}

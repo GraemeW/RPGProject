@@ -20,6 +20,18 @@ namespace RPG.UI.Quests
 
         private void OnEnable()
         {
+            playerQuestList.questListUpdated += PaintQuests;
+            PaintQuests();
+        }
+
+        private void OnDisable()
+        {
+            playerQuestList.questListUpdated -= PaintQuests;
+        }
+
+        private void PaintQuests()
+        {
+            ClearQuests();
             foreach (QuestStatus questStatus in playerQuestList.GetQuestStatuses())
             {
                 QuestItemUI uiInstance = Instantiate(questPrefab, transform);
@@ -27,7 +39,7 @@ namespace RPG.UI.Quests
             }
         }
 
-        private void OnDisable()
+        private void ClearQuests()
         {
             foreach (Transform child in transform)
             {

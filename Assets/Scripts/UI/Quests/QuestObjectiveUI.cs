@@ -19,6 +19,8 @@ namespace RPG.UI.Quests
         public void SetProgress(bool isComplete)
         {
             ProgressIndicatorComplete.SetActive(isComplete);
+            if (isComplete) { detail.color = Color.green; }
+            else { detail.color = Color.white; }
         }
     }
 }

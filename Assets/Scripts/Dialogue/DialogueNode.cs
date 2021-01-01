@@ -96,10 +96,6 @@ namespace RPG.Dialogue
             {
                 Undo.RecordObject(this, "Update Dialogue Speaker");
                 this.speaker = speaker;
-                if (this.speaker == SpeakerType.player)
-                {
-                    SetSpeakerName("Player");
-                }
                 EditorUtility.SetDirty(this);
             }
         }

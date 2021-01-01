@@ -210,6 +210,8 @@ namespace RPG.Dialogue
 
         public void UpdateSpeakerName(SpeakerType newSpeakerType, string newSpeakerName)
         {
+            if (newSpeakerType == SpeakerType.speakerMore) { return; }
+
             foreach (DialogueNode dialogueNode in dialogueNodes)
             {
                 if (dialogueNode.GetSpeaker() == newSpeakerType)

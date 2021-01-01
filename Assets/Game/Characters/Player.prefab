@@ -148,11 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d536cc4b80e3b0344b19c19b078c5b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statuses:
-  - quest: {fileID: 11400000, guid: 998fcbfc565671945b07c6d186bc1aac, type: 2}
-    completedObjective: 0100
+  questStatuses:
   - quest: {fileID: 11400000, guid: 48dc5ca018395b4488e350220f28f12f, type: 2}
-    completedObjective: 010100
+    completedObjective: 000000
+  - quest: {fileID: 11400000, guid: 998fcbfc565671945b07c6d186bc1aac, type: 2}
+    completedObjective: 0000
 --- !u!1001 &887498608397665829
 PrefabInstance:
   m_ObjectHideFlags: 0

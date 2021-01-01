@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e901705cacb9b04f976d4cb73268c9c, type: 3}
-  m_Name: Quest
+  m_Name: BeatTheBoys
   m_EditorClassIdentifier: 
-  detail: Hey man go do this thing
+  detail: Beat up the boys
   objectives:
-  - hans
-  - tron
-  - didit
+  - Beat up Subu
+  - Beat up Jonarld
+  - Beat up Yarfus

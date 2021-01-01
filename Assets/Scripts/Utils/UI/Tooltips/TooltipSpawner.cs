@@ -91,7 +91,6 @@ namespace RPG.Core.UI.Tooltips
             else if (!below && !right) return 1;
             else if (!below && right) return 2;
             else return 3;
-
         }
 
         void IPointerExitHandler.OnPointerExit(PointerEventData eventData)

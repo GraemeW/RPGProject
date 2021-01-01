@@ -65,6 +65,22 @@ namespace RPG.Dialogue
             return onExitAction;
         }
 
+        public bool SetSpeakerName(string speakerName)
+        {
+            if (speakerName != this.speakerName)
+            {
+#if UNITY_EDITOR
+                Undo.RecordObject(this, "Update Dialogue Speaker Name");
+#endif
+                this.speakerName = speakerName;
+#if UNITY_EDITOR
+                EditorUtility.SetDirty(this);
+#endif
+                return true;
+            }
+            return false;
+        }
+
 
 #if UNITY_EDITOR
         public void Initialize(int width, int height)
@@ -86,18 +102,6 @@ namespace RPG.Dialogue
                 }
                 EditorUtility.SetDirty(this);
             }
-        }
-
-        public bool SetSpeakerName(string speakerName)
-        {
-            if (speakerName != this.speakerName)
-            {
-                Undo.RecordObject(this, "Update Dialogue Speaker Name");
-                this.speakerName = speakerName;
-                EditorUtility.SetDirty(this);
-                return true;
-            }
-            return false;
         }
 
         public void SetText(string text)

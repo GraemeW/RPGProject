@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+using RPG.Core;
 
 namespace RPG.Dialogue
 {
@@ -68,7 +70,7 @@ namespace RPG.Dialogue
 
         public int GetChoiceCount()
         {
-            return currentNode.GetChildren().Count;
+            return FilterOnCondition(currentNode.GetChildren()).Count();
         }
 
         public string GetCurrentSpeakerName()
@@ -83,7 +85,7 @@ namespace RPG.Dialogue
 
         public IEnumerable<DialogueNode> GetChoices()
         {
-            foreach (string childID in currentNode.GetChildren())
+            foreach (string childID in FilterOnCondition(currentNode.GetChildren()))
             {
                 yield return currentDialogue.GetNodeFromID(childID);
             }
@@ -91,7 +93,7 @@ namespace RPG.Dialogue
 
         public bool HasNext()
         {
-            return currentNode.GetChildren().Count > 0;
+            return FilterOnCondition(currentNode.GetChildren()).Count() > 0;
         }
 
         public bool IsChoosing()
@@ -125,9 +127,10 @@ namespace RPG.Dialogue
         {
             if (HasNext())
             {
-                int nodeIndex = UnityEngine.Random.Range(0, currentNode.GetChildren().Count);
+                List<string> filteredDialogueOptions = FilterOnCondition(currentNode.GetChildren()).ToList();
+                int nodeIndex = UnityEngine.Random.Range(0, filteredDialogueOptions.Count);
                 TriggerExitAction();
-                currentNode = currentDialogue.GetNodeFromID(currentNode.GetChildren()[nodeIndex]);
+                currentNode = currentDialogue.GetNodeFromID(filteredDialogueOptions[nodeIndex]);
                 TriggerEnterAction();
                 if (dialogueUpdated != null)
                 {
@@ -156,6 +159,23 @@ namespace RPG.Dialogue
                     dialogueTrigger.Trigger(action);
                 }
             }
+        }
+
+        private IEnumerable<string> FilterOnCondition(List<string> dialogueNodeIDs)
+        {
+            foreach (string dialogueNodeID in dialogueNodeIDs)
+            {
+                if (currentDialogue.GetNodeFromID(dialogueNodeID).CheckCondition(GetEvaluators()))
+                {
+                    yield return dialogueNodeID;
+                }
+            }
+        }
+
+        private IEnumerable<IPredicateEvaluator> GetEvaluators()
+        {
+            return GetComponents<IPredicateEvaluator>().Concat(
+                currentConversant.GetComponents<IPredicateEvaluator>());
         }
     }
 }

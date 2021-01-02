@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using RPG.Core;
 
 namespace RPG.Dialogue
 {
@@ -19,6 +20,7 @@ namespace RPG.Dialogue
         [Header("Additional Properties")]
         [SerializeField] string onEnterAction = "";
         [SerializeField] string onExitAction = "";
+        [SerializeField] Condition condition = null;
 
         public SpeakerType GetSpeaker()
         {
@@ -79,6 +81,11 @@ namespace RPG.Dialogue
                 return true;
             }
             return false;
+        }
+
+        public bool CheckCondition(IEnumerable<IPredicateEvaluator> evaluators)
+        {
+            return condition.Check(evaluators);
         }
 
 

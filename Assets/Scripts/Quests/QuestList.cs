@@ -1,16 +1,17 @@
-using RPG.Inventories;
-using RPG.Saving;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using RPG.Core;
+using RPG.Inventories;
+using RPG.Saving;
 using static RPG.Quests.Quest;
 using static RPG.Quests.QuestStatus;
 
 namespace RPG.Quests
 {
-    public class QuestList : MonoBehaviour, ISaveable
+    public class QuestList : MonoBehaviour, IPredicateEvaluator, ISaveable
     {
         // Tunables
         List<QuestStatus> questStatuses = new List<QuestStatus>();
@@ -21,6 +22,9 @@ namespace RPG.Quests
 
         // Events
         public event Action questListUpdated;
+
+        // Statics
+        static string[] QUEST_PREDICATES = { "HasQuest" };
 
         // Methods
         private void Awake()
@@ -97,6 +101,44 @@ namespace RPG.Quests
             }
         }
 
+        // Interfaces
+
+        // Predicate Evaluator
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            string matchingPredicate = MatchToQuestPredicates(predicate);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return false; }
+
+            if (predicate == QUEST_PREDICATES[0])
+            {
+                return PredicateEvaluateHasQuest(parameters);
+            }
+            return false;
+        }
+
+        private string MatchToQuestPredicates(string predicate)
+        {
+            string matchingPredicate = null;
+            foreach (string QUEST_PREDICATE in QUEST_PREDICATES)
+            {
+                if (predicate == QUEST_PREDICATE) { matchingPredicate = predicate; }
+            }
+            return matchingPredicate;
+        }
+
+        private bool PredicateEvaluateHasQuest(string[] parameters)
+        {
+            foreach (string questID in parameters)
+            {
+                if (HasQuest(Quest.GetFromID(questID)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Save System
         public object CaptureState()
         {
             List<SerializableQuestStatus> serializableQuestStatuses = new List<SerializableQuestStatus>();

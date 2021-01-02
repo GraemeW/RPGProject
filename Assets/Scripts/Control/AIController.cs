@@ -82,7 +82,11 @@ namespace RPG.Control
         private void Update()
         {
             if (health.IsDead()) { return; }
-            if (isFriendly) { return; }
+            if (isFriendly) 
+            {
+                PatrolBehavior();
+                return; 
+            }
 
             if (IsAggravated() && fighter.CanAttack(player))
             {

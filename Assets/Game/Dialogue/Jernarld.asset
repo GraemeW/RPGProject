@@ -1,0 +1,316 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7201673994031079761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 62547b07-d44d-4a82-86f4-dea424090f87
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Oh . . . sorry about that.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: BeatBoys
+  condition:
+    and: []
+--- !u!114 &-6893674203500327803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: cdc30e08-ed58-474b-a059-af7322a57571
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Jernarld
+  text: Dude that really hurt my feelings.
+  children:
+  - 62547b07-d44d-4a82-86f4-dea424090f87
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-6518958085775364563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 6c0ebc3f-3b90-4419-ae48-a3414f1179f9
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Your pits stink
+  children:
+  - cdc30e08-ed58-474b-a059-af7322a57571
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 1
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+--- !u!114 &-6518168462132780187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: acb2f36d-7f63-4d38-a1c7-aac41da43001
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Jernarld
+  text: Hey man what's up?
+  children:
+  - b295cba3-6699-4655-a879-14cf771a4825
+  - 6c0ebc3f-3b90-4419-ae48-a3414f1179f9
+  - cb2dec3d-2246-4013-a750-076b5c073cd8
+  - 14b6218c-53cf-4788-a70e-8ade1840da89
+  rect:
+    serializedVersion: 2
+    x: 30
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-6120502734011196356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 14b6218c-53cf-4788-a70e-8ade1840da89
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Your style is actually pretty cool.
+  children:
+  - d3ca91c6-e3e1-4de7-8b36-db1178bc7cd0
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 780
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 0
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+--- !u!114 &-2015268127874966006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: b295cba3-6699-4655-a879-14cf771a4825
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Your face
+  children:
+  - cdc30e08-ed58-474b-a059-af7322a57571
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 1
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
+  m_Name: Jernarld
+  m_EditorClassIdentifier: 
+  skipRootNode: 0
+  speakerOne: {fileID: 0}
+  speakerTwo: {fileID: 0}
+  speakerThree: {fileID: 0}
+  speakerFour: {fileID: 0}
+  newNodeOffset: {x: 100, y: 25}
+  nodeWidth: 400
+  nodeHeight: 225
+  dialogueNodes:
+  - {fileID: -6518168462132780187}
+  - {fileID: -2015268127874966006}
+  - {fileID: -6518958085775364563}
+  - {fileID: 1447924977151779723}
+  - {fileID: -6893674203500327803}
+  - {fileID: -7201673994031079761}
+  - {fileID: -6120502734011196356}
+  - {fileID: 7581263622422713498}
+--- !u!114 &1447924977151779723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: cb2dec3d-2246-4013-a750-076b5c073cd8
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: I don't like your style
+  children:
+  - cdc30e08-ed58-474b-a059-af7322a57571
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 530
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 1
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+--- !u!114 &7581263622422713498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: d3ca91c6-e3e1-4de7-8b36-db1178bc7cd0
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Jernarld
+  text: Thanks dude, appreciate it
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 780
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []

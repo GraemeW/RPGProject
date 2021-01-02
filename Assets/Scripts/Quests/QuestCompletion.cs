@@ -6,6 +6,8 @@ namespace RPG.Quests
 {
     public class QuestCompletion : MonoBehaviour
     {
+        // Called via Unity event via DialogueTriggers
+
         // Tunables
         [SerializeField] bool active = false;
 

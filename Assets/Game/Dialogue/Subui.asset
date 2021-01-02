@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4798696174998954594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: f749ec86-b410-4f32-82a2-b1611329c512
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Default
+  text: You asked for it!
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: BeatBoys
+  onExitAction: Attack
+  condition:
+    and: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
+  m_Name: Subui
+  m_EditorClassIdentifier: 
+  skipRootNode: 0
+  speakerOne: {fileID: 0}
+  speakerTwo: {fileID: 0}
+  speakerThree: {fileID: 0}
+  speakerFour: {fileID: 0}
+  newNodeOffset: {x: 100, y: 25}
+  nodeWidth: 400
+  nodeHeight: 225
+  dialogueNodes:
+  - {fileID: 3869950170488761933}
+  - {fileID: 945072543905219267}
+  - {fileID: 4915994147053694518}
+  - {fileID: -4798696174998954594}
+--- !u!114 &945072543905219267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 99598264-94e4-4254-a551-2a7b0591e18d
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Default
+  text: Uh, nothing, sorry!
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &3869950170488761933
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 3463153d-76ca-403e-b734-51946553e9f6
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Default
+  text: The fuck you say to me?
+  children:
+  - 99598264-94e4-4254-a551-2a7b0591e18d
+  - 2c830c20-bd60-4e5d-adfb-e852f30b9b6a
+  rect:
+    serializedVersion: 2
+    x: 30
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &4915994147053694518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 2c830c20-bd60-4e5d-adfb-e852f30b9b6a
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Default
+  text: Huh?
+  children:
+  - f749ec86-b410-4f32-82a2-b1611329c512
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []

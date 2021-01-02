@@ -1,0 +1,505 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8490985100265935300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 156af2a4-b210-419d-9798-0c89e9441e98
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: You said this without thinking
+  children:
+  - 92a51e39-6107-4d48-ad35-7a9c3a005e40
+  rect:
+    serializedVersion: 2
+    x: 2029
+    y: 516
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-8431458115155531221
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 31b919b6-9dc2-462d-a8e3-699633528ed3
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Option 1
+  children:
+  - 54fb778a-8416-4ff3-b3ea-763583ba37d6
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: TestSelection
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-5830359836416715908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 7b11581e-53cc-4706-a927-4d03238ba2d5
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Hanstown
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1539
+    y: 518
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-3799238572768407984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 26a8e782-0cb7-433c-900d-a6e8ca5aceca
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Option 2
+  children:
+  - 54fb778a-8416-4ff3-b3ea-763583ba37d6
+  - 86e23dbe-1ed9-4533-821a-b38cd8c3bd25
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 255
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-3415431561501238358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 86e23dbe-1ed9-4533-821a-b38cd8c3bd25
+  m_EditorClassIdentifier: 
+  speaker: 2
+  speakerName: Johnny
+  text: Response B
+  children:
+  - cdfa7bd0-3f16-4e5c-8662-1990dbbbd91a
+  - 7b11581e-53cc-4706-a927-4d03238ba2d5
+  rect:
+    serializedVersion: 2
+    x: 1039
+    y: 268
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
+  m_Name: zz_TESTDIALOGUE
+  m_EditorClassIdentifier: 
+  skipRootNode: 0
+  speakerOne: {fileID: 0}
+  speakerTwo: {fileID: 0}
+  speakerThree: {fileID: 0}
+  speakerFour: {fileID: 0}
+  newNodeOffset: {x: 100, y: 25}
+  nodeWidth: 400
+  nodeHeight: 225
+  dialogueNodes:
+  - {fileID: 7931213971020706002}
+  - {fileID: -8431458115155531221}
+  - {fileID: 233648365383785304}
+  - {fileID: -3799238572768407984}
+  - {fileID: 1721071235309892329}
+  - {fileID: 7252799682484800489}
+  - {fileID: -3415431561501238358}
+  - {fileID: 7116217574879645258}
+  - {fileID: 128045415326781628}
+  - {fileID: 1392923997030570777}
+  - {fileID: -8490985100265935300}
+  - {fileID: 5500074390984989631}
+  - {fileID: 1044079270790237920}
+  - {fileID: -5830359836416715908}
+--- !u!114 &128045415326781628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: ed7be8d6-c6cf-479b-ac70-59ea3580a621
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Nelson
+  text: BUUUUUUH
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 2030
+    y: 265
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: Attack
+  condition:
+    and: []
+--- !u!114 &233648365383785304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 54fb778a-8416-4ff3-b3ea-763583ba37d6
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Nelson
+  text: Response A
+  children:
+  - 944fcd04-6fc6-41ff-85b7-91a0b23ad967
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: TestAIExit
+  condition:
+    and: []
+--- !u!114 &1044079270790237920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: ceb2b25c-5644-4a4c-a299-a9126b229993
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: More think no speak
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 3029
+    y: 516
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &1392923997030570777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: cdfa7bd0-3f16-4e5c-8662-1990dbbbd91a
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: DUDE2
+  children:
+  - 156af2a4-b210-419d-9798-0c89e9441e98
+  rect:
+    serializedVersion: 2
+    x: 1530
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &1721071235309892329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 4724e6ef-3e2a-4470-b8e4-ae70e4a520c4
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Option 3
+  children:
+  - 54fb778a-8416-4ff3-b3ea-763583ba37d6
+  - 86e23dbe-1ed9-4533-821a-b38cd8c3bd25
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 480
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &5500074390984989631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 92a51e39-6107-4d48-ad35-7a9c3a005e40
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Nelson
+  text: Stuff to finale
+  children:
+  - ceb2b25c-5644-4a4c-a299-a9126b229993
+  rect:
+    serializedVersion: 2
+    x: 2477
+    y: 526
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &7116217574879645258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: abf64b57-4377-4385-9868-03279f022ed1
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Nelson
+  text: BUH
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 2030
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: Attack
+  condition:
+    and: []
+--- !u!114 &7252799682484800489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 944fcd04-6fc6-41ff-85b7-91a0b23ad967
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: DUDE1
+  children:
+  - abf64b57-4377-4385-9868-03279f022ed1
+  - ed7be8d6-c6cf-479b-ac70-59ea3580a621
+  rect:
+    serializedVersion: 2
+    x: 1530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &7931213971020706002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 9308a248-7dcf-4728-8619-26a02e3b8e30
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Nelson
+  text: 'TEST1
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
+    sed sollicitudin erat, non tristique dolor. Nam fermentum tincidunt sem sit amet
+    luctus. '
+  children:
+  - 31b919b6-9dc2-462d-a8e3-699633528ed3
+  - 26a8e782-0cb7-433c-900d-a6e8ca5aceca
+  - 4724e6ef-3e2a-4470-b8e4-ae70e4a520c4
+  rect:
+    serializedVersion: 2
+    x: 30
+    y: 30
+    width: 400
+    height: 200
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: TestRootEntry
+  onExitAction: 
+  condition:
+    and: []

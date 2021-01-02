@@ -20,10 +20,10 @@ MonoBehaviour:
   - uniqueID: b77d9af7-3212-4da9-90bc-bdc02db03882
     description: Beat up Jernarld
   - uniqueID: a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
-    description: Beat up Yasurlf
+    description: Beat up Yarfus
   rewards:
   - number: 1
-    item: {fileID: 11400000, guid: e28e7773a15c13b48b971aeda284b819, type: 2}
+    item: {fileID: 11400000, guid: fef4a0558b4b8844c9bb81db05dd840d, type: 2}
   - number: 5
     item: {fileID: 11400000, guid: 4d742d79699b51c43b2c0d7c74dd2d18, type: 2}
   - number: 1

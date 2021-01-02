@@ -10,6 +10,8 @@ namespace RPG.Dialogue
     public class Dialogue : ScriptableObject, ISerializationCallbackReceiver
     {
         // Tunables
+        [SerializeField] public bool skipRootNode = false;
+        
         [Header("Speaker Overrides")]
         PlayerConversant speakerPlayer = null; // Set via script
         [SerializeField] AIConversant speakerOne = null;
@@ -47,7 +49,7 @@ namespace RPG.Dialogue
             return dialogueNodes;
         }
 
-        public DialogueNode GetRootNode()
+        public DialogueNode GetRootNode(bool withSkip = true)
         {
             return dialogueNodes[0];
         }

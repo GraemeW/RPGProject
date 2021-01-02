@@ -32,8 +32,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &-7301805752143738264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,9 +65,12 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: HasQuest
-    parameters:
-    - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+    and:
+    - or:
+      - predicate: HasQuest
+        negate: 1
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
 --- !u!114 &-5959474673079383351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +102,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: BeatBoys
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &-5267328660033545081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,8 +134,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: Attack
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &-3961972757052352077
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,8 +167,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &-3030504700814988820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,8 +200,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &-1660942907294604652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,8 +232,39 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
+--- !u!114 &-1042160874631758904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: d36c416d-68c4-4caf-b91d-f9cf3fedbcc7
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Guard Jones
+  text: Cool man, that's really cool.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 530
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
 --- !u!114 &-717002827845250478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +283,7 @@ MonoBehaviour:
   children:
   - 68a34882-f717-452c-9d3b-9030236f070b
   - e0dc5d78-52bd-4d2a-9910-685a04ca86fe
+  - 6e49f2de-39b2-478b-9966-4412bd040c19
   rect:
     serializedVersion: 2
     x: 30
@@ -269,8 +299,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
   m_Name: GuardOutsideTown
   m_EditorClassIdentifier: 
+  skipRootNode: 0
   speakerOne: {fileID: 0}
   speakerTwo: {fileID: 0}
   speakerThree: {fileID: 0}
@@ -304,6 +334,8 @@ MonoBehaviour:
   - {fileID: -1660942907294604652}
   - {fileID: -5267328660033545081}
   - {fileID: 509384416767740698}
+  - {fileID: 4273818119863952207}
+  - {fileID: -1042160874631758904}
 --- !u!114 &509384416767740698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,8 +367,50 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
+--- !u!114 &4273818119863952207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 6e49f2de-39b2-478b-9966-4412bd040c19
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: Wanna see my fireball?
+  children:
+  - d36c416d-68c4-4caf-b91d-f9cf3fedbcc7
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 530
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasInventoryItem
+        negate: 0
+        parameters:
+        - 6e29ce55-d838-46d1-997f-f2f2eda27674
+    - or:
+      - predicate: HasQuest
+        negate: 0
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
 --- !u!114 &6427079359334227142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,8 +430,8 @@ MonoBehaviour:
   - 131e2fdd-2f73-4bf8-8cc9-8b3fbf9e8237
   rect:
     serializedVersion: 2
-    x: 1537
-    y: 502
+    x: 1530
+    y: 532
     width: 400
     height: 225
   draggingRect:
@@ -369,8 +443,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &6584450260349169644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,8 +476,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &7454499792293738873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,8 +511,7 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []
 --- !u!114 &8104790869144655638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,5 +545,4 @@ MonoBehaviour:
   onEnterAction: 
   onExitAction: 
   condition:
-    predicate: 
-    parameters: []
+    and: []

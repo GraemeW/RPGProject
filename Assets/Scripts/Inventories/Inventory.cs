@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using RPG.Saving;
+using RPG.Core;
 
 namespace RPG.Inventories
 {
@@ -10,7 +11,7 @@ namespace RPG.Inventories
     ///
     /// This component should be placed on the GameObject tagged "Player".
     /// </summary>
-    public class Inventory : MonoBehaviour, ISaveable
+    public class Inventory : MonoBehaviour, IPredicateEvaluator, ISaveable
     {
         // CONFIG DATA
         [Tooltip("Allowed size")]
@@ -24,6 +25,9 @@ namespace RPG.Inventories
             public InventoryItem item;
             public int number;
         }
+
+        // Static
+        static string[] PREDICATES_ARRAY = { "HasInventoryItem" };
 
         // PUBLIC
 
@@ -219,6 +223,41 @@ namespace RPG.Inventories
             return -1;
         }
 
+        // Interfaces
+
+        // Predicate Evaluator
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            string matchingPredicate = this.MatchToPredicates(predicate, PREDICATES_ARRAY);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return null; }
+
+            if (predicate == PREDICATES_ARRAY[0])
+            {
+                return PredicateEvaluateHasItem(parameters);
+            }
+            return null;
+        }
+
+        string IPredicateEvaluator.MatchToPredicatesTemplate()
+        {
+            // Not evaluated -> PredicateEvaluatorExtension
+            return null;
+        }
+
+        private bool PredicateEvaluateHasItem(string[] parameters)
+        {
+            // Match on ANY of the items present in parameters
+            foreach (string itemID in parameters)
+            {
+                if (HasItem(InventoryItem.GetFromID(itemID)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Saving System
         [System.Serializable]
         private struct InventorySlotRecord
         {

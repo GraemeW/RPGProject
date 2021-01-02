@@ -34,6 +34,7 @@ namespace RPG.Dialogue
             currentDialogue.OverrideSpeakers();
 
             currentNode = currentDialogue.GetRootNode();
+            if (currentDialogue.skipRootNode) { Next(false); }
             TriggerEnterAction();
             if (dialogueUpdated != null)
             {
@@ -123,15 +124,15 @@ namespace RPG.Dialogue
             }
         }
 
-        public void Next()
+        public void Next(bool withTriggers = true)
         {
             if (HasNext())
             {
                 List<string> filteredDialogueOptions = FilterOnCondition(currentNode.GetChildren()).ToList();
                 int nodeIndex = UnityEngine.Random.Range(0, filteredDialogueOptions.Count);
-                TriggerExitAction();
+                if (withTriggers) { TriggerExitAction(); }
                 currentNode = currentDialogue.GetNodeFromID(filteredDialogueOptions[nodeIndex]);
-                TriggerEnterAction();
+                if (withTriggers) { TriggerEnterAction(); }
                 if (dialogueUpdated != null)
                 {
                     dialogueUpdated();

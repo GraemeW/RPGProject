@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 1
   speakerName: Yarfus
-  text: Yeah, I'm Yarfus, what of it?
+  text: I don't like your face.
   children:
   - 838beacb-349b-4676-9a10-295ccf471896
   rect:
@@ -31,6 +31,8 @@ MonoBehaviour:
     height: 45
   onEnterAction: 
   onExitAction: 
+  condition:
+    and: []
 --- !u!114 &-3026342515148463864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,8 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 1
   speakerName: Yarfus
-  text: OK, I guess that's a reasonable request
-  children: []
+  text: My name's Yarfus, what of it?
+  children:
+  - c6d94c8f-d4c1-4863-9753-4cb55405fb1f
   rect:
     serializedVersion: 2
     x: 1030
@@ -60,7 +63,41 @@ MonoBehaviour:
     width: 400
     height: 45
   onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-1817450243583619550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 226ddc8d-cb8f-4f6a-b816-ea479c5bfa5c
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Yarfus
+  text: OK, I guess that's a reasonable request.
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 2030
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
   onExitAction: BeatBoys
+  condition:
+    and: []
 --- !u!114 &-1353039986415895386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75,7 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 0
   speakerName: Richie
-  text: Stop bullying the guard outside of town
+  text: I need to talk to you.  What's your name?
   children:
   - 60e12be4-e120-4d04-b9a2-f0d324ad73d6
   rect:
@@ -92,6 +129,46 @@ MonoBehaviour:
     height: 45
   onEnterAction: 
   onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        negate: 0
+        parameters:
+        - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+--- !u!114 &-1058161054730304671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: c6d94c8f-d4c1-4863-9753-4cb55405fb1f
+  m_EditorClassIdentifier: 
+  speaker: 0
+  speakerName: Richie
+  text: The guard at the entrance of town asked if you could stop bothering him.
+  children:
+  - 226ddc8d-cb8f-4f6a-b816-ea479c5bfa5c
+  rect:
+    serializedVersion: 2
+    x: 1530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
   m_Name: Yarfus
   m_EditorClassIdentifier: 
+  skipRootNode: 0
   speakerOne: {fileID: 0}
   speakerTwo: {fileID: 0}
   speakerThree: {fileID: 0}
@@ -115,3 +193,5 @@ MonoBehaviour:
   - {fileID: -5989928496700199486}
   - {fileID: -1353039986415895386}
   - {fileID: -3026342515148463864}
+  - {fileID: -1058161054730304671}
+  - {fileID: -1817450243583619550}

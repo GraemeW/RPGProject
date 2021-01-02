@@ -23,8 +23,8 @@ namespace RPG.Quests
         // Events
         public event Action questListUpdated;
 
-        // Statics
-        static string[] QUEST_PREDICATES = { "HasQuest" };
+        // Static
+        static string[] PREDICATES_ARRAY = { "HasQuest", "CompletedQuest" };
 
         // Methods
         private void Awake()
@@ -106,31 +106,45 @@ namespace RPG.Quests
         // Predicate Evaluator
         public bool? Evaluate(string predicate, string[] parameters)
         {
-            string matchingPredicate = MatchToQuestPredicates(predicate);
-            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return false; }
+            string matchingPredicate = this.MatchToPredicates(predicate, PREDICATES_ARRAY);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return null; }
 
-            if (predicate == QUEST_PREDICATES[0])
+            if (predicate == PREDICATES_ARRAY[0])
             {
                 return PredicateEvaluateHasQuest(parameters);
             }
-            return false;
+            else if (predicate == PREDICATES_ARRAY[1])
+            {
+                return PredicateEvaluateQuestCompleted(parameters);
+            }
+            return null;
         }
 
-        private string MatchToQuestPredicates(string predicate)
+        string IPredicateEvaluator.MatchToPredicatesTemplate()
         {
-            string matchingPredicate = null;
-            foreach (string QUEST_PREDICATE in QUEST_PREDICATES)
-            {
-                if (predicate == QUEST_PREDICATE) { matchingPredicate = predicate; }
-            }
-            return matchingPredicate;
+            // Not evaluated -> PredicateEvaluatorExtension
+            return null;
         }
 
         private bool PredicateEvaluateHasQuest(string[] parameters)
         {
+            // Match on ANY of the quests present in parameters
             foreach (string questID in parameters)
             {
                 if (HasQuest(Quest.GetFromID(questID)))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool PredicateEvaluateQuestCompleted(string[] parameters)
+        {
+            // Match on ANY of the quests complete in parameters
+            foreach (string questID in parameters)
+            {
+                if (GetQuestStatus(Quest.GetFromID(questID)).IsComplete())
                 {
                     return true;
                 }
@@ -166,5 +180,7 @@ namespace RPG.Quests
                 questListUpdated();
             }
         }
+
+
     }
 }

@@ -2167,7 +2167,7 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogue
       value: 
-      objectReference: {fileID: 11400000, guid: 5194f5af13756f54e93f5c5bfa751393,
+      objectReference: {fileID: 11400000, guid: a88ffa2231869f7499d02b36d7ecbc4f,
         type: 2}
     - target: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
         type: 3}
@@ -2306,31 +2306,6 @@ MonoBehaviour:
           m_StringArgument: a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 597339226}
-        m_TargetAssemblyTypeName: RPG.Dialogue.AIConversant, Assembly-CSharp
-        m_MethodName: SetDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: 8b3717251b2e56544853573ef7682831,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: RPG.Dialogue.Dialogue, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &597339226 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6020260907943020658, guid: 0ba691c5607864942aeefe873f6c12e3,
-    type: 3}
-  m_PrefabInstance: {fileID: 597339218}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597339220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d83e69baab176478dad9c43f7c9d32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &599253635
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11130,19 +11105,6 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: BeatBoys
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 597339226}
-        m_TargetAssemblyTypeName: RPG.Dialogue.AIConversant, Assembly-CSharp
-        m_MethodName: SetDialogue
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 11400000, guid: a88ffa2231869f7499d02b36d7ecbc4f,
-            type: 2}
-          m_ObjectArgumentAssemblyTypeName: RPG.Dialogue.Dialogue, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &2076320744 stripped

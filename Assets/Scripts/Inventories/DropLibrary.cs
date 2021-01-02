@@ -14,12 +14,12 @@ namespace RPG.Inventories
         [SerializeField] DropConfig[] potentialDrops;
 
         [System.Serializable]
-        class DropConfig
+        public class DropConfig
         {
             public InventoryItem item = null;
-            public float[] relativeChance;
-            public int[] minItems;
-            public int[] maxItems;
+            public float[] relativeChance = null;
+            public int[] minItems = null;
+            public int[] maxItems = null;
             public int GetRandomNumber(int level)
             {
                 if (!item.IsStackable())

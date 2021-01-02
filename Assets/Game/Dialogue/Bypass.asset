@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
-  m_Name: MyApologies
+  m_Name: Bypass
   m_EditorClassIdentifier: 
   speakerOne: {fileID: 0}
   speakerTwo: {fileID: 0}
@@ -20,8 +20,8 @@ MonoBehaviour:
   nodeWidth: 400
   nodeHeight: 225
   dialogueNodes:
-  - {fileID: 7690121322758777419}
---- !u!114 &7690121322758777419
+  - {fileID: 9002579213511749406}
+--- !u!114 &9002579213511749406
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31,11 +31,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
-  m_Name: 77523e1b-8de8-424c-8328-9c563b09aadb
+  m_Name: b2843e73-c29d-4c92-a7bb-5cc3f2bfb807
   m_EditorClassIdentifier: 
   speaker: 1
-  speakerName: Yarfus
-  text: Sorry about earlier
+  speakerName: Bypasser
+  text: I'm the bypasser
   children: []
   rect:
     serializedVersion: 2
@@ -50,4 +50,4 @@ MonoBehaviour:
     width: 400
     height: 45
   onEnterAction: 
-  onExitAction: 
+  onExitAction: Bypass

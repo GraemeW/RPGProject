@@ -6,6 +6,7 @@ namespace RPG.Quests
 {
     public class QuestCompletion : MonoBehaviour
     {
+        // Tunables
         [SerializeField] bool active = false;
 
         // Cached References
@@ -26,13 +27,12 @@ namespace RPG.Quests
             this.quest = quest;
         }
 
-        public void CompleteObjective(int objectiveIndex)
+        public void CompleteObjective(string objectiveID)
         {
             if (playerQuestList == null) { return; }
             if (quest == null) { return; }
 
-            playerQuestList.CompleteObjective(quest, objectiveIndex);
-            quest = null;
+            playerQuestList.CompleteObjective(quest, objectiveID);
         }
 
         public void ActivateQuestCompleter()

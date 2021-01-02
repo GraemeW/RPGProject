@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e901705cacb9b04f976d4cb73268c9c, type: 3}
   m_Name: testQuest
   m_EditorClassIdentifier: 
+  uniqueID: 10018c76-51be-4334-8a36-53e850436b1d
   detail: Hey man go do this thing
   objectives:
-  - hans
-  - tron
-  - didit
+  - uniqueID: 53547dcd-7b39-44aa-b292-30f610219a74
+    description: Eat pie
+  - uniqueID: 9f520255-c52b-46e9-b630-93933dabf9f0
+    description: Eat pine
+  - uniqueID: b43bfdfa-e3de-46df-b49e-249f39a0de3b
+    description: Eat pint
+  rewards: []

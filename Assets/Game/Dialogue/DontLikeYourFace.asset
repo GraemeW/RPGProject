@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 02ca90f3-195d-48cc-aec2-df381daf25a6
   m_EditorClassIdentifier: 
   speaker: 1
-  speakerName: Yarfus
+  speakerName: Bypasser
   text: I don't like your face
   children: []
   rect:

@@ -1,21 +1,37 @@
+using RPG.Inventories;
+using RPG.Saving;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static RPG.Quests.Quest;
+using static RPG.Quests.QuestStatus;
 
 namespace RPG.Quests
 {
-    public class QuestList : MonoBehaviour
+    public class QuestList : MonoBehaviour, ISaveable
     {
         // Tunables
         List<QuestStatus> questStatuses = new List<QuestStatus>();
 
+        // Cached References
+        Inventory playerInventory = null;
+        ItemDropper itemDropper = null;
+
         // Events
         public event Action questListUpdated;
 
-        public IEnumerable<QuestStatus> GetQuestStatuses()
+        // Methods
+        private void Awake()
         {
-            return questStatuses;
+            playerInventory = GetComponent<Inventory>();
+            itemDropper = GetComponent<ItemDropper>();
+        }
+
+        public IEnumerable<QuestStatus> GetActiveQuests()
+        {
+            return questStatuses.Where(c => !c.IsComplete());
         }
 
         public void AddQuest(Quest quest)
@@ -31,12 +47,17 @@ namespace RPG.Quests
             }
         }
 
-        public void CompleteObjective(Quest quest, int objectiveIndex)
+        public void CompleteObjective(Quest quest, string objectiveID)
         {
             QuestStatus questStatus = GetQuestStatus(quest);
             if (questStatus == null) { return; }
 
-            questStatus.SetObjective(objectiveIndex, true);
+            questStatus.SetObjective(objectiveID, true);
+
+            if (questStatus.IsComplete())
+            {
+                GiveReward(quest);
+            }
             if (questListUpdated != null)
             {
                 questListUpdated();
@@ -60,6 +81,48 @@ namespace RPG.Quests
                 }
             }
             return null;
+        }
+
+        private void GiveReward(Quest quest)
+        {
+            if (playerInventory == null || itemDropper == null) { return; }
+            
+            foreach (Reward reward in quest.GetRewards())
+            {
+                bool addedSuccessfully = playerInventory.AddToFirstEmptySlot(reward.item, reward.number);
+                if (!addedSuccessfully)
+                {
+                    itemDropper.DropItem(reward.item, reward.number);
+                }
+            }
+        }
+
+        public object CaptureState()
+        {
+            List<SerializableQuestStatus> serializableQuestStatuses = new List<SerializableQuestStatus>();
+            foreach (QuestStatus questStatus in questStatuses)
+            {
+                serializableQuestStatuses.Add(questStatus.CaptureState());
+            }
+            return serializableQuestStatuses;
+        }
+
+        public void RestoreState(object state)
+        {
+            List<SerializableQuestStatus> serializableQuestStatuses = state as List<SerializableQuestStatus>;
+            if (serializableQuestStatuses == null) { return; }
+            questStatuses.Clear();
+
+            foreach (SerializableQuestStatus serializableQuestStatus in serializableQuestStatuses)
+            {
+                QuestStatus questStatus = new QuestStatus(serializableQuestStatus);
+                questStatuses.Add(questStatus);
+            }
+
+            if (questListUpdated != null)
+            {
+                questListUpdated();
+            }
         }
     }
 }

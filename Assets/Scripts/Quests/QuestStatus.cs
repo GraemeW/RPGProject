@@ -2,18 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 namespace RPG.Quests
 {
     public class QuestStatus
     {
+        // State
         Quest quest;
-        bool[] objectiveStatus;
+        List<string> completedObjectives = new List<string>();
 
+        // Data structures
+        [System.Serializable]
+        public struct SerializableQuestStatus
+        {
+            public string questID;
+            public List<string> completedObjectives;
+        }
+
+        // Methods
         public QuestStatus(Quest quest)
         {
             this.quest = quest;
-            objectiveStatus = new bool[quest.GetObjectiveCount()];
+        }
+
+        public QuestStatus(SerializableQuestStatus restoreState)
+        {
+            quest = Quest.GetFromID(restoreState.questID);
+            completedObjectives = restoreState.completedObjectives;
         }
 
         public Quest GetQuest()
@@ -23,18 +39,40 @@ namespace RPG.Quests
 
         public int GetCompletedObjectiveCount()
         {
-            return objectiveStatus.Where(c => c).Count();
+            return completedObjectives.Count;
         }
 
-        public bool GetObjectiveStatusForIndex(int index)
+        public bool GetStatusForObjectiveID(string objectiveID)
         {
-            return objectiveStatus[index];
+            return completedObjectives.Contains(objectiveID);
         }
 
-        public void SetObjective(int index, bool isComplete)
+        public void SetObjective(string objectiveID, bool isComplete)
         {
-            if (index < 0 || index >= objectiveStatus.Length) { return; }
-            objectiveStatus[index] = isComplete;
+            if (!quest.HasObjective(objectiveID)) { return; }
+
+            if (isComplete && !completedObjectives.Contains(objectiveID))
+            {
+                completedObjectives.Add(objectiveID);
+            }
+
+            if (!isComplete && completedObjectives.Contains(objectiveID))
+            {
+                completedObjectives.Remove(objectiveID);
+            }
+        }
+
+        public bool IsComplete()
+        {
+            return (completedObjectives.Count >= quest.GetObjectiveCount());
+        }
+
+        public SerializableQuestStatus CaptureState()
+        {
+            SerializableQuestStatus serializableQuestStatus = new SerializableQuestStatus();
+            serializableQuestStatus.questID = quest.GetUniqueID();
+            serializableQuestStatus.completedObjectives = completedObjectives;
+            return serializableQuestStatus;
         }
     }
 }

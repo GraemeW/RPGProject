@@ -12,8 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e901705cacb9b04f976d4cb73268c9c, type: 3}
   m_Name: BeatTheBoys
   m_EditorClassIdentifier: 
+  uniqueID: 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
   detail: Beat up the boys
   objectives:
-  - Beat up Subu
-  - Beat up Jonarld
-  - Beat up Yarfus
+  - uniqueID: 46c73538-fb06-49ad-a9af-4ce0d828e86e
+    description: Beat up Subui
+  - uniqueID: b77d9af7-3212-4da9-90bc-bdc02db03882
+    description: Beat up Jernarld
+  - uniqueID: a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
+    description: Beat up Yasurlf
+  rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: e28e7773a15c13b48b971aeda284b819, type: 2}
+  - number: 5
+    item: {fileID: 11400000, guid: 4d742d79699b51c43b2c0d7c74dd2d18, type: 2}
+  - number: 1
+    item: {fileID: 11400000, guid: eb2982554455e7d438eea00d3cb0ce90, type: 2}

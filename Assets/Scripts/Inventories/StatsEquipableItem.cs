@@ -34,7 +34,7 @@ namespace RPG.Inventories
         }
 
         [System.Serializable]
-        struct Modifier
+        public struct Modifier
         {
             public Stat stat;
             public float value;

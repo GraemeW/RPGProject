@@ -6,6 +6,7 @@ namespace RPG.Quests
 {
     public class QuestGiver : MonoBehaviour
     {
+        // Tunables
         [SerializeField] bool active = false;
 
         // Cached References

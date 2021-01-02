@@ -32,7 +32,7 @@ namespace RPG.UI.Quests
         private void PaintQuests()
         {
             ClearQuests();
-            foreach (QuestStatus questStatus in playerQuestList.GetQuestStatuses())
+            foreach (QuestStatus questStatus in playerQuestList.GetActiveQuests())
             {
                 QuestItemUI uiInstance = Instantiate(questPrefab, transform);
                 uiInstance.SetUp(questStatus);

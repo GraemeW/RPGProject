@@ -368,9 +368,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcfed6467e4f2ce4eb24728c1b5c9ff0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detail: {fileID: 4513829635849581355}
   objectivePrefab: {fileID: 6012347513653474196, guid: 72305aae7051db145938feb51f55d8a9,
     type: 3}
   objectivesContainer: {fileID: 682675162645428141}
+  rewards: {fileID: 4726969523881226266}
 --- !u!1 &8204976114662157953
 GameObject:
   m_ObjectHideFlags: 0

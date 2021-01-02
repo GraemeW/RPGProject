@@ -1,5 +1,7 @@
+using RPG.Inventories;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPG.Quests
@@ -11,17 +13,42 @@ namespace RPG.Quests
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
         [SerializeField] string uniqueID = null;
         [SerializeField] string detail = "";
-        [SerializeField] string[] objectives = null;
+        [SerializeField] List<Objective> objectives = new List<Objective>();
+        [SerializeField] List<Reward> rewards = new List<Reward>();
 
         // State
         static Dictionary<string, Quest> questLookupCache;
 
-        // Methods
-        public string GetUniqueID()
+        // Data Structures
+        [System.Serializable]
+        public class Reward
         {
-            return uniqueID;
+            [Min(1)] public int number = 0;
+            public InventoryItem item = null;
         }
 
+        [System.Serializable]
+        public class Objective : ISerializationCallbackReceiver
+        {
+            public string uniqueID = null;
+            public string description = null;
+
+            public Objective(string description)
+            {
+                if (string.IsNullOrWhiteSpace(uniqueID)) { uniqueID = System.Guid.NewGuid().ToString(); }
+                this.description = description;
+            }
+
+            void ISerializationCallbackReceiver.OnAfterDeserialize()
+            {
+                if (string.IsNullOrWhiteSpace(uniqueID)) { uniqueID = System.Guid.NewGuid().ToString(); }
+            }
+            void ISerializationCallbackReceiver.OnBeforeSerialize()
+            {
+            }
+        }
+
+        // Methods
         public static Quest GetFromID(string uniqueID)
         {
             if (questLookupCache == null)
@@ -44,19 +71,39 @@ namespace RPG.Quests
             return questLookupCache[uniqueID];
         }
 
+        public string GetUniqueID()
+        {
+            return uniqueID;
+        }
+
         public string GetDetail()
         {
             return detail;
         }
 
-        public int GetObjectiveCount()
+        public bool HasObjective(string objectiveID)
         {
-            return objectives.Length;
+            return objectives.Select(c => c.uniqueID).ToArray().Contains(objectiveID);
         }
 
-        public string[] GetObjectiveDetails()
+        public int GetObjectiveCount()
+        {
+            return objectives.Count;
+        }
+
+        public IEnumerable<Objective> GetObjective()
         {
             return objectives;
+        }
+
+        public bool HasReward()
+        {
+            return (rewards.Count > 0);
+        }
+
+        public IEnumerable<Reward> GetRewards()
+        {
+            return rewards;
         }
 
         // Private

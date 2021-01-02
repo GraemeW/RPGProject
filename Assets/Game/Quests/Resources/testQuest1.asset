@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e901705cacb9b04f976d4cb73268c9c, type: 3}
   m_Name: testQuest1
   m_EditorClassIdentifier: 
+  uniqueID: d66ec08a-3462-421c-9e99-122058cd0189
   detail: Bite the boy
   objectives:
-  - Bite him
-  - Eat him
+  - uniqueID: 1277cea4-d7ac-440d-8b8e-edb85bbb34ea
+    description: Bite the boy
+  - uniqueID: d83181b9-2c33-4b68-aa69-74c434ddb721
+    description: Eat the boy
+  rewards: []

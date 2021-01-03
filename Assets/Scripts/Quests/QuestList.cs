@@ -24,7 +24,7 @@ namespace RPG.Quests
         public event Action questListUpdated;
 
         // Static
-        static string[] PREDICATES_ARRAY = { "HasQuest", "CompletedQuest" };
+        static string[] PREDICATES_ARRAY = { "HasQuest", "CompletedQuest", "CompletedObjective" };
 
         // Methods
         private void Awake()
@@ -117,6 +117,10 @@ namespace RPG.Quests
             {
                 return PredicateEvaluateQuestCompleted(parameters);
             }
+            else if (predicate == PREDICATES_ARRAY[2])
+            {
+                return PredicateEvaluateObjectiveComplete(parameters);
+            }
             return null;
         }
 
@@ -150,6 +154,16 @@ namespace RPG.Quests
                 }
             }
             return false;
+        }
+
+        private bool PredicateEvaluateObjectiveComplete(string[] parameters)
+        {
+            // Parameter 1:  QuestID
+            QuestStatus questStatus = GetQuestStatus(Quest.GetFromID(parameters[0]));
+            if (questStatus == null) { return false; }
+            // Parameter 2:  ObjectiveID
+            bool objectiveStatus = questStatus.GetStatusForObjectiveID(parameters[1]);
+            return objectiveStatus;
         }
 
         // Save System

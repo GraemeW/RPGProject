@@ -67,10 +67,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 0
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
 --- !u!114 &-3026342515148463864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,10 +242,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 1
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0

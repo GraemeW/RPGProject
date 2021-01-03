@@ -99,10 +99,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 1
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - b77d9af7-3212-4da9-90bc-bdc02db03882
 --- !u!114 &-6518168462132780187
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -173,10 +174,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 0
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - b77d9af7-3212-4da9-90bc-bdc02db03882
 --- !u!114 &-2015268127874966006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,10 +213,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 1
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - b77d9af7-3212-4da9-90bc-bdc02db03882
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,10 +281,11 @@ MonoBehaviour:
   condition:
     and:
     - or:
-      - predicate: CompletedQuest
+      - predicate: CompletedObjective
         negate: 1
         parameters:
         - 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+        - b77d9af7-3212-4da9-90bc-bdc02db03882
 --- !u!114 &7581263622422713498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,7 +300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 1
   speakerName: Jernarld
-  text: Thanks dude, appreciate it
+  text: Thanks dude, appreciate you
   children: []
   rect:
     serializedVersion: 2

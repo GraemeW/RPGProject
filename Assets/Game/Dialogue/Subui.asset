@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: f749ec86-b410-4f32-82a2-b1611329c512
   m_EditorClassIdentifier: 
   speaker: 1
-  speakerName: Default
+  speakerName: Subui
   text: You asked for it!
   children: []
   rect:
@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Name: 99598264-94e4-4254-a551-2a7b0591e18d
   m_EditorClassIdentifier: 
   speaker: 0
-  speakerName: Default
+  speakerName: Richie
   text: Uh, nothing, sorry!
   children: []
   rect:
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Name: 3463153d-76ca-403e-b734-51946553e9f6
   m_EditorClassIdentifier: 
   speaker: 1
-  speakerName: Default
+  speakerName: Subui
   text: The fuck you say to me?
   children:
   - 99598264-94e4-4254-a551-2a7b0591e18d
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 2c830c20-bd60-4e5d-adfb-e852f30b9b6a
   m_EditorClassIdentifier: 
   speaker: 0
-  speakerName: Default
+  speakerName: Richie
   text: Huh?
   children:
   - f749ec86-b410-4f32-82a2-b1611329c512

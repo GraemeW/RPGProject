@@ -484,6 +484,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestHeader
       objectReference: {fileID: 0}
+    - target: {fileID: 1527086790901135894, guid: 58c0b0f073941af4082f34b0233dc1b2,
+        type: 3}
+      propertyPath: m_text
+      value: Quests
+      objectReference: {fileID: 0}
     - target: {fileID: 8362141703946319956, guid: 58c0b0f073941af4082f34b0233dc1b2,
         type: 3}
       propertyPath: m_Pivot.x

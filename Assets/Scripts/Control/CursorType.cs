@@ -9,6 +9,7 @@
         Portal,
         Pickup,
         FullPickup,
-        Dialogue
+        Dialogue,
+        Shop
     }
 }

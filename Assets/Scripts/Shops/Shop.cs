@@ -1,3 +1,4 @@
+using RPG.Control;
 using RPG.Inventories;
 using System;
 using System.Collections;
@@ -6,8 +7,11 @@ using UnityEngine;
 
 namespace RPG.Shops
 {
-    public class Shop : MonoBehaviour
+    public class Shop : MonoBehaviour, IRaycastable
     {
+        // SerializeField
+        [SerializeField] string shopName = "";
+
         // State
         bool isBuying = true;
         ItemCategory itemCategory = ItemCategory.None;
@@ -68,6 +72,31 @@ namespace RPG.Shops
         public void ConfirmTransaction()
         {
 
+        }
+
+        public CursorType GetCursorType()
+        {
+            return CursorType.Shop;
+        }
+
+        public bool HandleRaycast(PlayerController callingController, string interactButtonOne = "Fire1", string interactButtonTwo = "Fire2")
+        {
+            if (Input.GetButtonDown(interactButtonOne))
+            {
+                Shopper shopper = callingController.GetComponent<Shopper>();
+                shopper.SetActiveShop(this);
+            }
+            else if (Input.GetButtonDown(interactButtonTwo))
+            {
+                callingController.InteractWithMovement(true);
+            }
+            return true;
+
+        }
+
+        public string GetShopName()
+        {
+            return shopName;
         }
     }
 }

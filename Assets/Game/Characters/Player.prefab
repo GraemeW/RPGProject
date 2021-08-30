@@ -65,6 +65,9 @@ MonoBehaviour:
   - type: 7
     texture: {fileID: 2800000, guid: 96d4bfdb0d6d8c042bf8fccf6524d239, type: 3}
     hotspot: {x: 0, y: 0}
+  - type: 8
+    texture: {fileID: 2800000, guid: f8c873f1e53e83f4aabf342d6be1dfc3, type: 3}
+    hotspot: {x: 0, y: 0}
   raycastRadius: 0.6
   isEnabled: 1
 --- !u!114 &1528922170823987441
@@ -104,6 +107,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventorySize: 20
+--- !u!114 &6008636884261111581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3428702427824993763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5d4de41e47a0847aca049fc815bb4a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6286201982833024999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,11 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d536cc4b80e3b0344b19c19b078c5b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questStatuses:
-  - quest: {fileID: 11400000, guid: 48dc5ca018395b4488e350220f28f12f, type: 2}
-    completedObjective: 000000
-  - quest: {fileID: 11400000, guid: 998fcbfc565671945b07c6d186bc1aac, type: 2}
-    completedObjective: 0000
 --- !u!1001 &887498608397665829
 PrefabInstance:
   m_ObjectHideFlags: 0

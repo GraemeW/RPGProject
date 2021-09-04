@@ -9,7 +9,12 @@ namespace RPG.UI.Shops
     public class ShopUI : MonoBehaviour
     {
         // Tunables
+        [Header("Hookups")]
         [SerializeField] TMP_Text shopNameField = null;
+        [SerializeField] Transform listRoot = null;
+
+        [Header("Prefabs")]
+        [SerializeField] RowUI rowPrefab = null;
 
         // State
         Shop currentShop = null;
@@ -59,6 +64,21 @@ namespace RPG.UI.Shops
             if (currentShop == null) { return; }
 
             shopNameField.text = currentShop.GetShopName();
+
+            RefreshUI();
+        }
+
+        private void RefreshUI()
+        {
+            foreach (Transform child in listRoot)
+            {
+                Destroy(child.gameObject);
+            }
+            foreach (ShopItem shopItem in currentShop.GetFilteredItems())
+            {
+                RowUI rowUI = Instantiate(rowPrefab, listRoot);
+                rowUI.Setup(shopItem);
+            }
         }
 
         public void ExitShop()

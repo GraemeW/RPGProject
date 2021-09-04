@@ -20,18 +20,12 @@ namespace RPG.Shops
         // Events
         public event Action onChange;
 
-        // Data Structures
-        public class ShopItem
-        {
-            InventoryItem inventoryItem = null;
-            int availability = 0;
-            float price = 0f;
-            int quantityInTransaction = 0;
-        }
-
         public IEnumerable<ShopItem> GetFilteredItems()
         {
-            return null;
+            // Temp code for test
+            yield return new ShopItem(InventoryItem.GetFromID("94d6d82e-1e7c-42d9-ae78-bfc74d0233a3"), 10, 5f, 0);
+            yield return new ShopItem(InventoryItem.GetFromID("421daf64-c270-4f18-a928-986f23b8b5d2"), 20, 7f, 0);
+            yield return new ShopItem(InventoryItem.GetFromID("e8a90b91-9994-4aa0-8d75-b7f3f9bcc12c"), 30, 15f, 0);
         }
 
         public void SelectFilter(ItemCategory itemCategory)

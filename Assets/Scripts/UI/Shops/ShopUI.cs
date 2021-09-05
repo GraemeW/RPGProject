@@ -12,6 +12,7 @@ namespace RPG.UI.Shops
         [Header("Hookups")]
         [SerializeField] TMP_Text shopNameField = null;
         [SerializeField] Transform listRoot = null;
+        [SerializeField] TMP_Text totalField = null;
 
         [Header("Prefabs")]
         [SerializeField] RowUI rowPrefab = null;
@@ -81,6 +82,8 @@ namespace RPG.UI.Shops
                 RowUI rowUI = Instantiate(rowPrefab, listRoot);
                 rowUI.Setup(currentShop, shopItem);
             }
+
+            totalField.text = $"${currentShop.GetTransactionTotal():N2}";
         }
 
         public void ConfirmTransaction()

@@ -16,9 +16,11 @@ namespace RPG.Shops
         // State
         bool isBuying = true;
         ItemCategory itemCategory = ItemCategory.None;
-        float total = 0f;
         Dictionary<InventoryItem, int> transaction = new Dictionary<InventoryItem, int>();
+        
+        // Cached References
         Shopper shopper = null;
+        Purse purse = null;
 
         // Events
         public event Action onChange;
@@ -35,9 +37,16 @@ namespace RPG.Shops
         public void SetShopper(Shopper shopper)
         {
             this.shopper = shopper;
+            if (shopper != null) { purse = shopper.GetComponent<Purse>(); }
+            else { purse = null; }
         }
 
         public IEnumerable<ShopItem> GetFilteredItems()
+        {
+            return GetAllItems();
+        }
+
+        public IEnumerable<ShopItem> GetAllItems()
         {
             List<InventoryItem> inventoryItemsOnDeck = new List<InventoryItem>();
             foreach (StockItemConfig stockItemConfig in stockConfiguration)
@@ -109,6 +118,11 @@ namespace RPG.Shops
 
         public float GetTransactionTotal()
         {
+            float total = 0f;
+            foreach (ShopItem shopItem in GetAllItems())
+            {
+                total += shopItem.GetQuantityInTransaction() * shopItem.GetPrice();
+            }
             return total;
         }
 
@@ -122,17 +136,19 @@ namespace RPG.Shops
             if (shopper == null) { return; }
             if (!shopper.TryGetComponent<Inventory>(out Inventory inventory)) { return; }
 
-            Dictionary<InventoryItem, int> transactionSnapshot = new Dictionary<InventoryItem, int>(transaction);
-            foreach (KeyValuePair<InventoryItem, int> transactionItem in transactionSnapshot)
+            foreach (ShopItem shopItem in GetAllItems())
             {
-                int quantity = transactionItem.Value;
-                if (quantity <= 0) { continue; }
+                InventoryItem inventoryItem = shopItem.GetInventoryItem();
+                int quantity = shopItem.GetQuantityInTransaction();
 
-                InventoryItem inventoryItem = transactionItem.Key;
                 for (int i = 0; i < quantity; i++)
                 {
+                    float price = shopItem.GetPrice();
+                    if (purse == null || purse.GetBalance() < price) { break; }
+
                     if (inventory.AddToFirstEmptySlot(inventoryItem, 1))
                     {
+                        purse.UpdateBalance(-price);
                         AddToTransaction(inventoryItem, -1);
                         AddToInitialStock(inventoryItem, -1);
                     }

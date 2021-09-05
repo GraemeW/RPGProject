@@ -20,6 +20,11 @@ namespace RPG.Shops
             this.quantityInTransaction = quantityInTransaction;
         }
 
+        public InventoryItem GetInventoryItem()
+        {
+            return inventoryItem;
+        }
+
         public string GetName()
         {
             return inventoryItem.GetDisplayName();

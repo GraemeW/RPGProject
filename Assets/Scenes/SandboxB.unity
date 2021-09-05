@@ -1999,6 +1999,63 @@ PrefabInstance:
       propertyPath: shopName
       value: Shoop Dere It Is
       objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].price
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].price
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].availability
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].initialStock
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].availability
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].initialStock
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 4d742d79699b51c43b2c0d7c74dd2d18,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 140a30683f5a7ef428abc3cfedaa69ee,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].buyingDiscountFraction
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2950225479591524472, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -4233,6 +4290,146 @@ PrefabInstance:
         type: 3}
       propertyPath: shopName
       value: Mr. Bungo's Sweet Shop
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: shopConfiguration.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].price
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].price
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[2].price
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[3].price
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].price
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].availability
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].initialStock
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].availability
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].initialStock
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[2].availability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[2].initialStock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[3].availability
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[3].initialStock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].availability
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].initialStock
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: eb2982554455e7d438eea00d3cb0ce90,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 4d742d79699b51c43b2c0d7c74dd2d18,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[2].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: fb1fe4758bbbfb04fa98c58bf818da13,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[3].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: fef4a0558b4b8844c9bb81db05dd840d,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: e28e7773a15c13b48b971aeda284b819,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[0].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[1].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[2].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[3].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].buyingDiscountFraction
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950225479591524472, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
@@ -10070,7 +10267,7 @@ PrefabInstance:
     - target: {fileID: 6516840799684839471, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -586.5
+      value: -586.4999
       objectReference: {fileID: 0}
     - target: {fileID: 6516997514430147175, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}

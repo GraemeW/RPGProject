@@ -27,6 +27,8 @@ namespace RPG.Inventories
         [SerializeField] Pickup pickup = null;
         [Tooltip("If true, multiple items of this type can be stacked in the same inventory slot.")]
         [SerializeField] bool stackable = false;
+        [Tooltip("Nominal pricing at shops sans discount")]
+        [SerializeField] float price = 0f;
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
@@ -101,6 +103,11 @@ namespace RPG.Inventories
         public string GetDescription()
         {
             return description;
+        }
+
+        public float GetPrice()
+        {
+            return price;
         }
 
         // PRIVATE

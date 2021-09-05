@@ -26,11 +26,11 @@ namespace RPG.UI.Shops
         {
             SetupShopper(true);
             ShopChanged();
-
         }
 
         private void OnDestroy()
         {
+            if (currentShop != null) { currentShop.onChange -= RefreshUI; }
             SetupShopper(false);
         }
 
@@ -58,11 +58,13 @@ namespace RPG.UI.Shops
 
         private void ShopChanged()
         {
+            if (currentShop != null) { currentShop.onChange -= RefreshUI; }
+
             currentShop = shopper.GetActiveShop();
             gameObject.SetActive(currentShop != null);
 
             if (currentShop == null) { return; }
-
+            currentShop.onChange += RefreshUI;
             shopNameField.text = currentShop.GetShopName();
 
             RefreshUI();
@@ -77,7 +79,7 @@ namespace RPG.UI.Shops
             foreach (ShopItem shopItem in currentShop.GetFilteredItems())
             {
                 RowUI rowUI = Instantiate(rowPrefab, listRoot);
-                rowUI.Setup(shopItem);
+                rowUI.Setup(currentShop, shopItem);
             }
         }
 

@@ -83,6 +83,11 @@ namespace RPG.UI.Shops
             }
         }
 
+        public void ConfirmTransaction()
+        {
+            currentShop.ConfirmTransaction();
+        }
+
         public void ExitShop()
         {
             shopper.SetActiveShop(null);

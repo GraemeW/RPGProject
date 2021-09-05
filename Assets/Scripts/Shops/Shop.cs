@@ -18,6 +18,7 @@ namespace RPG.Shops
         ItemCategory itemCategory = ItemCategory.None;
         float total = 0f;
         Dictionary<InventoryItem, int> transaction = new Dictionary<InventoryItem, int>();
+        Shopper shopper = null;
 
         // Events
         public event Action onChange;
@@ -29,6 +30,11 @@ namespace RPG.Shops
             public InventoryItem inventoryItem;
             public int initialStock;
             [Range(0f, 2f)] public float buyingDiscountFraction = 1.0f;
+        }
+
+        public void SetShopper(Shopper shopper)
+        {
+            this.shopper = shopper;
         }
 
         public IEnumerable<ShopItem> GetFilteredItems()
@@ -113,7 +119,42 @@ namespace RPG.Shops
 
         public void ConfirmTransaction()
         {
+            if (shopper == null) { return; }
+            if (!shopper.TryGetComponent<Inventory>(out Inventory inventory)) { return; }
 
+            Dictionary<InventoryItem, int> transactionSnapshot = new Dictionary<InventoryItem, int>(transaction);
+            foreach (KeyValuePair<InventoryItem, int> transactionItem in transactionSnapshot)
+            {
+                int quantity = transactionItem.Value;
+                if (quantity <= 0) { continue; }
+
+                InventoryItem inventoryItem = transactionItem.Key;
+                for (int i = 0; i < quantity; i++)
+                {
+                    if (inventory.AddToFirstEmptySlot(inventoryItem, 1))
+                    {
+                        AddToTransaction(inventoryItem, -1);
+                        AddToInitialStock(inventoryItem, -1);
+                    }
+                }
+            }
+
+            if (onChange != null)
+            {
+                onChange.Invoke();
+            }
+        }
+
+        private void AddToInitialStock(InventoryItem inventoryItem, int quantity)
+        {
+            foreach (StockItemConfig stockItemConfig in stockConfiguration)
+            {
+                string itemID = stockItemConfig.inventoryItem.GetItemID();
+                if (inventoryItem.GetItemID().Equals(itemID))
+                {
+                    stockItemConfig.initialStock += quantity;
+                }
+            }
         }
 
         public CursorType GetCursorType()

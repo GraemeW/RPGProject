@@ -1,5 +1,6 @@
 using RPG.Saving;
 using RPG.Utils;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,16 @@ namespace RPG.Inventories
 
         // State
         LazyValue<float> balance;
+
+        // Event
+        public event Action onChange;
+
+        public static Purse GetPlayerPurse()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) { return null; }
+            return player.GetComponent<Purse>();
+        }
 
         private void Awake()
         {
@@ -32,7 +43,11 @@ namespace RPG.Inventories
         public void UpdateBalance(float amount)
         {
             balance.value += amount;
-            UnityEngine.Debug.Log($"Balance: {balance.value}");
+
+            if (onChange != null)
+            {
+                onChange.Invoke();
+            }
         }
 
         public object CaptureState()
@@ -43,6 +58,7 @@ namespace RPG.Inventories
         public void RestoreState(object state)
         {
             balance.value = (float)state;
+            UpdateBalance(0f);
         }
     }
 }

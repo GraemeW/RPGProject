@@ -15,6 +15,7 @@ namespace RPG.UI.Shops
         [SerializeField] Transform listRoot = null;
         [SerializeField] TMP_Text totalField = null;
         [SerializeField] Button confirmButton = null;
+        [SerializeField] TMP_Text switchButtonText = null;
         [SerializeField] TMP_Text confirmButtonText = null;
 
         [Header("Prefabs")]
@@ -22,6 +23,10 @@ namespace RPG.UI.Shops
 
         [Header("Settings")]
         [SerializeField] Color cannotTransactColor = Color.red;
+        [SerializeField] string switchBuyText = "Switch to buying";
+        [SerializeField] string switchSellText = "Switch to selling";
+        [SerializeField] string modeBuyText = "Buy";
+        [SerializeField] string modeSellText = "Sell";
 
         // State
         Shop currentShop = null;
@@ -95,15 +100,34 @@ namespace RPG.UI.Shops
 
             totalField.color = currentShop.HasSufficientFunds() ? originalTotalTextColor : cannotTransactColor;
             confirmButton.interactable = currentShop.CanTransact(); ;
-
+            UpdateConfirmButtonText();
         }
 
-        public void ConfirmTransaction()
+        public void ConfirmTransaction() // Called via Unity Events
         {
             currentShop.ConfirmTransaction();
         }
 
-        public void ExitShop()
+        public void SwitchMode() // Called via Unity Events
+        {
+            currentShop.SelectMode(!currentShop.IsBuyingMode());
+        }
+
+        private void UpdateConfirmButtonText()
+        {
+            if (currentShop.IsBuyingMode())
+            {
+                switchButtonText.text = switchSellText;
+                confirmButtonText.text = modeBuyText;
+            }
+            else
+            {
+                switchButtonText.text = switchBuyText;
+                confirmButtonText.text = modeSellText;
+            }
+        }
+
+        public void ExitShop() // Called via Unity Events
         {
             shopper.SetActiveShop(null);
         }

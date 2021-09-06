@@ -2,6 +2,8 @@
 using UnityEngine;
 using RPG.Saving;
 using RPG.Core;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace RPG.Inventories
 {
@@ -51,6 +53,22 @@ namespace RPG.Inventories
         public bool HasSpaceFor(InventoryItem item)
         {
             return FindSlot(item) >= 0;
+        }
+
+        public bool HasSpaceFor(IEnumerable<InventoryItem> items)
+        {
+            int occupiedSlots = slots.Count(x => x.item != null);
+            List<InventoryItem> stackedItems = new List<InventoryItem>();
+            foreach (InventoryItem inventoryItem in items)
+            {
+                if (FindStack(inventoryItem) < 0 && !stackedItems.Contains(inventoryItem))
+                {
+                    occupiedSlots++;
+
+                    if (inventoryItem.IsStackable()) { stackedItems.Add(inventoryItem); }
+                }
+            }
+            return occupiedSlots <= inventorySize;
         }
 
         /// <summary>
@@ -114,6 +132,14 @@ namespace RPG.Inventories
         public int GetNumberInSlot(int slot)
         {
             return slots[slot].number;
+        }
+
+        /// <summary>
+        /// Get the total number of a given inventory item.
+        /// </summary>
+        public int GetTotalQuantity(InventoryItem inventoryItem)
+        {
+            return slots.Where(x => x.item != null).Where(x => x.item.GetItemID().Equals(inventoryItem.GetItemID())).Sum(x => x.number);
         }
 
         /// <summary>

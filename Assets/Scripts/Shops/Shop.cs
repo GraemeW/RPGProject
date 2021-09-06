@@ -13,6 +13,7 @@ namespace RPG.Shops
     {
         // SerializeField
         [SerializeField] string shopName = "";
+        [SerializeField] float sellingDiscount = 0.5f;
         [SerializeField] StockItemConfig[] stockConfiguration = null;
 
         // State
@@ -77,23 +78,40 @@ namespace RPG.Shops
             foreach (StockItemConfig stockItemConfig in stockConfiguration)
             {
                 InventoryItem inventoryItem = stockItemConfig.inventoryItem;
-                if (inventoryItemsOnDeck.Contains(inventoryItem)) { continue; }
+                if (inventoryItemsOnDeck.Contains(inventoryItem)) { continue; } // Safety against bad input (multiple stock entry copies)
 
                 inventoryItemsOnDeck.Add(inventoryItem);
                 GetStock(inventoryItem, out int currentStock, out int transactionStock);
-                yield return new ShopItem(inventoryItem, currentStock, stockItemConfig.inventoryItem.GetPrice() * stockItemConfig.buyingDiscountFraction, transactionStock);
+                float price = GetPrice(stockItemConfig); 
+
+                yield return new ShopItem(inventoryItem, currentStock, price, transactionStock);
             }
         }
 
         private void GetStock(InventoryItem inventoryItem, out int currentStock, out int transactionStock)
         {
-            currentStock = stock[inventoryItem];
+            if (IsBuyingMode())
+            {
+                currentStock = stock[inventoryItem];
+            }
+            else
+            {
+                currentStock = inventory.GetTotalQuantity(inventoryItem);
+            }
+
             transactionStock = 0;
             if (transaction.TryGetValue(inventoryItem, out int pendingTransaction))
             {
                 currentStock -= pendingTransaction;
                 transactionStock = pendingTransaction;
             }
+        }
+
+        private float GetPrice(StockItemConfig stockItemConfig)
+        {
+            float price = stockItemConfig.inventoryItem.GetPrice() * stockItemConfig.buyingDiscountFraction;
+            if (!IsBuyingMode()) { price *= sellingDiscount; }
+            return price;
         }
 
         public void SelectFilter(ItemCategory itemCategory)
@@ -109,6 +127,12 @@ namespace RPG.Shops
         public void SelectMode(bool isBuying)
         {
             this.isBuying = isBuying;
+            transaction.Clear();
+
+            if (onChange != null)
+            {
+                onChange.Invoke();
+            }
         }
 
         public bool IsBuyingMode()
@@ -118,9 +142,8 @@ namespace RPG.Shops
 
         public void UpdateTransaction(InventoryItem inventoryItem, int quantity)
         {
-            int currentQuantity = 0;
-            bool keyExists = transaction.TryGetValue(inventoryItem, out currentQuantity);
-            int updatedQuantity = Mathf.Clamp(currentQuantity + quantity, 0, stock[inventoryItem]);
+            GetStock(inventoryItem, out int currentStock, out int transactionStock);
+            int updatedQuantity = Mathf.Clamp(transactionStock + quantity, 0, currentStock);
 
             transaction[inventoryItem] = updatedQuantity;
 
@@ -142,22 +165,29 @@ namespace RPG.Shops
 
         public bool CanTransact()
         {
-            bool hasTransaction = transaction.Any(x => x.Value > 0);
+            bool hasTransaction = HasAvailableTransaction();
             bool hasFunds = HasSufficientFunds();
-            bool hasSpace = true;
-            foreach (InventoryItem inventoryItem in transaction.Keys)
-            {
-                if (!inventory.HasSpaceFor(inventoryItem))
-                {
-                    hasSpace = false;
-                    break;
-                }
-            }
+            bool hasSpace = HasSufficientInventorySpace();
+
             return hasTransaction && hasFunds && hasSpace;
+        }
+
+        public bool HasAvailableTransaction()
+        {
+            return transaction.Any(x => x.Value > 0);
+        }
+
+        public bool HasSufficientInventorySpace()
+        {
+            if (inventory == null) { return false; }
+
+            return inventory.HasSpaceFor(transaction.SelectMany(x => Enumerable.Repeat(x.Key, x.Value)));
         }
 
         public bool HasSufficientFunds()
         {
+            if (purse == null) { return false; }
+
             return GetTransactionTotal() <= purse.GetBalance();
         }
 

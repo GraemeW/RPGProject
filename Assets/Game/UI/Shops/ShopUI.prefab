@@ -439,10 +439,15 @@ MonoBehaviour:
   listRoot: {fileID: 190799331736176100}
   totalField: {fileID: 7407964765601595822}
   confirmButton: {fileID: 692082474388185691}
+  switchButtonText: {fileID: 4932817981587883187}
   confirmButtonText: {fileID: 2988663103146808566}
   rowPrefab: {fileID: 916034252099128405, guid: f43503ab8de94344ebe97df5c0a58126,
     type: 3}
   cannotTransactColor: {r: 0.9433962, g: 0.493058, b: 0.493058, a: 1}
+  switchBuyText: Switch to buying
+  switchSellText: Switch to selling
+  modeBuyText: Buy
+  modeSellText: Sell
 --- !u!114 &4308832202016916466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,8 +640,35 @@ PrefabInstance:
       propertyPath: m_text
       value: Switch To Selling
       objectReference: {fileID: 0}
+    - target: {fileID: 7324066021212427450, guid: b05d7eb8477794342abbc3df7254cc62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2377841098606842461}
+    - target: {fileID: 7324066021212427450, guid: b05d7eb8477794342abbc3df7254cc62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchMode
+      objectReference: {fileID: 0}
+    - target: {fileID: 7324066021212427450, guid: b05d7eb8477794342abbc3df7254cc62,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: RPG.UI.Shops.ShopUI, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b05d7eb8477794342abbc3df7254cc62, type: 3}
+--- !u!114 &4932817981587883187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4992054557928301079, guid: b05d7eb8477794342abbc3df7254cc62,
+    type: 3}
+  m_PrefabInstance: {fileID: 86611805003785892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &1771357414033334090 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1848328337872468462, guid: b05d7eb8477794342abbc3df7254cc62,

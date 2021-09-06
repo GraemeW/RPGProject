@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace RPG.UI.Shops
 {
@@ -13,12 +14,18 @@ namespace RPG.UI.Shops
         [SerializeField] TMP_Text shopNameField = null;
         [SerializeField] Transform listRoot = null;
         [SerializeField] TMP_Text totalField = null;
+        [SerializeField] Button confirmButton = null;
+        [SerializeField] TMP_Text confirmButtonText = null;
 
         [Header("Prefabs")]
         [SerializeField] RowUI rowPrefab = null;
 
+        [Header("Settings")]
+        [SerializeField] Color cannotTransactColor = Color.red;
+
         // State
         Shop currentShop = null;
+        Color originalTotalTextColor;
 
         // Cached References
         Shopper shopper = null;
@@ -27,6 +34,7 @@ namespace RPG.UI.Shops
         {
             SetupShopper(true);
             ShopChanged();
+            originalTotalTextColor = totalField.color;
         }
 
         private void OnDestroy()
@@ -84,6 +92,10 @@ namespace RPG.UI.Shops
             }
 
             totalField.text = $"${currentShop.GetTransactionTotal():N2}";
+
+            totalField.color = currentShop.HasSufficientFunds() ? originalTotalTextColor : cannotTransactColor;
+            confirmButton.interactable = currentShop.CanTransact(); ;
+
         }
 
         public void ConfirmTransaction()

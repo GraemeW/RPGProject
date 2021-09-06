@@ -36,14 +36,14 @@ namespace RPG.UI.Shops
         {
             if (currentShop == null) { return; }
 
-            currentShop.AddToTransaction(shopItem.GetInventoryItem(), 1);
+            currentShop.UpdateTransaction(shopItem.GetInventoryItem(), 1);
         }
 
         public void Remove()
         {
             if (currentShop == null) { return; }
 
-            currentShop.AddToTransaction(shopItem.GetInventoryItem(), -1);
+            currentShop.UpdateTransaction(shopItem.GetInventoryItem(), -1);
         }
     }
 }

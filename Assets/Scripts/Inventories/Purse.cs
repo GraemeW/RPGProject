@@ -58,7 +58,6 @@ namespace RPG.Inventories
         public void RestoreState(object state)
         {
             balance.value = (float)state;
-            UpdateBalance(0f);
         }
     }
 }

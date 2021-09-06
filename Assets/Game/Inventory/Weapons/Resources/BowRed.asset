@@ -18,15 +18,15 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 5d7061fc7da05ce44add317708ec7215, type: 3}
   pickup: {fileID: 2129219397557439132, guid: 8f20425e845de8947a431c48f395986e, type: 3}
   stackable: 0
-  price: 20
+  price: 350
   allowedEquipLocation: 5
   weaponPrefab: {fileID: 6593574613740710709, guid: 2f32df20a6e602446ba5ee503460e05e,
     type: 3}
   animatorOverride: {fileID: 22100000, guid: 35cfbbf747be90b40a343850367fecd3, type: 2}
   isRightHanded: 0
-  weaponRange: 15
-  timeBetweenAttacks: 1
-  weaponDamage: 5
+  weaponRange: 25
+  timeBetweenAttacks: 0.5
+  weaponDamage: 10
   weaponPercentageBonus: 10
   projectilePrefab: {fileID: 7987602205847113296, guid: 046b46e3cf4769443863036f87cea02b,
     type: 3}

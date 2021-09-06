@@ -18,6 +18,7 @@ namespace RPG.UI.Inventories
         private void Start()
         {
             SetupPlayerPurse(true);
+            RefreshUI();
         }
 
         private void OnEnable()

@@ -17,6 +17,7 @@ namespace RPG.UI.Shops
         [SerializeField] Button confirmButton = null;
         [SerializeField] TMP_Text switchButtonText = null;
         [SerializeField] TMP_Text confirmButtonText = null;
+        [SerializeField] FilterButtonUI[] filterButtons = null;
 
         [Header("Prefabs")]
         [SerializeField] RowUI rowPrefab = null;
@@ -77,7 +78,12 @@ namespace RPG.UI.Shops
             currentShop = shopper.GetActiveShop();
             gameObject.SetActive(currentShop != null);
 
+            foreach (FilterButtonUI filterButton in filterButtons)
+            {
+                filterButton.SetShop(currentShop);
+            }
             if (currentShop == null) { return; }
+
             currentShop.onChange += RefreshUI;
             shopNameField.text = currentShop.GetShopName();
 
@@ -86,6 +92,11 @@ namespace RPG.UI.Shops
 
         private void RefreshUI()
         {
+            foreach (FilterButtonUI filterButton in filterButtons)
+            {
+                filterButton.RefreshUI();
+            }
+
             foreach (Transform child in listRoot)
             {
                 Destroy(child.gameObject);

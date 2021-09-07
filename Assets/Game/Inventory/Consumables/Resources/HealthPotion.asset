@@ -19,6 +19,7 @@ MonoBehaviour:
   pickup: {fileID: 5379905000795615307, guid: 502a6a15ba914114283d475d34270ea0, type: 3}
   stackable: 1
   price: 5
+  itemCategory: 3
   consumable: 1
   stat: 0
   statIncrement: 50

@@ -29,6 +29,8 @@ namespace RPG.Inventories
         [SerializeField] bool stackable = false;
         [Tooltip("Nominal pricing at shops sans discount")]
         [SerializeField] float price = 0f;
+        [Tooltip("Type of item for shops")]
+        [SerializeField] ItemCategory itemCategory = ItemCategory.None;
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
@@ -108,6 +110,11 @@ namespace RPG.Inventories
         public float GetPrice()
         {
             return price;
+        }
+
+        public ItemCategory GetCategory()
+        {
+            return itemCategory;
         }
 
         // PRIVATE

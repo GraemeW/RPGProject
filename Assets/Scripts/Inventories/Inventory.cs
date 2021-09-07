@@ -104,6 +104,28 @@ namespace RPG.Inventories
         }
 
         /// <summary>
+        /// Attempt to remove item from first slot found.
+        /// </summary>
+        /// <returns>Number of successfully removed items</returns>
+        public int RemoveItems(InventoryItem item, int number)
+        {
+            int quantity = GetQuantity(item);
+            if (quantity < number) { return 0; }
+
+            int successfulRemoves = 0;
+            for (int i = 0; i < number; i++)
+            {
+                int itemSlot = FindOccupiedSlot(item);
+                if (itemSlot < 0) { return successfulRemoves; }
+
+                RemoveFromSlot(itemSlot, 1);
+                successfulRemoves++;
+            }
+
+            return successfulRemoves;
+        }
+
+        /// <summary>
         /// Is there an instance of the item in the inventory?
         /// </summary>
         public bool HasItem(InventoryItem item)
@@ -137,9 +159,9 @@ namespace RPG.Inventories
         /// <summary>
         /// Get the total number of a given inventory item.
         /// </summary>
-        public int GetTotalQuantity(InventoryItem inventoryItem)
+        public int GetQuantity(InventoryItem inventoryItem)
         {
-            return slots.Where(x => x.item != null).Where(x => x.item.GetItemID().Equals(inventoryItem.GetItemID())).Sum(x => x.number);
+            return slots.Where(x => x.item != null).Where(x => object.ReferenceEquals(x.item,inventoryItem)).Sum(x => x.number);
         }
 
         /// <summary>
@@ -196,6 +218,22 @@ namespace RPG.Inventories
         private void Awake()
         {
             slots = new InventorySlot[inventorySize];
+        }
+
+        /// <summary>
+        /// Find a slot that is occupied with the given item.
+        /// </summary>
+        /// <returns>-1 if no slot is found.</returns>
+        private int FindOccupiedSlot(InventoryItem inventoryItem)
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (object.ReferenceEquals(slots[i].item, inventoryItem))
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         /// <summary>

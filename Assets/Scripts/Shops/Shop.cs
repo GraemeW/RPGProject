@@ -44,6 +44,16 @@ namespace RPG.Shops
             InitializeStockEntries();
         }
 
+        public string GetShopName()
+        {
+            return shopName;
+        }
+
+        public bool IsBuyingMode()
+        {
+            return isBuying;
+        }
+
         private void InitializeStockEntries()
         {
             foreach (StockItemConfig stockItemConfig in stockConfiguration)
@@ -82,36 +92,11 @@ namespace RPG.Shops
 
                 inventoryItemsOnDeck.Add(inventoryItem);
                 GetStock(inventoryItem, out int currentStock, out int transactionStock);
+                int modifiedCurrentStock = currentStock - transactionStock;
                 float price = GetPrice(stockItemConfig); 
 
-                yield return new ShopItem(inventoryItem, currentStock, price, transactionStock);
+                yield return new ShopItem(inventoryItem, modifiedCurrentStock, price, transactionStock);
             }
-        }
-
-        private void GetStock(InventoryItem inventoryItem, out int currentStock, out int transactionStock)
-        {
-            if (IsBuyingMode())
-            {
-                currentStock = stock[inventoryItem];
-            }
-            else
-            {
-                currentStock = inventory.GetTotalQuantity(inventoryItem);
-            }
-
-            transactionStock = 0;
-            if (transaction.TryGetValue(inventoryItem, out int pendingTransaction))
-            {
-                currentStock -= pendingTransaction;
-                transactionStock = pendingTransaction;
-            }
-        }
-
-        private float GetPrice(StockItemConfig stockItemConfig)
-        {
-            float price = stockItemConfig.inventoryItem.GetPrice() * stockItemConfig.buyingDiscountFraction;
-            if (!IsBuyingMode()) { price *= sellingDiscount; }
-            return price;
         }
 
         public void SelectFilter(ItemCategory itemCategory)
@@ -135,12 +120,7 @@ namespace RPG.Shops
             }
         }
 
-        public bool IsBuyingMode()
-        {
-            return isBuying;
-        }
-
-        public void UpdateTransaction(InventoryItem inventoryItem, int quantity)
+        public void AddToTransaction(InventoryItem inventoryItem, int quantity)
         {
             GetStock(inventoryItem, out int currentStock, out int transactionStock);
             int updatedQuantity = Mathf.Clamp(transactionStock + quantity, 0, currentStock);
@@ -169,7 +149,14 @@ namespace RPG.Shops
             bool hasFunds = HasSufficientFunds();
             bool hasSpace = HasSufficientInventorySpace();
 
-            return hasTransaction && hasFunds && hasSpace;
+            if (IsBuyingMode())
+            {
+                return hasTransaction && hasFunds && hasSpace;
+            }
+            else
+            {
+                return hasTransaction;
+            }
         }
 
         public bool HasAvailableTransaction()
@@ -197,19 +184,17 @@ namespace RPG.Shops
 
             foreach (ShopItem shopItem in GetAllItems())
             {
-                InventoryItem inventoryItem = shopItem.GetInventoryItem();
                 int quantity = shopItem.GetQuantityInTransaction();
 
                 for (int i = 0; i < quantity; i++)
                 {
-                    float price = shopItem.GetPrice();
-                    if (purse == null || purse.GetBalance() < price) { break; }
-
-                    if (inventory.AddToFirstEmptySlot(inventoryItem, 1))
+                    if (IsBuyingMode())
                     {
-                        UpdateTransaction(inventoryItem, -1);
-                        UpdateStock(inventoryItem, -1);
-                        purse.UpdateBalance(-price);
+                        Buy(shopItem);
+                    }
+                    else
+                    {
+                        Sell(shopItem);
                     }
                 }
             }
@@ -220,6 +205,54 @@ namespace RPG.Shops
             }
         }
 
+        private void Buy(ShopItem shopItem)
+        {
+            InventoryItem inventoryItem = shopItem.GetInventoryItem();
+            float price = shopItem.GetPrice();
+
+            if (purse == null || purse.GetBalance() < price) { return; }
+            if (inventory == null) { return; }
+
+            if (inventory.AddToFirstEmptySlot(inventoryItem, 1))
+            {
+                AddToTransaction(inventoryItem, -1);
+                UpdateStock(inventoryItem, -1);
+                purse.UpdateBalance(-price);
+            }
+        }
+
+        private void Sell(ShopItem shopItem)
+        {
+            InventoryItem inventoryItem = shopItem.GetInventoryItem();
+            float price = shopItem.GetPrice();
+
+            if (purse == null) { return; }
+            if (inventory == null) { return; }
+
+            if (inventory.RemoveItems(inventoryItem, 1) == 1)
+            {
+                AddToTransaction(inventoryItem, -1);
+                UpdateStock(inventoryItem, 1);
+                purse.UpdateBalance(price);
+            }
+        }
+
+        private void GetStock(InventoryItem inventoryItem, out int currentStock, out int transactionStock)
+        {
+            if (IsBuyingMode())
+            {
+                currentStock = stock[inventoryItem];
+            }
+            else
+            {
+                if (inventory == null) { currentStock = 0; }
+                currentStock = inventory.GetQuantity(inventoryItem);
+            }
+
+            transactionStock = 0;
+            transaction.TryGetValue(inventoryItem, out transactionStock);
+        }
+
         private void UpdateStock(InventoryItem inventoryItem, int quantity)
         {
             if (stock.ContainsKey(inventoryItem))
@@ -228,6 +261,14 @@ namespace RPG.Shops
             }
         }
 
+        private float GetPrice(StockItemConfig stockItemConfig)
+        {
+            float price = stockItemConfig.inventoryItem.GetPrice() * stockItemConfig.buyingDiscountFraction;
+            if (!IsBuyingMode()) { price *= sellingDiscount; }
+            return price;
+        }
+
+        // Interfaces
         public CursorType GetCursorType()
         {
             return CursorType.Shop;
@@ -246,11 +287,6 @@ namespace RPG.Shops
             }
             return true;
 
-        }
-
-        public string GetShopName()
-        {
-            return shopName;
         }
 
         [System.Serializable]

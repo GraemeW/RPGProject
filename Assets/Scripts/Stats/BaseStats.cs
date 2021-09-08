@@ -98,6 +98,11 @@ namespace RPG.Stats
             return progression.GetStat(stat, characterClass, level);
         }
 
+        public float GetNumberOfLevels()
+        {
+            return progression.GetLevels(Stat.ExperienceToLevelUp, characterClass);
+        }
+
         public int GetLevel()
         {
             return currentLevel.value;

@@ -32,6 +32,14 @@ namespace RPG.Stats
             pointsToNextLevel = new LazyValue<float>(GetInitialPointsToNextLevel);
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                GainExperience(baseStats.GetStat(Stat.ExperienceToLevelUp));
+            }
+        }
+
         private float GetInitialPoints()
         {
             return initialExperiencePoints;
@@ -74,6 +82,8 @@ namespace RPG.Stats
 
         public int GetPercentage()
         {
+            if (baseStats.GetLevel() > baseStats.GetNumberOfLevels()) { return 100; }
+
             int lastLevel = baseStats.GetLevel() - 1;
             float pointsToLastLevel = 0f;
             if (lastLevel > 0) { pointsToLastLevel = baseStats.GetStatForLevel(Stat.ExperienceToLevelUp, lastLevel); }

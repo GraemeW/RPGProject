@@ -1,6 +1,7 @@
 using RPG.Control;
 using RPG.Inventories;
 using RPG.Saving;
+using RPG.Stats;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace RPG.Shops
         
         // Cached References
         Shopper shopper = null;
+        BaseStats baseStats = null;
         Inventory inventory = null;
         Purse purse = null;
 
@@ -37,6 +39,7 @@ namespace RPG.Shops
             public InventoryItem inventoryItem;
             public int initialStock;
             [Range(0f, 2f)] public float buyingDiscountFraction = 1.0f;
+            public int levelToUnlock = 0;
         }
 
         private void Awake()
@@ -69,11 +72,13 @@ namespace RPG.Shops
             { 
                 purse = shopper.GetComponent<Purse>();
                 inventory = shopper.GetComponent<Inventory>();
+                baseStats = shopper.GetComponent<BaseStats>();
             }
             else 
             { 
                 purse = null;
                 inventory = null;
+                baseStats = null;
             }
         }
 
@@ -91,13 +96,17 @@ namespace RPG.Shops
 
         public IEnumerable<ShopItem> GetAllItems()
         {
+            int shopperLevel = GetShopperLevel();
             List<InventoryItem> inventoryItemsOnDeck = new List<InventoryItem>();
             foreach (StockItemConfig stockItemConfig in stockConfiguration)
             {
-                InventoryItem inventoryItem = stockItemConfig.inventoryItem;
-                if (inventoryItemsOnDeck.Contains(inventoryItem)) { continue; } // Safety against bad input (multiple stock entry copies)
+                if (stockItemConfig.levelToUnlock > shopperLevel) { continue; }
 
+                InventoryItem inventoryItem = stockItemConfig.inventoryItem;
+
+                if (inventoryItemsOnDeck.Contains(inventoryItem)) { continue; }
                 inventoryItemsOnDeck.Add(inventoryItem);
+
                 GetStock(inventoryItem, out int currentStock, out int transactionStock);
                 int modifiedCurrentStock = currentStock - transactionStock;
                 float price = GetPrice(stockItemConfig); 
@@ -275,9 +284,20 @@ namespace RPG.Shops
 
         private float GetPrice(StockItemConfig stockItemConfig)
         {
-            float price = stockItemConfig.inventoryItem.GetPrice() * stockItemConfig.buyingDiscountFraction;
+            int currentLevel = GetShopperLevel();
+            InventoryItem inventoryItem = stockItemConfig.inventoryItem;
+            float bestDiscountFraction = stockConfiguration.Where(x => object.ReferenceEquals(x.inventoryItem, inventoryItem)).Where(x => x.levelToUnlock <= currentLevel).Min(x => x.buyingDiscountFraction);
+
+            float price = stockItemConfig.inventoryItem.GetPrice() * bestDiscountFraction;
             if (!IsBuyingMode()) { price *= sellingDiscount; }
             return price;
+        }
+
+        private int GetShopperLevel()
+        {
+            if (baseStats == null) { return 0; }
+
+            return baseStats.GetLevel();
         }
 
         // Interfaces

@@ -272,9 +272,11 @@ namespace RPG.Shops
             Dictionary<InventoryItem, float> prices = new Dictionary<InventoryItem, float>();
             float sellFactor = IsBuyingMode() ? 1f : sellingDiscount;
 
-            foreach (InventoryItem uniqueItem in stockConfiguration.Where(x => x.levelToUnlock <= currentLevel).Select(x => x.inventoryItem).Distinct())
+            StockItemConfig[] levelSubsetStockConfiguration = stockConfiguration.Where(x => x.levelToUnlock <= currentLevel).ToArray();
+
+            foreach (InventoryItem uniqueItem in levelSubsetStockConfiguration.Select(x => x.inventoryItem).Distinct())
             {
-                prices[uniqueItem] = stockConfiguration.Where(x => x.levelToUnlock <= currentLevel)
+                prices[uniqueItem] = levelSubsetStockConfiguration
                     .Where(x => object.ReferenceEquals(x.inventoryItem, uniqueItem))
                     .Min(x => x.inventoryItem.GetPrice() * x.buyingDiscountFraction * sellFactor);
             }
@@ -286,11 +288,13 @@ namespace RPG.Shops
         {
             int currentLevel = GetShopperLevel();
             Dictionary<InventoryItem, int> availabilities = new Dictionary<InventoryItem, int>();
-            foreach (InventoryItem uniqueItem in stockConfiguration.Where(x => x.levelToUnlock <= currentLevel).Select(x => x.inventoryItem).Distinct())
+
+            StockItemConfig[] levelSubsetStockConfiguration = stockConfiguration.Where(x => x.levelToUnlock <= currentLevel).ToArray();
+            foreach (InventoryItem uniqueItem in levelSubsetStockConfiguration.Select(x => x.inventoryItem).Distinct())
             {
                 int stockSoldForItem = 0;
                 stockSold.TryGetValue(uniqueItem, out stockSoldForItem);
-                availabilities[uniqueItem] = stockConfiguration.Where(x => x.levelToUnlock <= currentLevel)
+                availabilities[uniqueItem] = levelSubsetStockConfiguration
                     .Where(x => object.ReferenceEquals(x.inventoryItem, uniqueItem))
                     .Sum(x => x.initialStock - stockSoldForItem);
             }

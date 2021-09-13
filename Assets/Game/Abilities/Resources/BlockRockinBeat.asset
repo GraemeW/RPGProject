@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43975a45a6d08f84aad52366d19cf18c, type: 3}
+  m_Name: BlockRockinBeat
+  m_EditorClassIdentifier: 
+  itemID: f60793aa-ef17-489d-876f-b247d59983aa
+  displayName: Block Rockin Beat
+  description: Beats blocks, rocks while doin it
+  icon: {fileID: 21300000, guid: ec22508be0cdfba4abbaeb770bef08aa, type: 3}
+  pickup: {fileID: 6494234044896430859, guid: c526bb52c5384fb4f838ab6687bb3f44, type: 3}
+  stackable: 0
+  price: 80
+  itemCategory: 5
+  consumable: 0
+  stat: 0
+  statIncrement: 0

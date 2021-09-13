@@ -2002,7 +2002,7 @@ PrefabInstance:
     - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
       propertyPath: stockConfiguration.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
@@ -2043,6 +2043,11 @@ PrefabInstance:
         type: 3}
       propertyPath: stockConfiguration.Array.data[3].initialStock
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].initialStock
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
@@ -2090,6 +2095,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
+      propertyPath: stockConfiguration.Array.data[4].inventoryItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 0d5ff1b6aa29a854f848e43efa0e880f,
+        type: 2}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].levelToUnlock
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
       propertyPath: stockConfiguration.Array.data[0].buyingDiscountFraction
       value: 2
       objectReference: {fileID: 0}
@@ -2106,6 +2122,11 @@ PrefabInstance:
     - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
         type: 3}
       propertyPath: stockConfiguration.Array.data[3].buyingDiscountFraction
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2036248590624082729, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
+        type: 3}
+      propertyPath: stockConfiguration.Array.data[4].buyingDiscountFraction
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2950225479591524472, guid: 74f1e3162ed1ea941a4a464d0c3ae9a9,
@@ -11234,7 +11255,7 @@ PrefabInstance:
     - target: {fileID: 6516840799684839471, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -586.49994
+      value: -586.5
       objectReference: {fileID: 0}
     - target: {fileID: 6516997514430147175, guid: d632b09c7c7bf704fad7b985e727383f,
         type: 3}

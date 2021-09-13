@@ -27,6 +27,7 @@ namespace RPG.Control
         [SerializeField] float maxNavMeshProjectedDistance = 1.0f;
         [SerializeField] CursorMapping[] cursorMappings = null;
         [SerializeField] float raycastRadius = 0.6f;
+        [SerializeField] int numberOfAbilities = 6;
         [Header("Interact Types")]
         string movementInteract = "Fire1";
         string componentInteract = "Fire2";
@@ -36,6 +37,7 @@ namespace RPG.Control
         Mover mover = null;
         Fighter fighter = null;
         Health health = null;
+        ActionStore actionStore = null;
 
         // State
         public bool isEnabled = true;
@@ -46,6 +48,7 @@ namespace RPG.Control
             mover = GetComponent<Mover>();
             fighter = GetComponent<Fighter>();
             health = GetComponent<Health>();
+            actionStore = GetComponent<ActionStore>();
         }
 
         void Update()
@@ -58,7 +61,9 @@ namespace RPG.Control
                 return;
             }
             if (!isEnabled) { return; }
-            CheckSpecialAbilityKeys();
+
+            // Abilities -- no return on use (allow movement + ability)
+            UseAbilities();
 
             // Actions
             if (InteractWithComponent()) return;
@@ -105,32 +110,14 @@ namespace RPG.Control
             return false;
         }
 
-        private void CheckSpecialAbilityKeys()
+        private void UseAbilities()
         {
-            var actionStore = GetComponent<ActionStore>();
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            for (int i = 0; i < numberOfAbilities; i++)
             {
-                actionStore.Use(0, gameObject);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                actionStore.Use(1, gameObject);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                actionStore.Use(2, gameObject);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                actionStore.Use(3, gameObject);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                actionStore.Use(4, gameObject);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha6))
-            {
-                actionStore.Use(5, gameObject);
+                if (Input.GetKeyDown(KeyCode.Alpha1 + i))
+                {
+                    actionStore.Use(i, gameObject);
+                }
             }
         }
 

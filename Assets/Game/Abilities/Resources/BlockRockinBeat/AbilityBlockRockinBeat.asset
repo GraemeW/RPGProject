@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43975a45a6d08f84aad52366d19cf18c, type: 3}
-  m_Name: BlockRockinBeat
+  m_Name: AbilityBlockRockinBeat
   m_EditorClassIdentifier: 
   itemID: f60793aa-ef17-489d-876f-b247d59983aa
   displayName: Block Rockin Beat
@@ -23,3 +23,4 @@ MonoBehaviour:
   consumable: 0
   stat: 0
   statIncrement: 0
+  targetingStrategy: {fileID: 11400000, guid: a05bf1f2b11f3d143bac962c7ee8aa44, type: 2}

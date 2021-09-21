@@ -12,7 +12,17 @@ namespace RPG.Abilities
 
         public override void Use(GameObject user)
         {
-            targetingStrategy.StartTargeting(user);
+            targetingStrategy.StartTargeting(user, TargetAcquired);
+        }
+
+        private void TargetAcquired(IEnumerable<GameObject> targets)
+        {
+            foreach (GameObject target in targets)
+            {
+                if (target == null) { continue; }
+
+                UnityEngine.Debug.Log($"Target:  {target.name}");
+            }
         }
     }
 }

@@ -43,6 +43,35 @@ namespace RPG.Control
         public bool isEnabled = true;
         bool isInteractingWithUI = false;
 
+        // Static Functions
+        public static Ray GetMouseRay()
+        {
+            return Camera.main.ScreenPointToRay(Input.mousePosition);
+        }
+
+        public static RaycastHit[] RaycastAllSorted(float raycastRadius)
+        {
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
+            return RaycastAllSorted(hitsInfo);
+        }
+
+        public static RaycastHit[] RaycastAllSorted(float raycastRadius, Vector3 point)
+        {
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(point, raycastRadius, Vector3.up, 0);
+            return RaycastAllSorted(hitsInfo);
+        }
+
+        private static RaycastHit[] RaycastAllSorted(RaycastHit[] hitsInfo)
+        {
+            float[] distances = new float[hitsInfo.Length];
+            for (int hitIndex = 0; hitIndex < hitsInfo.Length; hitIndex++)
+            {
+                distances[hitIndex] = hitsInfo[hitIndex].distance;
+            }
+            Array.Sort(distances, hitsInfo);
+            return hitsInfo;
+        }
+
         void Awake()
         {
             mover = GetComponent<Mover>();
@@ -94,7 +123,7 @@ namespace RPG.Control
 
         private bool InteractWithComponent()
         {
-            RaycastHit[] hitsInfo = RaycastAllSorted();
+            RaycastHit[] hitsInfo = RaycastAllSorted(raycastRadius);
             foreach (RaycastHit hitInfo in hitsInfo)
             {
                 IRaycastable[] raycastables = hitInfo.transform.GetComponents<IRaycastable>();
@@ -119,18 +148,6 @@ namespace RPG.Control
                     actionStore.Use(i, gameObject);
                 }
             }
-        }
-
-        RaycastHit[] RaycastAllSorted()
-        {
-            RaycastHit[] hitsInfo = Physics.SphereCastAll(GetMouseRay(), raycastRadius);
-            float[] distances = new float[hitsInfo.Length];
-            for (int hitIndex = 0; hitIndex < hitsInfo.Length; hitIndex++)
-            {
-                distances[hitIndex] = hitsInfo[hitIndex].distance;
-            }
-            Array.Sort(distances, hitsInfo);
-            return hitsInfo;
         }
 
         public bool InteractWithMovement(bool skipMouseClick = false)
@@ -192,11 +209,6 @@ namespace RPG.Control
                 }
             }
             return cursorMappings[0];
-        }
-
-        private static Ray GetMouseRay()
-        {
-            return Camera.main.ScreenPointToRay(Input.mousePosition);
         }
     }
 }

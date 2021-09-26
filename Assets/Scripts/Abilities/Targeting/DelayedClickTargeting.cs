@@ -19,14 +19,14 @@ namespace RPG.Abilities
         // State
         GameObject targetingGraphic = null;
 
-        public override void StartTargeting(GameObject user, Action<IEnumerable<GameObject>> finished)
+        public override void StartTargeting(AbilityData abilityData, Action finished)
         {
-            if (!user.TryGetComponent<PlayerController>(out PlayerController playerController)) { return; }
+            if (!abilityData.GetUser().TryGetComponent<PlayerController>(out PlayerController playerController)) { return; }
 
-            playerController.StartCoroutine(Targeting(playerController, finished));
+            playerController.StartCoroutine(Targeting(playerController, abilityData, finished));
         }
 
-        private IEnumerator Targeting(PlayerController playerController, Action<IEnumerable<GameObject>> finished)
+        private IEnumerator Targeting(PlayerController playerController, AbilityData abilityData, Action finished)
         {
             playerController.enabled = false;
 
@@ -43,7 +43,9 @@ namespace RPG.Abilities
                         // Absorb the whole mouse click
                         yield return new WaitWhile(() => Input.GetMouseButton(0));
                         playerController.enabled = true;
-                        finished.Invoke(GetGameObjectsInRadius(raycastHit.point));
+                        abilityData.SetTargetedPoint(raycastHit.point);
+                        abilityData.SetTargets(GetGameObjectsInRadius(raycastHit.point));
+                        finished.Invoke();
                         Destroy(targetingGraphic);
                         yield break;
                     }

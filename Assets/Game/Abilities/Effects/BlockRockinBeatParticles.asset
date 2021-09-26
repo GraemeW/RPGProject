@@ -9,7 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9976281e202d83948b075dd77a55ab31, type: 3}
-  m_Name: DamageBlockRockinBeat
+  m_Script: {fileID: 11500000, guid: f3e1f9faf53500247a4380dc306dce92, type: 3}
+  m_Name: BlockRockinBeatParticles
   m_EditorClassIdentifier: 
-  healthChange: -10
+  prefabToSpawn: {fileID: 120410, guid: 6636b3078b0905e489f698a11b7a6b6b, type: 3}
+  destroyDelay: 2

@@ -28,3 +28,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 168226de15fefe541b5ad11276386605, type: 2}
   effectStrategies:
   - {fileID: 11400000, guid: e4763961e03653e439ff1c698a3241a6, type: 2}
+  - {fileID: 11400000, guid: d6c0517524e66e14d922d7dfc2126bbb, type: 2}
+  cooldown: 2

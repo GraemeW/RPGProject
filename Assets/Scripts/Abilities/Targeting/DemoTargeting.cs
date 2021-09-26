@@ -7,12 +7,12 @@ namespace RPG.Abilities
 {
     [CreateAssetMenu(fileName = "Demo Targeting", menuName = "Abilities/Targeting/Demo")]
     public class DemoTargeting : TargetingStrategy
-    {
-        public override void StartTargeting(GameObject user, Action<IEnumerable<GameObject>> finished)
+    { 
+        public override void StartTargeting(AbilityData abilityData, Action finished)
         {
             UnityEngine.Debug.Log("Demo Targeting Started");
 
-            finished.Invoke(null);
+            finished.Invoke();
         }
     }
 

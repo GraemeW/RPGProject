@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using RPG.Combat;
 
-namespace RPG.Attributes
+namespace RPG.Attributes.UI
 {
     public class PlayerHealthDisplay : MonoBehaviour
     {

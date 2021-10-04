@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using RPG.Inventories;
 using RPG.Attributes;
+using RPG.Core;
+using RPG.Abilities.Effects;
+using System;
 
 namespace RPG.Abilities
 {
@@ -24,6 +27,11 @@ namespace RPG.Abilities
             if (!CheckForMana(user)) { return; }
 
             AbilityData abilityData = new AbilityData(user);
+            if (user.TryGetComponent(out ActionScheduler actionScheduler))
+            {
+                actionScheduler.StartAction(abilityData);
+            }
+
             targetingStrategy.StartTargeting(abilityData, 
                 () => { TargetAcquired(abilityData); });
         }
@@ -54,15 +62,7 @@ namespace RPG.Abilities
 
         private void TargetAcquired(AbilityData abilityData)
         {
-            GameObject user = abilityData.GetUser();
-            if (user.TryGetComponent(out CooldownStore cooldownStore))
-            {
-                cooldownStore.StartCooldown(this, cooldown);
-            }
-            if (user.TryGetComponent(out Mana mana))
-            {
-                if (!mana.UseMana(manaCost)) { return; }
-            }
+            if (abilityData.IsCancelled()) { return; }
 
             if (filterStrategies != null)
             {
@@ -75,13 +75,24 @@ namespace RPG.Abilities
 
             foreach (EffectStrategy effectStrategy in effectStrategies)
             {
-                effectStrategy.StartEffect(abilityData, EffectFinished);
+                effectStrategy.StartEffect(abilityData, (EffectStrategy childEffectStrategy) => EffectFinished(abilityData, childEffectStrategy));
             }
         }
 
-        private void EffectFinished()
+        private void EffectFinished(AbilityData abilityData, EffectStrategy effectStrategy)
         {
-
+            if (effectStrategy.GetType() == typeof(TriggerResourcesCooldownsEffect))
+            {
+                GameObject user = abilityData.GetUser();
+                if (user.TryGetComponent(out Mana mana))
+                {
+                    if (!mana.UseMana(manaCost)) { return; }
+                }
+                if (user.TryGetComponent(out CooldownStore cooldownStore))
+                {
+                    cooldownStore.StartCooldown(this, cooldown);
+                }
+            }
         }
     }
 }

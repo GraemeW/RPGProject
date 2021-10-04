@@ -11,7 +11,7 @@ namespace RPG.Abilities.Effects
     {
         [SerializeField] float healthChange = 0f;
 
-        public override void StartEffect(AbilityData abilityData, Action finished)
+        public override void StartEffect(AbilityData abilityData, Action<EffectStrategy> finished)
         {
             foreach (GameObject target in abilityData.GetTargets())
             {
@@ -28,7 +28,7 @@ namespace RPG.Abilities.Effects
                     health.Heal(healthChange);
                 }
             }
-            finished.Invoke();
+            finished.Invoke(this);
         }
     }
 }

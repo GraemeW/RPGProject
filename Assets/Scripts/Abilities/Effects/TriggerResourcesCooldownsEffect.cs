@@ -5,12 +5,11 @@ using UnityEngine;
 
 namespace RPG.Abilities.Effects
 {
-    [CreateAssetMenu(fileName = "Orient To Target Effect", menuName = "Abilities/Effects/OrientToTarget", order = 0)]
-    public class OrientToTargetEffect : EffectStrategy
+    [CreateAssetMenu(fileName = "Trigger Resources Cooldowns Effect", menuName = "Abilities/Effects/TriggerResourcesCooldowns", order = 0)]
+    public class TriggerResourcesCooldownsEffect : EffectStrategy
     {
         public override void StartEffect(AbilityData abilityData, Action<EffectStrategy> finished)
         {
-            abilityData.GetUser().transform.LookAt(abilityData.GetTargetedPoint());
             finished.Invoke(this);
         }
     }

@@ -1,3 +1,4 @@
+using RPG.Saving;
 using RPG.Stats;
 using RPG.Utils;
 using System.Collections;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace RPG.Attributes
 {
-    public class Mana : MonoBehaviour
+    public class Mana : MonoBehaviour, ISaveable
     {
         // Tunables
         [Tooltip("in seconds")] [SerializeField] float tickPeriod = 2f;
@@ -85,5 +86,14 @@ namespace RPG.Attributes
             return true;
         }
 
+        public object CaptureState()
+        {
+            return currentMana.value;
+        }
+
+        public void RestoreState(object state)
+        {
+            currentMana.value = (float)state;
+        }
     }
 }

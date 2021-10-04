@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f5cb31244343f469b7b4a5022c58cd, type: 3}
+  m_Name: BlockRockinBeatDelayedEffects
+  m_EditorClassIdentifier: 
+  delay: 0.8
+  effectStrategies:
+  - {fileID: 11400000, guid: e4763961e03653e439ff1c698a3241a6, type: 2}
+  - {fileID: 11400000, guid: d6c0517524e66e14d922d7dfc2126bbb, type: 2}
+  - {fileID: 11400000, guid: d84d19ac14352c646b6628cfdf1be592, type: 2}
+  abortIfCancelled: 1

@@ -10,12 +10,12 @@ namespace RPG.Abilities.Effects
     {
         [SerializeField] string animationTrigger = "ability1";
 
-        public override void StartEffect(AbilityData abilityData, Action finished)
+        public override void StartEffect(AbilityData abilityData, Action<EffectStrategy> finished)
         {
             if (abilityData.GetUser().TryGetComponent(out Animator animator))
             {
                 animator.SetTrigger(animationTrigger);
-                finished.Invoke();
+                finished.Invoke(this);
             }
         }
     }

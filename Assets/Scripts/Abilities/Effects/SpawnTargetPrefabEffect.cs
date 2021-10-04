@@ -12,12 +12,12 @@ namespace RPG.Abilities.Effects
         [SerializeField] GameObject prefabToSpawn = null;
         [SerializeField] float destroyDelay = -1;
 
-        public override void StartEffect(AbilityData abilityData, Action finished)
+        public override void StartEffect(AbilityData abilityData, Action<EffectStrategy> finished)
         {
             abilityData.StartCoroutine(Effect(abilityData, finished));
         }
 
-        private IEnumerator Effect(AbilityData abilityData, Action finished)
+        private IEnumerator Effect(AbilityData abilityData, Action<EffectStrategy> finished)
         {
             GameObject spawnedObject = Instantiate(prefabToSpawn);
             spawnedObject.transform.position = abilityData.GetTargetedPoint();
@@ -27,7 +27,7 @@ namespace RPG.Abilities.Effects
                 yield return new WaitForSeconds(destroyDelay);
                 Destroy(spawnedObject);
             }
-            finished.Invoke();
+            finished.Invoke(this);
         }
     }
 }

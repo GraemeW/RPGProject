@@ -34,7 +34,7 @@ namespace RPG.Abilities
             targetingGraphic = Instantiate(targetingGraphicPrefab);
             targetingGraphic.transform.localScale = new Vector3(areaOfEffectRadius * 2, 1f, areaOfEffectRadius * 2);
 
-            while(true)
+            while(!abilityData.IsCancelled())
             {
                 if (Physics.Raycast(PlayerController.GetMouseRay(), out RaycastHit raycastHit, Mathf.Infinity, layerMask))
                 {
@@ -42,12 +42,10 @@ namespace RPG.Abilities
                     {
                         // Absorb the whole mouse click
                         yield return new WaitWhile(() => Input.GetMouseButton(0));
-                        playerController.enabled = true;
                         abilityData.SetTargetedPoint(raycastHit.point);
                         abilityData.SetTargets(GetGameObjectsInRadius(raycastHit.point));
-                        finished.Invoke();
                         Destroy(targetingGraphic);
-                        yield break;
+                        break;
                     }
                     targetingGraphic.SetActive(true);
                     targetingGraphic.transform.position = raycastHit.point;
@@ -59,6 +57,10 @@ namespace RPG.Abilities
                 Cursor.SetCursor(cursorTexture, cursorHotspot, CursorMode.Auto);
                 yield return null;
             }
+
+            if (targetingGraphic != null) { Destroy(targetingGraphic); }
+            playerController.enabled = true;
+            finished.Invoke();
         }
 
         private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)

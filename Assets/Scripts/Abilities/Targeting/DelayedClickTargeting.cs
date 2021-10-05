@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace RPG.Abilities
 {
-    [CreateAssetMenu(fileName = "Demo Targeting", menuName = "Abilities/Targeting/Delayed Click")]
+    [CreateAssetMenu(fileName = "Delayed Click Targeting", menuName = "Abilities/Targeting/DelayedClick")]
     public class DelayedClickTargeting : TargetingStrategy
     {
         // Tunables

@@ -18,8 +18,6 @@ namespace RPG.Inventories
         // CONFIG DATA
         [Tooltip("Does an instance of this item get consumed every time it's used.")]
         [SerializeField] bool consumable = false;
-        [SerializeField] Stat stat;
-        [SerializeField] float statIncrement = 0f;
 
         // PUBLIC
 
@@ -29,11 +27,7 @@ namespace RPG.Inventories
         /// <param name="user">The character that is using this action.</param>
         public virtual void Use(GameObject user)
         {
-            UnityEngine.Debug.Log($"{user.name} is using Action Item: {GetDisplayName()}");
-            if (stat == Stat.Health)
-            {
-                user.GetComponent<Health>().Heal(statIncrement);
-            }
+
         }
 
         public bool isConsumable()

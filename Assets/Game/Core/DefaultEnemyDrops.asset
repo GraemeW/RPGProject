@@ -24,7 +24,7 @@ MonoBehaviour:
     - 3
     minItems: 01000000
     maxItems: 01000000
-  - item: {fileID: 11400000, guid: 4d742d79699b51c43b2c0d7c74dd2d18, type: 2}
+  - item: {fileID: 11400000, guid: 1767d572c46fc934b9a0deca2b82f3db, type: 2}
     relativeChance:
     - 7
     - 6

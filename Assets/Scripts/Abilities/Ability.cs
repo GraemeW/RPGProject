@@ -68,6 +68,7 @@ namespace RPG.Abilities
             {
                 foreach (FilterStrategy filterStrategy in filterStrategies)
                 {
+                    if (filterStrategy == null) { continue; }
                     abilityData.SetTargets(filterStrategy.Filter(abilityData.GetTargets()));
                 }
             }

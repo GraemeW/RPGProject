@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43975a45a6d08f84aad52366d19cf18c, type: 3}
+  m_Name: PocketSand
+  m_EditorClassIdentifier: 
+  itemID: 4a1a4a75-2836-4a27-a07c-ee014a0def17
+  displayName: Pocket Sand
+  description: Some lint in here
+  icon: {fileID: 21300000, guid: 4a39cb4b272639541b7bd5ac0649acf7, type: 3}
+  pickup: {fileID: 6494234044896430859, guid: c526bb52c5384fb4f838ab6687bb3f44, type: 3}
+  stackable: 0
+  price: 10
+  itemCategory: 5
+  consumable: 0
+  targetingStrategy: {fileID: 11400000, guid: 4bcf33980f3fc4048a82fd87763cb473, type: 2}
+  filterStrategies: []
+  effectStrategies:
+  - {fileID: 11400000, guid: cd8295bc66e189e4fa714c6bb267005f, type: 2}
+  - {fileID: 11400000, guid: 70395c62f0b4d814d80ece92d99ddd9f, type: 2}
+  - {fileID: 11400000, guid: e7d82cfb621eb574ba948e8ac1890466, type: 2}
+  cooldown: 0
+  manaCost: 5

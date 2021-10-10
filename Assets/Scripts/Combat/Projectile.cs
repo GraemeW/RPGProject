@@ -12,11 +12,12 @@ namespace RPG.Combat
         // Tunables
         [SerializeField] float speed = 15.0f;
         [SerializeField] float maxLifeTime = 8.0f;
-        [SerializeField] bool homing = false;
+        [SerializeField] bool isHoming = false;
         [SerializeField] GameObject hitEffectPrefab = null;
 
         // State
         Health target = null;
+        Vector3 targetPoint = default;
         GameObject instigator = null;
         float damage = 0f;
         float timeAlive = 0f;
@@ -39,11 +40,15 @@ namespace RPG.Combat
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.GetComponent<Health>() != target) { return; }
-            if (target.IsDead()) { return; }
+            if (other.gameObject == instigator) { return; } // No self-collisions
+
+            if (!other.TryGetComponent(out Health colliderHealth)) { return; }
+            if (target != null && colliderHealth != target) { return; } // special handling for target set (e.g. homing & otherwise)
+            if (target != null && target.IsDead()) { return; }
+
             hit.Invoke();
             TriggerVFX();
-            target.TakeDamage(instigator, damage);
+            colliderHealth.TakeDamage(instigator, damage);
             speed = 0f;
             Destroy(gameObject);
         }
@@ -58,8 +63,7 @@ namespace RPG.Combat
 
         private void MoveToTarget()
         {
-            if (target == null) { Destroy(gameObject); }
-            if (homing)
+            if (target != null && isHoming)
             {
                 if (target.IsDead()) { Destroy(gameObject); }
                 transform.LookAt(GetAimLocation());
@@ -79,13 +83,29 @@ namespace RPG.Combat
 
         public void SetTarget(GameObject instigator, Health target, float damage)
         {
+            SetTarget(instigator, damage, target);
+        }
+
+        public void SetTarget(GameObject instigator, Vector3 targetPoint, float damage)
+        {
+            SetTarget(instigator, damage, null, targetPoint);
+        }
+
+        private void SetTarget(GameObject instigator, float damage, Health target = null, Vector3 targetPoint = default)
+        {
             this.instigator = instigator;
+            this.targetPoint = targetPoint;
             this.target = target;
             this.damage = damage;
         }
 
         private Vector3 GetAimLocation()
         {
+            if (target == null)
+            {
+                return targetPoint;
+            }
+
             CapsuleCollider targetCapsuleCollider = target.GetComponent<CapsuleCollider>();
             if (targetCapsuleCollider == null) { return target.transform.position; }
             return target.transform.position + Vector3.up * targetCapsuleCollider.height / 2;

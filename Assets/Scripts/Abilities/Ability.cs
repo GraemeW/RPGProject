@@ -72,7 +72,6 @@ namespace RPG.Abilities
                     abilityData.SetTargets(filterStrategy.Filter(abilityData.GetTargets()));
                 }
             }
-            if (abilityData.GetTargets() == null) { return; }
 
             foreach (EffectStrategy effectStrategy in effectStrategies)
             {

@@ -154,6 +154,12 @@ namespace RPG.Combat
             return target;
         }
 
+        public Transform GetHandTransform(bool isRightHand)
+        {
+            if (isRightHand) { return rightHand; }
+            else { return leftHand; }
+        }
+
         public void Cancel()
         {
             StopAttack();

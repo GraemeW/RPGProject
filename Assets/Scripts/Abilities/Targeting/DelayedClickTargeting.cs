@@ -15,13 +15,14 @@ namespace RPG.Abilities
         [SerializeField] LayerMask layerMask = new LayerMask();
         [SerializeField] float areaOfEffectRadius = 5f;
         [SerializeField] GameObject targetingGraphicPrefab = null;
+        [SerializeField] bool allowSelfTarget = false;
 
         // State
         GameObject targetingGraphic = null;
 
         public override void StartTargeting(AbilityData abilityData, Action finished)
         {
-            if (!abilityData.GetUser().TryGetComponent<PlayerController>(out PlayerController playerController)) { return; }
+            if (!abilityData.GetUser().TryGetComponent(out PlayerController playerController)) { return; }
 
             playerController.StartCoroutine(Targeting(playerController, abilityData, finished));
         }
@@ -43,7 +44,7 @@ namespace RPG.Abilities
                         // Absorb the whole mouse click
                         yield return new WaitWhile(() => Input.GetMouseButton(0));
                         abilityData.SetTargetedPoint(raycastHit.point);
-                        abilityData.SetTargets(GetGameObjectsInRadius(raycastHit.point));
+                        abilityData.SetTargets(GetGameObjectsInRadius(raycastHit.point, playerController.gameObject));
                         Destroy(targetingGraphic);
                         break;
                     }
@@ -63,11 +64,13 @@ namespace RPG.Abilities
             finished.Invoke();
         }
 
-        private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point)
+        private IEnumerable<GameObject> GetGameObjectsInRadius(Vector3 point, GameObject player)
         {
             RaycastHit[] hitsInfo = PlayerController.RaycastAllSorted(areaOfEffectRadius, point);
             foreach (RaycastHit hit in hitsInfo)
             {
+                if (!allowSelfTarget && hit.collider.gameObject == player) { continue; }
+
                 yield return hit.collider.gameObject;
             }
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace RPG.UI
 {
@@ -8,6 +9,7 @@ namespace RPG.UI
     {
         [SerializeField] KeyCode toggleKey = KeyCode.Escape;
         [SerializeField] GameObject uiContainer = null;
+        [SerializeField] UnityEvent additionalEventCalls = null;
 
         void Start()
         {
@@ -24,7 +26,13 @@ namespace RPG.UI
 
         public void Toggle()
         {
-            uiContainer.SetActive(!uiContainer.activeSelf);
+            bool enable = !uiContainer.activeSelf;
+            uiContainer.SetActive(enable);
+
+            if (enable == true && additionalEventCalls != null)
+            {
+                additionalEventCalls.Invoke();
+            }
         }
     }
 }

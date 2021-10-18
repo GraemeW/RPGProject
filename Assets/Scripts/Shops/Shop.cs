@@ -16,6 +16,7 @@ namespace RPG.Shops
         [SerializeField] string shopName = "";
         [SerializeField] float sellingDiscount = 0.5f;
         [SerializeField] StockItemConfig[] stockConfiguration = null;
+        [SerializeField] float minimumBarterFraction = 0.01f;
 
         // State
         bool isBuying = true;
@@ -278,10 +279,19 @@ namespace RPG.Shops
             {
                 prices[uniqueItem] = levelSubsetStockConfiguration
                     .Where(x => object.ReferenceEquals(x.inventoryItem, uniqueItem))
-                    .Min(x => x.inventoryItem.GetPrice() * x.buyingDiscountFraction * sellFactor);
+                    .Min(x => x.inventoryItem.GetPrice() * x.buyingDiscountFraction * sellFactor * GetBarterDiscountFraction());
             }
 
             return prices;
+        }
+
+        private float GetBarterDiscountFraction()
+        {
+            if (baseStats == null) { return 1f; }
+
+            float discountFraction = baseStats.GetStat(Stat.BuyingDiscountFraction);
+            if (Mathf.Approximately(discountFraction, 0f)) { return 1f; }
+            return Mathf.Min((1f / discountFraction), minimumBarterFraction);
         }
 
         private Dictionary<InventoryItem, int> GetAvailabilities()

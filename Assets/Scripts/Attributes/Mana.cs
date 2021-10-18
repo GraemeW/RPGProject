@@ -31,20 +31,16 @@ namespace RPG.Attributes
         private void Start()
         {
             currentMana.ForceInit();
-            GetMaxMana();
-            GetManaRegenRate();
         }
 
         public float GetMaxMana()
         {
-            maxMana = baseStats.GetStat(Stat.Mana);
-            return maxMana;
+            return baseStats.GetStat(Stat.Mana);
         }
 
         public float GetManaRegenRate()
         {
-            manaRegenRate = baseStats.GetStat(Stat.ManaRegenRate);
-            return manaRegenRate;
+            return baseStats.GetStat(Stat.ManaRegenRate);
         }
 
         private void Update()
@@ -54,12 +50,12 @@ namespace RPG.Attributes
 
         private void RegenMana()
         {
-            if (currentMana.value >= maxMana) { return; }
+            if (currentMana.value >= GetMaxMana()) { return; }
 
             tickTimer += Time.deltaTime;
             if (tickTimer > tickPeriod)
             {
-                currentMana.value = Mathf.Min(currentMana.value + manaRegenRate, maxMana);
+                currentMana.value = Mathf.Min(currentMana.value + GetManaRegenRate(), GetMaxMana());
                 tickTimer = 0f;
             }
         }

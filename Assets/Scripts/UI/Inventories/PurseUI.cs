@@ -17,33 +17,20 @@ namespace RPG.UI.Inventories
 
         private void Start()
         {
-            SetupPlayerPurse(true);
+            SetupPlayerPurse();
             RefreshUI();
         }
 
-        private void OnEnable()
+        private void OnDestroy()
         {
-            SetupPlayerPurse(true);
+            if (purse != null) { purse.onChange -= RefreshUI; }
         }
 
-        private void OnDisable()
+        private void SetupPlayerPurse()
         {
-            SetupPlayerPurse(false);
-        }
-
-        private void SetupPlayerPurse(bool enable)
-        {
-            if (enable & purse == null)
-            {
-                purse = Purse.GetPlayerPurse();
-                if (purse == null) { return; }
-
-                purse.onChange += RefreshUI;
-            }
-            else if (!enable && purse != null)
-            {
-                purse.onChange -= RefreshUI;
-            }
+            purse = Purse.GetPlayerPurse();
+            if (purse == null) { return; }
+            purse.onChange += RefreshUI;
         }
 
         private void RefreshUI()

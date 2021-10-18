@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace RPG.Stats
@@ -22,6 +23,15 @@ namespace RPG.Stats
             float[] levels = lookupTable[characterClass][stat];
             int safeLevel = Mathf.Clamp(level - 1, 0, levels.Length - 1);
             return levels[safeLevel];
+        }
+
+        public float GetSummedStat(Stat stat, CharacterClass characterClass, int level)
+        {
+            BuildLookup();
+            if (!lookupTable.ContainsKey(characterClass)) { return 0; }
+            if (!lookupTable[characterClass].ContainsKey(stat)) { return 0; }
+
+            return lookupTable[characterClass][stat].Take(level).ToArray().Sum();
         }
 
         public int GetLevels(Stat stat, CharacterClass characterClass)

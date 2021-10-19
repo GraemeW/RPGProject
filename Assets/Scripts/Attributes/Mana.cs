@@ -13,8 +13,6 @@ namespace RPG.Attributes
         [Tooltip("in seconds")] [SerializeField] float tickPeriod = 2f;
 
         // State
-        float maxMana = 0f;
-        float manaRegenRate = 0f;
         LazyValue<float> currentMana;
         float tickTimer = 0f;
 
@@ -67,7 +65,7 @@ namespace RPG.Attributes
 
         public float GetFraction()
         {
-            float manaFraction = currentMana.value / maxMana;
+            float manaFraction = currentMana.value / GetMaxMana();
             return manaFraction;
         }
 

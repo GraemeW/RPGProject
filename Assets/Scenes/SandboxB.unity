@@ -2630,6 +2630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8815738460815112023, guid: 217d87649f0a117468014b5301c148d7,
         type: 3}
+      propertyPath: sceneIndexToLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815738460815112023, guid: 217d87649f0a117468014b5301c148d7,
+        type: 3}
       propertyPath: matchedPortalIndex
       value: 1
       objectReference: {fileID: 0}
@@ -16678,6 +16683,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -30.880001
+      objectReference: {fileID: 0}
+    - target: {fileID: 8815738460815112023, guid: 217d87649f0a117468014b5301c148d7,
+        type: 3}
+      propertyPath: sceneIndexToLoad
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8815738460815112023, guid: 217d87649f0a117468014b5301c148d7,
         type: 3}

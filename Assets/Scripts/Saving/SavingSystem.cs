@@ -11,6 +11,13 @@ namespace RPG.Saving
 {
     public class SavingSystem : MonoBehaviour
     {
+        const int FIRST_SCENE_INDEX = 1;
+
+        public IEnumerator LoadFirstScene()
+        {
+            yield return SceneManager.LoadSceneAsync(FIRST_SCENE_INDEX);
+        }
+
         public IEnumerator LoadLastScene(string saveFile)
         {
             Dictionary<string, object> state = LoadFile(saveFile);
@@ -38,6 +45,12 @@ namespace RPG.Saving
         public void Delete(string saveFile)
         {
             File.Delete(GetPathFromSaveFile(saveFile));
+        }
+
+        public bool SaveFileExists(string saveFile)
+        {
+            string path = GetPathFromSaveFile(saveFile);
+            return File.Exists(path);
         }
 
         private Dictionary<string, object> LoadFile(string saveFile)

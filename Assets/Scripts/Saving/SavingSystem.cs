@@ -12,6 +12,7 @@ namespace RPG.Saving
     public class SavingSystem : MonoBehaviour
     {
         const int FIRST_SCENE_INDEX = 1;
+        const string SAVE_FILE_EXTENSION = ".sav";
 
         public IEnumerator LoadFirstScene()
         {
@@ -51,6 +52,17 @@ namespace RPG.Saving
         {
             string path = GetPathFromSaveFile(saveFile);
             return File.Exists(path);
+        }
+
+        public IEnumerable<string> ListSaves()
+        {
+            foreach (string path in Directory.EnumerateFiles(Application.persistentDataPath))
+            {
+                if (Path.GetExtension(path) == SAVE_FILE_EXTENSION)
+                {
+                    yield return Path.GetFileNameWithoutExtension(path);
+                }
+            }
         }
 
         private Dictionary<string, object> LoadFile(string saveFile)
@@ -102,7 +114,7 @@ namespace RPG.Saving
 
         private string GetPathFromSaveFile(string saveFile)
         {
-            return Path.Combine(Application.persistentDataPath, saveFile + ".sav");
+            return Path.Combine(Application.persistentDataPath, saveFile + SAVE_FILE_EXTENSION);
         }
     }
 }

@@ -20,12 +20,7 @@ namespace RPG.UI
 
         private void Awake()
         {
-            savingWrapper = new LazyValue<SavingWrapper>(GetSavingWrapper);
-        }
-
-        private SavingWrapper GetSavingWrapper()
-        {
-            return FindObjectOfType<SavingWrapper>();
+            savingWrapper = new LazyValue<SavingWrapper>(() => FindObjectOfType<SavingWrapper>());
         }
 
         private void Start()

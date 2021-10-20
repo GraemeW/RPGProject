@@ -42,7 +42,7 @@ namespace RPG.SceneManagement
         private bool Fading()
         {
             if (Mathf.Approximately(currentFade, fadeTarget)) { return false; }
-            currentFade = Mathf.MoveTowards(currentFade, fadeTarget, Time.deltaTime * fadeSpeed);
+            currentFade = Mathf.MoveTowards(currentFade, fadeTarget, Time.unscaledDeltaTime * fadeSpeed);
             GetComponent<CanvasGroup>().alpha = currentFade;
             return true;
         }

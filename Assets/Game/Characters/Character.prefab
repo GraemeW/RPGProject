@@ -375,11 +375,11 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  die:
+  onDie:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3472977338995417865}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: SoundEffects, Assembly-CSharp
         m_MethodName: PlayRandomClip
         m_Mode: 1
         m_Arguments:
@@ -457,6 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3052e3749afba3b438efded966f8b8f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bonusConfig: []
 --- !u!1 &7713081087343942186
 GameObject:
   m_ObjectHideFlags: 0

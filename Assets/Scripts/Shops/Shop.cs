@@ -291,7 +291,7 @@ namespace RPG.Shops
 
             float discountFraction = baseStats.GetStat(Stat.BuyingDiscountFraction);
             if (Mathf.Approximately(discountFraction, 0f)) { return 1f; }
-            return Mathf.Min((1f / discountFraction), minimumBarterFraction);
+            return Mathf.Max((1f / discountFraction), minimumBarterFraction);
         }
 
         private Dictionary<InventoryItem, int> GetAvailabilities()

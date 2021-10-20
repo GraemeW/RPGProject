@@ -27,10 +27,16 @@ namespace RPG.SceneManagement
             return false;
         }
 
+        public void LoadMenu()
+        {
+            StartCoroutine(LoadMenuScene());
+        }
+
         public void NewGame(string saveFile)
         {
             if (string.IsNullOrEmpty(saveFile)) { return; }
 
+            if (GetComponent<SavingSystem>().SaveFileExists(PlayerPrefs.GetString(PLAYER_PREFS_CURRENT_SAVE))) { Delete(); }
             SetCurrentSave(saveFile);
             StartCoroutine(LoadFirstScene(saveFile));
         }
@@ -57,6 +63,34 @@ namespace RPG.SceneManagement
             fader.ToggleFade(false);
             yield return fader.Fade();
             Save(saveFile);
+        }
+
+        public IEnumerator ReloadFirstScene(IEnumerable<Action> actionsAfterFade)
+        {
+            Fader fader = FindObjectOfType<Fader>();
+            fader.ToggleFade(true);
+            yield return fader.Fade();
+
+            yield return GetComponent<SavingSystem>().LoadFirstScene(GetCurrentSave());
+            foreach (Action action in actionsAfterFade)
+            {
+                action.Invoke();
+            }
+
+            fader.ToggleFade(false);
+            yield return fader.Fade();
+        }
+
+        IEnumerator LoadMenuScene()
+        {
+            Fader fader = FindObjectOfType<Fader>();
+            fader.ToggleFade(true);
+            yield return fader.Fade();
+
+            yield return GetComponent<SavingSystem>().LoadMenuScene();
+
+            fader.ToggleFade(false);
+            yield return fader.Fade();
         }
 
         IEnumerator LoadLastScene()

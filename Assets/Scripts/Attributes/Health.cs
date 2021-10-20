@@ -14,19 +14,20 @@ namespace RPG.Attributes
     {
         // Tunables
         [SerializeField] float levelUpHealthFraction = 0.7f;
+        [SerializeField] float reviveHealthFraction = 0.3f;
 
         // Cached References
         Animator animator = null;
         BaseStats baseStats = null;
 
         // State
-        bool isDead = false;
         float maxHealthPoints = 10f;
-        LazyValue<float> currentHealthPoints;
+        LazyValue<float> healthPoints;
+        bool isDeadLastScene = false;
 
         // Events
         public TakeDamageEvent takeDamage;
-        public UnityEvent die;
+        public UnityEvent onDie;
 
         [System.Serializable]
         public class TakeDamageEvent : UnityEvent<float>
@@ -38,12 +39,12 @@ namespace RPG.Attributes
             animator = GetComponent<Animator>();
             baseStats = GetComponent<BaseStats>();
 
-            currentHealthPoints = new LazyValue<float>(GetMaxPoints);
+            healthPoints = new LazyValue<float>(GetMaxPoints);
         }
 
         private void Start()
         {
-            currentHealthPoints.ForceInit();
+            healthPoints.ForceInit();
             GetMaxPoints();
         }
 
@@ -65,34 +66,46 @@ namespace RPG.Attributes
 
         public void TakeDamage(GameObject instigator, float damage)
         {
-            if (damage > 0)
+            if (!IsDead() && damage > 0)
             { 
                 takeDamage.Invoke(damage);
+                healthPoints.value = Mathf.Max(healthPoints.value - damage, 0f);
             }
 
-            currentHealthPoints.value = Mathf.Max(currentHealthPoints.value - damage, 0f);
-            if (Mathf.Approximately(currentHealthPoints.value, 0f) || currentHealthPoints.value <= 0)
-            {
-                if (damage > 0) { die.Invoke(); }
-                Die();
-                AwardExperience(instigator);
-            }
+            if (IsDead() && damage > 0) { onDie.Invoke(); }
+                // Little hack, but don't want to trigger sounds, respawner, etc.
+                // -- e.g. on 0 damage used to trigger animators on scene load from save
+            UpdateState();
+            AwardExperience(instigator);
         }
 
         public void Heal(float points)
         {
-            if (isDead) { return; }
-            currentHealthPoints.value = Mathf.Min(currentHealthPoints.value + points, maxHealthPoints);
+            if (IsDead()) { return; }
+
+            healthPoints.value = Mathf.Min(healthPoints.value + points, maxHealthPoints);
         }
 
-        private void Die()
+        public void Revive()
         {
-            if (isDead) { return; }
+            healthPoints.value = GetMaxPoints() * reviveHealthFraction;
+            UpdateState();
+        }
 
-            if (animator == null) { animator = GetComponent<Animator>(); }
-            animator.SetTrigger("die");
-            GetComponent<ActionScheduler>().CancelCurrentAction();
-            isDead = true;
+        private void UpdateState()
+        {
+            if (!isDeadLastScene && IsDead())
+            {
+                if (animator == null) { animator = GetComponent<Animator>(); }
+                animator.SetTrigger("die");
+                GetComponent<ActionScheduler>().CancelCurrentAction();
+
+                isDeadLastScene = true;
+            }
+            else if (isDeadLastScene && !IsDead())
+            {
+                animator.Rebind();
+            }
         }
 
         private void AwardExperience(GameObject instigator)
@@ -104,7 +117,7 @@ namespace RPG.Attributes
 
         public float GetHealthPoints()
         {
-            return currentHealthPoints.value;
+            return healthPoints.value;
         }
 
         public int GetPercentage()
@@ -115,18 +128,18 @@ namespace RPG.Attributes
 
         public float GetFraction()
         {
-            float healthFraction = currentHealthPoints.value / maxHealthPoints;
+            float healthFraction = healthPoints.value / maxHealthPoints;
             return healthFraction;
         }
 
         public bool isMaxHealth()
         {
-            return Mathf.Approximately(currentHealthPoints.value, maxHealthPoints);
+            return Mathf.Approximately(healthPoints.value, maxHealthPoints);
         }
 
         public bool IsDead()
         {
-            return isDead;
+            return healthPoints.value <= 0;
         }
 
         public void SetDefaultHealth()
@@ -137,20 +150,20 @@ namespace RPG.Attributes
 
         public void RestoreHealthOnLevelUp()
         {
-            float currentHealthFraction = currentHealthPoints.value / maxHealthPoints;
+            float currentHealthFraction = healthPoints.value / maxHealthPoints;
             SetDefaultHealth();
-            if (currentHealthFraction < levelUpHealthFraction) { currentHealthPoints.value = maxHealthPoints * levelUpHealthFraction; }
-            else { currentHealthPoints.value = maxHealthPoints * currentHealthFraction; }
+            if (currentHealthFraction < levelUpHealthFraction) { healthPoints.value = maxHealthPoints * levelUpHealthFraction; }
+            else { healthPoints.value = maxHealthPoints * currentHealthFraction; }
         }
 
         public object CaptureState()
         {
-            return currentHealthPoints.value;
+            return healthPoints.value;
         }
 
         public void RestoreState(object state)
         {
-            currentHealthPoints.value = (float)state;
+            healthPoints.value = (float)state;
             TakeDamage(gameObject, 0f);
         }
     }

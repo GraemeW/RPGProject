@@ -116,7 +116,7 @@ namespace RPG.Stats
 
         public void SetLevel()
         {
-            currentLevel.ForceInit();
+            currentLevel.value = CalculateLevel();
         }
 
         private int CalculateLevel()

@@ -12,11 +12,24 @@ namespace RPG.Saving
     public class SavingSystem : MonoBehaviour
     {
         const int FIRST_SCENE_INDEX = 1;
+        const int MENU_SCENE_INDEX = 0;
         const string SAVE_FILE_EXTENSION = ".sav";
 
         public IEnumerator LoadFirstScene()
         {
             yield return SceneManager.LoadSceneAsync(FIRST_SCENE_INDEX);
+        }
+
+        public IEnumerator LoadFirstScene(string saveFile)
+        {
+            Dictionary<string, object> state = LoadFile(saveFile);
+            yield return LoadFirstScene();
+            RestoreState(state);
+        }
+
+        public IEnumerator LoadMenuScene()
+        {
+            yield return SceneManager.LoadSceneAsync(MENU_SCENE_INDEX);
         }
 
         public IEnumerator LoadLastScene(string saveFile)

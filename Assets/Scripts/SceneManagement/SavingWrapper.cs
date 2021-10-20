@@ -79,6 +79,7 @@ namespace RPG.SceneManagement
 
             fader.ToggleFade(false);
             yield return fader.Fade();
+            Save();
         }
 
         IEnumerator LoadMenuScene()

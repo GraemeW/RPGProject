@@ -30,6 +30,10 @@ namespace RPG.Control
         private void Start()
         {
             savingWrapper.ForceInit();
+            if (health.IsDead())
+            {
+                Respawn();
+            }
         }
 
         private void Respawn()
@@ -53,6 +57,7 @@ namespace RPG.Control
             // Potential loss of player reference, re-find & use for subsequent calls
             actions.Add(() => GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>().Warp(respawnLocation.position));
             actions.Add(() => GameObject.FindGameObjectWithTag("Player").GetComponent<Health>().Revive());
+            actions.Add(() => AIController.ResetDisposition()); // in spawning scene, prevent shenanigans
 
             return actions;
         }

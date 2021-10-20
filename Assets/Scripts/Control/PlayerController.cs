@@ -126,6 +126,12 @@ namespace RPG.Control
             RaycastHit[] hitsInfo = RaycastAllSorted(raycastRadius);
             foreach (RaycastHit hitInfo in hitsInfo)
             {
+                // Special handling for living stuff that's not so living
+                if (hitInfo.transform.TryGetComponent(out Health health))
+                {
+                    if (health.IsDead()) { continue; }
+                }
+
                 IRaycastable[] raycastables = hitInfo.transform.GetComponents<IRaycastable>();
                 foreach (IRaycastable raycastable in raycastables)
                 {

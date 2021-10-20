@@ -43,6 +43,15 @@ namespace RPG.Control
         float timeSinceArrivedAtWaypoint = Mathf.Infinity;
         LazyValue<float> currentChaseDistance;
         float timeSinceAggravated = Mathf.Infinity;
+        bool initialFriendly = true;
+
+        public static void ResetDisposition()
+        {
+            foreach (AIController aiController in FindObjectsOfType<AIController>())
+            {
+                aiController.ResetToInitialFriendly();
+            }
+        }
 
         private void Awake()
         {
@@ -51,31 +60,19 @@ namespace RPG.Control
             mover = GetComponent<Mover>();
             combatTarget = GetComponent<CombatTarget>();
             player = GameObject.FindWithTag("Player");
-            guardPosition = new LazyValue<Vector3>(GetInitialPosition);
-            guardRotation = new LazyValue<Quaternion>(GetInitialRotation);
-            currentChaseDistance = new LazyValue<float>(GetInitialChaseDistance);
-        }
+            guardPosition = new LazyValue<Vector3>(() => transform.position);
+            guardRotation = new LazyValue<Quaternion>(() => transform.rotation);
+            currentChaseDistance = new LazyValue<float>(() => chaseDistance);
+            initialFriendly = isFriendly;
 
-        private Vector3 GetInitialPosition()
-        {
-            return transform.position;
-        }
-
-        private Quaternion GetInitialRotation()
-        {
-            return transform.rotation;
-        }
-
-        private float GetInitialChaseDistance()
-        {
-            return chaseDistance;
+            // Over-ride standard behavior -- I don't want to reset AI positions based on save data
+            guardPosition.ForceInit();
+            guardRotation.ForceInit();
+            currentChaseDistance.ForceInit();
         }
 
         private void Start()
         {
-            guardPosition.ForceInit();
-            guardRotation.ForceInit();
-            currentChaseDistance.ForceInit();
             if (isFriendly) { SetFriendly(true); }
         }
 
@@ -107,6 +104,24 @@ namespace RPG.Control
         {
             combatTarget.SetActiveTarget(!isFriendly);
             this.isFriendly = isFriendly;
+
+            if (isFriendly)
+            {
+                timeSinceLastSawPlayer = Mathf.Infinity;
+                timeSinceArrivedAtWaypoint = Mathf.Infinity;
+                timeSinceAggravated = Mathf.Infinity;
+                currentChaseDistance.value = chaseDistance;
+                currentWaypointIndex = 0;
+
+                Vector3 nextPosition = guardPosition.value;
+                mover.StartMoveAction(nextPosition, patrolSpeedFraction);
+                if (patrolPath == null) { mover.QueueRotationAfterMove(guardRotation.value); }
+            }
+        }
+
+        private void ResetToInitialFriendly()
+        {
+            SetFriendly(initialFriendly);
         }
 
         public void Aggravate()

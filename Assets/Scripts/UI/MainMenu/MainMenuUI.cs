@@ -33,10 +33,20 @@ namespace RPG.UI
             savingWrapper.ForceInit();
         }
 
+        public void Load(string saveFile) // Called by Unity Events
+        {
+            if (savingWrapper.value.ContinueGame(saveFile))
+            {
+                menuParent.SetActive(false);
+            }
+        }
+
         public void Continue() // Called by Unity Events
         {
-            menuParent.SetActive(false);
-            savingWrapper.value.ContinueGame();
+            if (savingWrapper.value.ContinueGame())
+            {
+                menuParent.SetActive(false);
+            }
         }
 
         public void NewGame() // Called by Unity Events
@@ -46,6 +56,11 @@ namespace RPG.UI
 
             menuParent.SetActive(false);
             savingWrapper.value.NewGame(saveFile);
+        }
+
+        public void Quit() // Called by Unity Events
+        {
+            Application.Quit();
         }
     }
 }

@@ -11,17 +11,20 @@ namespace RPG.SceneManagement
         // Constants
         const string PLAYER_PREFS_CURRENT_SAVE = "currentSave";
 
-        public void ContinueGame()
+        public bool ContinueGame()
         {
-            if (!PlayerPrefs.HasKey(PLAYER_PREFS_CURRENT_SAVE)) { return; }
-            if (!GetComponent<SavingSystem>().SaveFileExists(PLAYER_PREFS_CURRENT_SAVE)) { return; }
+            if (!PlayerPrefs.HasKey(PLAYER_PREFS_CURRENT_SAVE)) { return false; }
+            if (!GetComponent<SavingSystem>().SaveFileExists(PlayerPrefs.GetString(PLAYER_PREFS_CURRENT_SAVE))) { return false; }
             StartCoroutine(LoadLastScene());
+            return true;
         }
 
-        public void ContinueGame(string saveFile)
+        public bool ContinueGame(string saveFile)
         {
             SetCurrentSave(saveFile);
-            ContinueGame();
+            if (ContinueGame()) { return true; }
+
+            return false;
         }
 
         public void NewGame(string saveFile)
@@ -39,6 +42,7 @@ namespace RPG.SceneManagement
 
         private string GetCurrentSave()
         {
+            UnityEngine.Debug.Log(PlayerPrefs.GetString(PLAYER_PREFS_CURRENT_SAVE));
             return PlayerPrefs.GetString(PLAYER_PREFS_CURRENT_SAVE);
         }
 
@@ -89,6 +93,11 @@ namespace RPG.SceneManagement
             {
                 Delete();
             }
+        }
+
+        public IEnumerable<string> ListSaves()
+        {
+            return GetComponent<SavingSystem>().ListSaves();
         }
 
         public void Load()

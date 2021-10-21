@@ -368,7 +368,7 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[1].percentageBonusPerPoint
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

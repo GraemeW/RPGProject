@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: DefaultEnemyDrops
   m_EditorClassIdentifier: 
   dropChancePercentage:
-  - 50
-  - 60
-  - 70
+  - 10
+  - 20
+  - 30
   minDrops: 010000000100000001000000
-  maxDrops: 020000000300000004000000
+  maxDrops: 010000000200000002000000
   potentialDrops:
   - item: {fileID: 11400000, guid: eb2982554455e7d438eea00d3cb0ce90, type: 2}
     relativeChance:
@@ -26,16 +26,16 @@ MonoBehaviour:
     maxItems: 01000000
   - item: {fileID: 11400000, guid: 1767d572c46fc934b9a0deca2b82f3db, type: 2}
     relativeChance:
-    - 7
-    - 6
-    - 5
-    minItems: 010000000200000003000000
-    maxItems: 030000000400000005000000
+    - 13
+    - 10
+    - 8
+    minItems: 010000000100000002000000
+    maxItems: 020000000300000003000000
   - item: {fileID: 11400000, guid: fb1fe4758bbbfb04fa98c58bf818da13, type: 2}
     relativeChance:
     - 1
     - 2
-    - 3
+    - 2
     minItems: 00000000
     maxItems: 00000000
   - item: {fileID: 11400000, guid: e28e7773a15c13b48b971aeda284b819, type: 2}
@@ -46,6 +46,20 @@ MonoBehaviour:
     minItems: 01000000
     maxItems: 01000000
   - item: {fileID: 11400000, guid: 140a30683f5a7ef428abc3cfedaa69ee, type: 2}
+    relativeChance:
+    - 1
+    - 2
+    - 2
+    minItems: 01000000
+    maxItems: 01000000
+  - item: {fileID: 11400000, guid: 656dd02be3c3b98468c3e451f49b8bae, type: 2}
+    relativeChance:
+    - 3
+    - 4
+    - 5
+    minItems: 01000000
+    maxItems: 01000000
+  - item: {fileID: 11400000, guid: 7b236dd208ab2784e8c0679cc24600c2, type: 2}
     relativeChance:
     - 1
     - 2

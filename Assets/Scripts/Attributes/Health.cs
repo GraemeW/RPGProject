@@ -72,11 +72,16 @@ namespace RPG.Attributes
                 healthPoints.value = Mathf.Max(healthPoints.value - damage, 0f);
             }
 
-            if (IsDead() && damage > 0) { onDie.Invoke(); }
-                // Little hack, but don't want to trigger sounds, respawner, etc.
+            if (IsDead() && damage > 0)
+            {
+                // Little hack, but separating this out -- don't want to trigger sounds, respawner, etc.
                 // -- e.g. on 0 damage used to trigger animators on scene load from save
+
+                onDie.Invoke();
+                AwardExperience(instigator);
+            }
+
             UpdateState();
-            AwardExperience(instigator);
         }
 
         public void Heal(float points)

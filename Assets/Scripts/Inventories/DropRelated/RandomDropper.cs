@@ -22,7 +22,7 @@ namespace RPG.Inventories
         // Constants
         const int MAX_ATTEMPTS = 10;
 
-        public void RandomDrop()
+        public void RandomDrop() // Called via Unity Events
         {
             if (dropLibrary == null) { return; }
             int level = GetComponent<BaseStats>().GetLevel();

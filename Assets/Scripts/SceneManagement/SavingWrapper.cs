@@ -169,5 +169,13 @@ namespace RPG.SceneManagement
         {
             GetComponent<SavingSystem>().Delete(saveFile);
         }
+
+        public void DeleteAllGames()
+        {
+            foreach (string saveFile in GetComponent<SavingSystem>().ListSaves())
+            {
+                Delete(saveFile);
+            }
+        }
     }
 }

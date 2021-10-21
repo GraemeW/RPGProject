@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using UnityEngine;
@@ -69,7 +70,8 @@ namespace RPG.Saving
 
         public IEnumerable<string> ListSaves()
         {
-            foreach (string path in Directory.EnumerateFiles(Application.persistentDataPath))
+            List<string> saveFiles = Directory.EnumerateFiles(Application.persistentDataPath).ToList();
+            foreach (string path in saveFiles)
             {
                 if (Path.GetExtension(path) == SAVE_FILE_EXTENSION)
                 {

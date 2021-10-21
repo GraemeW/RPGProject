@@ -98,6 +98,11 @@ namespace RPG.Inventories
                     equippedItems[pair.Key] = item;
                 }
             }
+
+            if (equipmentUpdated != null)
+            {
+                equipmentUpdated.Invoke();
+            }
         }
     }
 }

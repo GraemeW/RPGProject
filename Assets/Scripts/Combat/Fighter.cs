@@ -12,7 +12,7 @@ using System;
 
 namespace RPG.Combat
 {
-    public class Fighter : MonoBehaviour, IAction, ISaveable
+    public class Fighter : MonoBehaviour, IAction
     {
         // Tunables
         [Header("Weapon")]
@@ -100,7 +100,7 @@ namespace RPG.Combat
 
             foreach (Health candidate in FindAllTargetsInRange())
             {
-                float candidateTargetDistance = Vector3.SqrMagnitude(gameObject.transform.position - candidate.transform.position);
+                float candidateTargetDistance = Vector3.SqrMagnitude(transform.position - candidate.transform.position);
                 if (candidateTargetDistance < newTargetDistance)
                 {
                     newTarget = candidate;
@@ -214,7 +214,7 @@ namespace RPG.Combat
         public void Hit()
         {
             if (target == null) { return; }
-            target.TakeDamage(gameObject, GetCalculatedDamage());
+            target.TakeDamage(gameObject, GetCalculatedDamage(target));
             if (currentWeapon != null) { currentWeapon.OnHit(); }
         }
 
@@ -222,24 +222,20 @@ namespace RPG.Combat
         {
             if (target == null) { return; }
             if (!currentWeaponConfig.value.HasProjectile()) { return; }
-            currentWeaponConfig.value.LaunchProjectile(gameObject, rightHand, leftHand, target, GetCalculatedDamage());
+            currentWeaponConfig.value.LaunchProjectile(gameObject, rightHand, leftHand, target, GetCalculatedDamage(target));
         }
 
-        private float GetCalculatedDamage()
+        private float GetCalculatedDamage(Health target)
         {
-            return baseStats.GetStat(Stat.Damage);
-        }
+            float damage = baseStats.GetStat(Stat.Damage);
+            float defence = 0f;
+            if (target.TryGetComponent(out BaseStats targetBaseStats))
+            {
+                defence = targetBaseStats.GetStat(Stat.Defence);
+            }
+            damage /= (1 + defence / damage);
 
-        public object CaptureState()
-        {
-            string currentWeaponName = unarmed.name;
-            if (currentWeaponConfig != null) { currentWeaponName = currentWeaponConfig.value.name; }
-            return currentWeaponName;
-        }
-
-        public void RestoreState(object state)
-        {
-            currentWeaponConfig.value = UnityEngine.Resources.Load<WeaponConfig>((string)state);
+            return damage;
         }
     }
 }

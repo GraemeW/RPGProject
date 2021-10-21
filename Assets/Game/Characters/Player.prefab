@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e21cd4f9aa1a74d8646d6b52d23773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBalance: 400
+  startingBalance: 50
 --- !u!114 &3247898534561116380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,7 +288,7 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -313,7 +313,7 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[5].stat
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -338,7 +338,7 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[5].trait
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -363,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[5].additiveBonusPerPoint
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -379,6 +379,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bonusConfig.Array.data[4].percentageBonusPerPoint
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: bonusConfig.Array.data[5].percentageBonusPerPoint
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3620472648596364949, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}

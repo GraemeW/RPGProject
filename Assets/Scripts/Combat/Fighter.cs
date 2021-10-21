@@ -23,6 +23,7 @@ namespace RPG.Combat
 
         [Header("Behavior")]
         [SerializeField] float chaseSpeedFraction = 0.95f;
+        [SerializeField] float autoAttackRange = 3.5f;
         [SerializeField] LayerMask autoAttackLayerMask = new LayerMask();
 
         // Cached References
@@ -72,7 +73,7 @@ namespace RPG.Combat
             if (target == null) { return; }
             if (target.IsDead())
             {
-                target = FindNewTargetInRange();
+                target = FindClosestTargetInRange();
                 if (target == null)
                 {
                     Cancel();
@@ -92,19 +93,33 @@ namespace RPG.Combat
             }
         }
 
-        private Health FindNewTargetInRange()
+        private Health FindClosestTargetInRange()
         {
-            RaycastHit[] hitsInfo = Physics.SphereCastAll(transform.position, currentWeaponConfig.value.GetWeaponRange(), Vector3.forward, 0f, autoAttackLayerMask);
-            foreach (RaycastHit hit in hitsInfo)
-            {
-                if (hit.transform.GetComponent<Fighter>() == this) { continue; }
+            Health newTarget = null;
+            float newTargetDistance = Mathf.Infinity;
 
-                if (hit.transform.TryGetComponent(out Health health) && !health.IsDead())
+            foreach (Health candidate in FindAllTargetsInRange())
+            {
+                float candidateTargetDistance = Vector3.SqrMagnitude(gameObject.transform.position - candidate.transform.position);
+                if (candidateTargetDistance < newTargetDistance)
                 {
-                    return health;
+                    newTarget = candidate;
+                    newTargetDistance = candidateTargetDistance;
                 }
             }
-            return null;
+            return newTarget;
+        }
+
+        private IEnumerable<Health> FindAllTargetsInRange()
+        {
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(transform.position, autoAttackRange, Vector3.forward, 0f, autoAttackLayerMask);
+            foreach (RaycastHit hit in hitsInfo)
+            {
+                if (hit.transform.TryGetComponent(out Health health) && health.gameObject != gameObject && !health.IsDead())
+                {
+                    yield return health;
+                }
+            }
         }
 
         private void AttachCurrentWeapon()

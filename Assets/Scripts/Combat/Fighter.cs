@@ -8,6 +8,7 @@ using RPG.Attributes;
 using RPG.Stats;
 using RPG.Utils;
 using RPG.Inventories;
+using System;
 
 namespace RPG.Combat
 {
@@ -20,8 +21,9 @@ namespace RPG.Combat
         [SerializeField] string defaultWeaponName = "Unarmed";
         [SerializeField] WeaponConfig unarmed = null;
 
-        [Header("Chase")]
+        [Header("Behavior")]
         [SerializeField] float chaseSpeedFraction = 0.95f;
+        [SerializeField] LayerMask autoAttackLayerMask = new LayerMask();
 
         // Cached References
         Mover mover = null;
@@ -68,10 +70,14 @@ namespace RPG.Combat
         {
             timeSinceLastAttack += Time.deltaTime;
             if (target == null) { return; }
-            if (target.GetComponent<Health>().IsDead())
+            if (target.IsDead())
             {
-                Cancel();
-                return;
+                target = FindNewTargetInRange();
+                if (target == null)
+                {
+                    Cancel();
+                    return;
+                }
             }
 
             bool inRange = GetIsInRange(target.transform);
@@ -84,6 +90,21 @@ namespace RPG.Combat
             {
                 mover.MoveTo(target.transform.position, chaseSpeedFraction);
             }
+        }
+
+        private Health FindNewTargetInRange()
+        {
+            RaycastHit[] hitsInfo = Physics.SphereCastAll(transform.position, currentWeaponConfig.value.GetWeaponRange(), Vector3.forward, 0f, autoAttackLayerMask);
+            foreach (RaycastHit hit in hitsInfo)
+            {
+                if (hit.transform.GetComponent<Fighter>() == this) { continue; }
+
+                if (hit.transform.TryGetComponent(out Health health) && !health.IsDead())
+                {
+                    return health;
+                }
+            }
+            return null;
         }
 
         private void AttachCurrentWeapon()

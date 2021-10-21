@@ -335,6 +335,9 @@ MonoBehaviour:
   defaultWeaponName: Unarmed
   unarmed: {fileID: 0}
   chaseSpeedFraction: 0.95
+  autoAttackLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &-1873187468937196512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelUpHealthFraction: 0.7
+  reviveHealthFraction: 0.3
   takeDamage:
     m_PersistentCalls:
       m_Calls:

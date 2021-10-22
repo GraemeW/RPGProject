@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8958656245131853618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 3ca18e26-e636-49dc-911e-5911f7e09e39
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Buster Brown
+  text: It's your life, do what you want, I don't care
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: BootsFur
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        negate: 1
+        parameters:
+        - 9695d57c-c119-40f0-a10d-25cd3a457f21
+--- !u!114 &-3219000646163247792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 1a6b44db-e565-4c4d-b9da-b0ffc0ae17e2
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Buster Brown
+  text: Rumor has it there are some pretty snazzy footwear and chestwear?   Is that
+    a word?  Anyway, they exist, you should find them.
+  children:
+  - 4c2dffc1-a210-4248-92a3-f7d8c1399fb5
+  - f4214096-11b5-43c8-bf28-f9c32060544c
+  rect:
+    serializedVersion: 2
+    x: 30
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and: []
+--- !u!114 &-373816288877935944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 050b486e-6a8a-483f-a11a-5cc9effe7464
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Buster Brown
+  text: Wait, did I already tell you all of this?  Get outta here
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 1030
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: HasQuest
+        negate: 0
+        parameters:
+        - 9695d57c-c119-40f0-a10d-25cd3a457f21
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1ff136aa004a94cbb9030fe5ba31bb, type: 3}
+  m_Name: BootsAndFur
+  m_EditorClassIdentifier: 
+  skipRootNode: 0
+  speakerOne: {fileID: 0}
+  speakerTwo: {fileID: 0}
+  speakerThree: {fileID: 0}
+  speakerFour: {fileID: 0}
+  newNodeOffset: {x: 100, y: 25}
+  nodeWidth: 400
+  nodeHeight: 225
+  dialogueNodes:
+  - {fileID: -3219000646163247792}
+  - {fileID: 6580026176557782357}
+  - {fileID: -8958656245131853618}
+  - {fileID: -373816288877935944}
+  - {fileID: 3499738909037696787}
+--- !u!114 &3499738909037696787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: f4214096-11b5-43c8-bf28-f9c32060544c
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Buster Brown
+  text: Oh yo, wait, check you out -- you got da boots and da fur!  You look smashing!
+  children: []
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 280
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 0
+        parameters:
+        - 9695d57c-c119-40f0-a10d-25cd3a457f21
+--- !u!114 &6580026176557782357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64240426b26e75c499657c65899b1ed9, type: 3}
+  m_Name: 4c2dffc1-a210-4248-92a3-f7d8c1399fb5
+  m_EditorClassIdentifier: 
+  speaker: 1
+  speakerName: Buster Brown
+  text: If you want, I mean
+  children:
+  - 3ca18e26-e636-49dc-911e-5911f7e09e39
+  - 050b486e-6a8a-483f-a11a-5cc9effe7464
+  rect:
+    serializedVersion: 2
+    x: 530
+    y: 30
+    width: 400
+    height: 225
+  draggingRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 400
+    height: 45
+  onEnterAction: 
+  onExitAction: 
+  condition:
+    and:
+    - or:
+      - predicate: CompletedQuest
+        negate: 1
+        parameters:
+        - 9695d57c-c119-40f0-a10d-25cd3a457f21

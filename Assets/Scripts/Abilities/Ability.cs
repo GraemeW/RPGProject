@@ -9,7 +9,7 @@ using System;
 
 namespace RPG.Abilities
 {
-    [CreateAssetMenu(menuName = ("Abilities/Ability"))]
+    [CreateAssetMenu(fileName = "New Ability", menuName = ("Abilities/Ability"))]
     public class Ability : ActionItem
     {
         // Tunables

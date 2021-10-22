@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e901705cacb9b04f976d4cb73268c9c, type: 3}
+  m_Name: BeatTheBoys
+  m_EditorClassIdentifier: 
+  uniqueID: 908a4e5f-5fb7-4f2a-9bb2-010595d8bcc1
+  detail: Beat up the boys
+  objectives:
+  - uniqueID: 46c73538-fb06-49ad-a9af-4ce0d828e86e
+    description: Beat up Subui
+  - uniqueID: b77d9af7-3212-4da9-90bc-bdc02db03882
+    description: Beat up Jernarld
+  - uniqueID: a13c65f4-8dad-4ab8-9e1a-3ecb8bbe5c49
+    description: Beat up Yarfus
+  rewards:
+  - number: 1
+    item: {fileID: 11400000, guid: fef4a0558b4b8844c9bb81db05dd840d, type: 2}
+  - number: 3
+    item: {fileID: 11400000, guid: 1767d572c46fc934b9a0deca2b82f3db, type: 2}
+  - number: 1
+    item: {fileID: 11400000, guid: eb2982554455e7d438eea00d3cb0ce90, type: 2}
+  - number: 300
+    item: {fileID: 11400000, guid: 03a41a94d736e20429e8091057b09d6d, type: 2}

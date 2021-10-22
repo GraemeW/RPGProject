@@ -22,6 +22,9 @@ namespace RPG.Inventories
         // STATE
         InventorySlot[] slots;
 
+        // Cached References
+        List<IItemStore> itemStores = new List<IItemStore>();
+
         public struct InventorySlot
         {
             public InventoryItem item;
@@ -87,6 +90,12 @@ namespace RPG.Inventories
         /// <returns>Whether or not the item could be added.</returns>
         public bool AddToFirstEmptySlot(InventoryItem item, int number)
         {
+            foreach (IItemStore store in itemStores)
+            {
+                number -= store.AddItems(item, number);
+            }
+            if (number <= 0) return true;
+
             int i = FindSlot(item);
 
             if (i < 0)
@@ -218,6 +227,7 @@ namespace RPG.Inventories
         private void Awake()
         {
             slots = new InventorySlot[inventorySize];
+            itemStores = GetComponents<IItemStore>().ToList();
         }
 
         /// <summary>

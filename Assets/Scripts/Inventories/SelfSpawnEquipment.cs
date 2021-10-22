@@ -24,7 +24,7 @@ namespace RPG.Inventories
             foreach (EquipmentSet equippedItem in equippedItems)
             {
                 if (equippedItem.item == null) { continue; }
-                if (equippedItem.item.GetAllowedEquipLocation() == equippedItem.location)
+                if (equippedItem.item.CanEquip(equippedItem.location))
                 {
                     AddItem(equippedItem.location, equippedItem.item);
                 }

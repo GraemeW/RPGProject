@@ -1,3 +1,4 @@
+using RPG.Core;
 using RPG.Saving;
 using RPG.Utils;
 using System;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace RPG.Stats
 {
-    public class TraitStore : MonoBehaviour, IModifierProvider, ISaveable
+    public class TraitStore : MonoBehaviour, IModifierProvider, IPredicateEvaluator, ISaveable
     {
         // Tunables
         [SerializeField] TraitBonus[] bonusConfig;
@@ -36,7 +37,10 @@ namespace RPG.Stats
         // Events
         public event Action onChange;
 
-        private void Awake()
+        // Static
+        static string[] PREDICATES_ARRAY = { "MinimumTrait" };
+
+    private void Awake()
         {
             baseStats = GetComponent<BaseStats>();
             InitializeCaches();
@@ -182,6 +186,35 @@ namespace RPG.Stats
             {
                 yield return traitModifier.Value * GetPoints(traitModifier.Key);
             }
+        }
+
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            string matchingPredicate = this.MatchToPredicates(predicate, PREDICATES_ARRAY);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return null; }
+
+            if (predicate == PREDICATES_ARRAY[0])
+            {
+                return PredicateEvaluateMinimumTrait(parameters);
+            }
+            return null;
+        }
+
+        private bool? PredicateEvaluateMinimumTrait(string[] parameters)
+        {
+            if (parameters.Length != 2) { return null; } // Incorrect input quantity
+
+            if (Enum.TryParse(parameters[0], out Trait trait) && Int32.TryParse(parameters[1], out int requiredValue))
+            {
+                return (GetPoints(trait) >= requiredValue);
+            }
+            return null; // Malformed input
+        }
+
+        public string MatchToPredicatesTemplate()
+        {
+            // Not evaluated -> PredicateEvaluatorExtension
+            return null;
         }
     }
 }

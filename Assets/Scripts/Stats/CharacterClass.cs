@@ -6,6 +6,7 @@
         Grunt,
         Knight,
         Archer,
-        Mage
+        Mage,
+        Bubba
     }
 }

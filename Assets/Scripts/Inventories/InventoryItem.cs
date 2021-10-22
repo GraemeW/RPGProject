@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RPG.Core;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace RPG.Inventories
     /// In practice, you are likely to use a subclass such as `ActionItem` or
     /// `EquipableItem`.
     /// </remarks>
-    public abstract class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
+    public abstract class InventoryItem : ScriptableObject, IPredicateEvaluator, ISerializationCallbackReceiver
     {
         // CONFIG DATA
         [Tooltip("Auto-generated UUID for saving/loading. Clear this field if you want to generate a new one.")]
@@ -31,10 +32,24 @@ namespace RPG.Inventories
         [SerializeField] float price = 0f;
         [Tooltip("Type of item for shops")]
         [SerializeField] ItemCategory itemCategory = ItemCategory.None;
+        [Tooltip("Quest objectives")]
+        [SerializeField] QuestObjective[] questObjectives = null;
 
         // STATE
         static Dictionary<string, InventoryItem> itemLookupCache;
 
+        // Static
+        protected static string[] PREDICATES_ARRAY = { "MatchedItem" };
+
+        // Data Structures
+        [System.Serializable]
+        public struct QuestObjective
+        {
+            public string predicate;
+            public string questID;
+            public string objectiveID;
+        }
+       
         // PUBLIC
 
         /// <summary>
@@ -117,8 +132,13 @@ namespace RPG.Inventories
             return itemCategory;
         }
 
+        public QuestObjective[] GetItemQuestObjectives()
+        {
+            return questObjectives;
+        }
+
         // PRIVATE
-        
+
         void ISerializationCallbackReceiver.OnBeforeSerialize()
         {
             // Generate and save a new UUID if this is blank.
@@ -132,6 +152,31 @@ namespace RPG.Inventories
         {
             // Require by the ISerializationCallbackReceiver but we don't need
             // to do anything with it.
+        }
+
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            string matchingPredicate = this.MatchToPredicates(predicate, PREDICATES_ARRAY);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return null; }
+
+            if (predicate == PREDICATES_ARRAY[0])
+            {
+                return PredicateEvaluateMatchedItem(parameters);
+            }
+            return null;
+        }
+
+        private bool? PredicateEvaluateMatchedItem(string[] parameters)
+        {
+            if (parameters.Length > 1) { return null; } // Incorrect input quantity
+
+            return (parameters[0] == itemID);
+        }
+
+        public string MatchToPredicatesTemplate()
+        {
+            // Not evaluated -> PredicateEvaluatorExtension
+            return null;
         }
     }
 }

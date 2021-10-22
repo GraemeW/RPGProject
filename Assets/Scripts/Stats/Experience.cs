@@ -70,9 +70,6 @@ namespace RPG.Stats
             if (baseStats == null) { baseStats = GetComponent<BaseStats>(); }
             baseStats.SetLevel();
             pointsToNextLevel.value = baseStats.GetStat(Stat.ExperienceToLevelUp);
-
-            if (health == null) { health = GetComponent<Health>(); }
-            health.SetDefaultHealth();
         }
 
         public float GetPoints()

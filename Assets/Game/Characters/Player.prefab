@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66e21cd4f9aa1a74d8646d6b52d23773, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingBalance: 50
+  startingBalance: 200
 --- !u!114 &3247898534561116380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -343,17 +343,17 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[0].additiveBonusPerPoint
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[2].additiveBonusPerPoint
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[3].additiveBonusPerPoint
-      value: 10
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
@@ -363,11 +363,16 @@ PrefabInstance:
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[5].additiveBonusPerPoint
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
         type: 3}
       propertyPath: bonusConfig.Array.data[1].percentageBonusPerPoint
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,
+        type: 3}
+      propertyPath: bonusConfig.Array.data[2].percentageBonusPerPoint
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2983655631454206110, guid: 95298c93f3923ee429d25b701b1675aa,

@@ -19,8 +19,8 @@ MonoBehaviour:
   - d38d1616-47ea-44a0-b937-cb74c3b93e3d
   rect:
     serializedVersion: 2
-    x: 1025
-    y: 272
+    x: 1016
+    y: 276
     width: 400
     height: 225
   draggingRect:
@@ -463,8 +463,8 @@ MonoBehaviour:
   - f87ece53-d61d-40ca-8469-96421f0e7f72
   rect:
     serializedVersion: 2
-    x: 1528
-    y: 293
+    x: 1514
+    y: 288
     width: 400
     height: 225
   draggingRect:

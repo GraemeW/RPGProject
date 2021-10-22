@@ -29,7 +29,7 @@ namespace RPG.UI.HealthBar
         private void Update()
         {
             if (health.IsDead()) { gameObject.SetActive(false); }
-            if (health.isMaxHealth()) { canvas.enabled = false; }
+            if (health.IsMaxHealth()) { canvas.enabled = false; }
             else { canvas.enabled = true; }
             UpdateForegroundFraction();
         }

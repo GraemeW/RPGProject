@@ -19,18 +19,31 @@ namespace RPG.Quests
         // Cached References
         Inventory playerInventory = null;
         ItemDropper itemDropper = null;
+        Equipment playerEquipment = null;
 
         // Events
         public event Action questListUpdated;
 
         // Static
         static string[] PREDICATES_ARRAY = { "HasQuest", "CompletedQuest", "CompletedObjective" };
+        static string[] ITEM_PREDICATES = { "ItemEquipped" };
 
         // Methods
         private void Awake()
         {
             playerInventory = GetComponent<Inventory>();
             itemDropper = GetComponent<ItemDropper>();
+            playerEquipment = GetComponent<Equipment>();
+        }
+
+        private void OnEnable()
+        {
+            playerEquipment.equipmentUpdated += CheckForEquipmentQuestObjective;
+        }
+
+        private void OnDisable()
+        {
+            playerEquipment.equipmentUpdated -= CheckForEquipmentQuestObjective;
         }
 
         public IEnumerable<QuestStatus> GetActiveQuests()
@@ -55,6 +68,7 @@ namespace RPG.Quests
         {
             QuestStatus questStatus = GetQuestStatus(quest);
             if (questStatus == null) { return; }
+            if (questStatus.IsComplete()) { return; }
 
             questStatus.SetObjective(objectiveID, true);
 
@@ -101,6 +115,26 @@ namespace RPG.Quests
             }
         }
 
+        private void CheckForEquipmentQuestObjective()
+        {
+            foreach (EquipLocation equipLocation in playerEquipment.GetAllPopulatedSlots())
+            {
+                EquipableItem inventoryItem = playerEquipment.GetItemInSlot(equipLocation);
+
+                InventoryItem.QuestObjective[] questObjectives = inventoryItem.GetItemQuestObjectives();
+                if (questObjectives == null) { return; }
+
+                foreach (InventoryItem.QuestObjective questObjective in questObjectives)
+                {
+                    if (questObjective.predicate == ITEM_PREDICATES[0])
+                    {
+                        Quest quest = Quest.GetFromID(questObjective.questID);
+                        CompleteObjective(quest, questObjective.objectiveID);
+                    }
+                }
+            }
+        }
+
         // Interfaces
 
         // Predicate Evaluator
@@ -143,17 +177,24 @@ namespace RPG.Quests
             return false;
         }
 
-        private bool PredicateEvaluateQuestCompleted(string[] parameters)
+        private bool? PredicateEvaluateQuestCompleted(string[] parameters)
         {
             // Match on ANY of the quests complete in parameters
             foreach (string questID in parameters)
             {
-                if (GetQuestStatus(Quest.GetFromID(questID)).IsComplete())
+                QuestStatus questStatus = GetQuestStatus(Quest.GetFromID(questID));
+                if (questStatus == null) { return false; } // i.e. haven't even started the quest, let alone completed
+
+                if (questStatus.IsComplete())
                 {
                     return true;
                 }
+                else
+                {
+                    return false;
+                }
             }
-            return false;
+            return null;
         }
 
         private bool PredicateEvaluateObjectiveComplete(string[] parameters)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Saving;
+using RPG.Core;
 
 namespace RPG.Inventories
 {
@@ -11,10 +12,13 @@ namespace RPG.Inventories
     /// 
     /// This component should be placed on the GameObject tagged "Player".
     /// </summary>
-    public class Equipment : MonoBehaviour, ISaveable
+    public class Equipment : MonoBehaviour, ISaveable, IPredicateEvaluator
     {
         // STATE
         Dictionary<EquipLocation, EquipableItem> equippedItems = new Dictionary<EquipLocation, EquipableItem>();
+
+        // Static
+        protected static string[] PREDICATES_ARRAY = { "ItemEquipped" };
 
         // PUBLIC
 
@@ -42,7 +46,7 @@ namespace RPG.Inventories
         /// </summary>
         public void AddItem(EquipLocation slot, EquipableItem item)
         {
-            Debug.Assert(item.GetAllowedEquipLocation() == slot);
+            Debug.Assert(item.CanEquip(slot, this));
 
             equippedItems[slot] = item;
 
@@ -103,6 +107,38 @@ namespace RPG.Inventories
             {
                 equipmentUpdated.Invoke();
             }
+        }
+
+        public bool? Evaluate(string predicate, string[] parameters)
+        {
+            string matchingPredicate = this.MatchToPredicates(predicate, PREDICATES_ARRAY);
+            if (string.IsNullOrWhiteSpace(matchingPredicate)) { return null; }
+
+            if (predicate == PREDICATES_ARRAY[0])
+            {
+                return PredicateEvaluateItemEquipped(parameters);
+            }
+            return null;
+        }
+
+        private bool? PredicateEvaluateItemEquipped(string[] parameters)
+        {
+            foreach(EquipLocation equipLocation in GetAllPopulatedSlots())
+            {
+                if (parameters.Length > 1) { return null; } // Incorrect input quantity
+
+                if (parameters[0] == GetItemInSlot(equipLocation).GetItemID())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public string MatchToPredicatesTemplate()
+        {
+            // Not evaluated -> PredicateEvaluatorExtension
+            return null;
         }
     }
 }

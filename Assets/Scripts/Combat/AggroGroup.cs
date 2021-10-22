@@ -19,6 +19,7 @@ namespace RPG.Combat
         {
             foreach (AIController aiController in aiControllers)
             {
+                if (aiController == null) { continue; }
                 aiController.SetFriendly(!shouldActivate);
             }
         }

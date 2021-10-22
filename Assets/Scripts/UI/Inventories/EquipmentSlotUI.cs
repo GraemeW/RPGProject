@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using RPG.Core.UI.Dragging;
 using RPG.Inventories;
+using RPG.Core;
+using System.Linq;
 
 namespace RPG.UI.Inventories
 {
@@ -18,13 +20,14 @@ namespace RPG.UI.Inventories
         [SerializeField] EquipLocation equipLocation = EquipLocation.Weapon;
 
         // CACHE
-        Equipment playerEquipment;
+        Equipment playerEquipment = null;
+        GameObject player = null;
 
         // LIFECYCLE METHODS
        
         private void Awake() 
         {
-            var player = GameObject.FindGameObjectWithTag("Player");
+            player = GameObject.FindGameObjectWithTag("Player");
             playerEquipment = player.GetComponent<Equipment>();
             playerEquipment.equipmentUpdated += RedrawUI;
         }
@@ -40,7 +43,7 @@ namespace RPG.UI.Inventories
         {
             EquipableItem equipableItem = item as EquipableItem;
             if (equipableItem == null) return 0;
-            if (equipableItem.GetAllowedEquipLocation() != equipLocation) return 0;
+            if (!equipableItem.CanEquip(equipLocation, playerEquipment)) return 0;
             if (GetItem() != null) return 0;
 
             return 1;
@@ -75,7 +78,7 @@ namespace RPG.UI.Inventories
 
         // PRIVATE
 
-        void RedrawUI()
+        private void RedrawUI()
         {
             icon.SetItem(playerEquipment.GetItemInSlot(equipLocation));
         }

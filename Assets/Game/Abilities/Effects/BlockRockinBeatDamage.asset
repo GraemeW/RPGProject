@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9976281e202d83948b075dd77a55ab31, type: 3}
   m_Name: BlockRockinBeatDamage
   m_EditorClassIdentifier: 
-  healthChange: -10
+  healthChange: -25

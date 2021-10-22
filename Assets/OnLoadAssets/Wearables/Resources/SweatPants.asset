@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aa787e9fe073e64ba1db42ce52e2ada, type: 3}
+  m_Name: SweatPants
+  m_EditorClassIdentifier: 
+  itemID: ae044984-e0a9-4255-b86d-8b5618da6f21
+  displayName: Sweat Pants
+  description: Don't look too closely
+  icon: {fileID: 21300000, guid: b8fb302c5768e334ca82005f50e58121, type: 3}
+  pickup: {fileID: 6494234044896430859, guid: c526bb52c5384fb4f838ab6687bb3f44, type: 3}
+  stackable: 0
+  price: 10000
+  itemCategory: 1
+  allowedEquipLocation: 3
+  equipCondition:
+    and: []
+  additiveModifiers:
+  - stat: 8
+    value: 100
+  - stat: 0
+    value: 350
+  percentageModifiers: []

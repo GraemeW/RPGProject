@@ -10,6 +10,7 @@
         ManaRegenRate,
         TotalTraitPoints,
         BuyingDiscountFraction,
-        Defence
+        Defence,
+        MoveSpeed
     }
 }

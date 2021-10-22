@@ -12,6 +12,8 @@ namespace RPG.Core
 
         public bool Check(IEnumerable<IPredicateEvaluator> evaluators)
         {
+            if (evaluators == null || and == null) { return true; }
+
             foreach (Disjunction disjunction in and) // logical 'AND' implementation for Conjunction
             {
                 if (!disjunction.Check(evaluators))
@@ -30,6 +32,8 @@ namespace RPG.Core
 
             public bool Check(IEnumerable<IPredicateEvaluator> evaluators)
             {
+                if (evaluators == null || or == null) { return true; }
+
                 foreach (Predicate predicate in or) // logical 'OR' implementation for Disjunction
                 {
                     if (predicate.Check(evaluators))

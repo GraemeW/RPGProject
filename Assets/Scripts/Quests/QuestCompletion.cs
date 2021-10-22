@@ -10,12 +10,20 @@ namespace RPG.Quests
 
         // Tunables
         [SerializeField] bool active = false;
+        [SerializeField] Quest quest = null;
 
         // Cached References
         QuestList playerQuestList = null;
 
-        // State
-        Quest quest = null;
+        // Static Methods
+        public static void CompletePlayerObjective(string questID, string objectiveID)
+        {
+            Quest quest = Quest.GetFromID(questID);
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player == null) { return; }
+
+            player.GetComponent<QuestList>().CompleteObjective(quest, objectiveID);
+        }    
 
         // Methods
         private void Awake()

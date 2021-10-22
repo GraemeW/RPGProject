@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RPG.Inventories
 {
-    public class Purse : MonoBehaviour, ISaveable
+    public class Purse : MonoBehaviour, IItemStore, ISaveable
     {
         // Tunables
         [SerializeField] float startingBalance = 400f;
@@ -48,6 +48,15 @@ namespace RPG.Inventories
             {
                 onChange.Invoke();
             }
+        }
+
+        public int AddItems(InventoryItem item, int number)
+        {
+            CurrencyItem currency = item as CurrencyItem;
+            if (currency == null) { return 0; }
+
+            UpdateBalance(number * currency.GetPrice());
+            return number;
         }
 
         public object CaptureState()

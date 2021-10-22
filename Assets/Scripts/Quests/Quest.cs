@@ -1,3 +1,4 @@
+using RPG.Core;
 using RPG.Inventories;
 using System.Collections;
 using System.Collections.Generic;

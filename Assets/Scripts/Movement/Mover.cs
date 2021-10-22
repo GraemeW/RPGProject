@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using RPG.Core;
 using RPG.Saving;
 using RPG.Attributes;
+using RPG.Stats;
 
 namespace RPG.Movement
 {
@@ -21,6 +22,7 @@ namespace RPG.Movement
         Animator animator = null;
         ActionScheduler actionScheduler = null;
         Health health = null;
+        BaseStats baseStats = null;
 
         // State
         bool hasPath = false;
@@ -33,6 +35,7 @@ namespace RPG.Movement
             animator = GetComponent<Animator>();
             actionScheduler = GetComponent<ActionScheduler>();
             health = GetComponent<Health>();
+            baseStats = GetComponent<BaseStats>();
         }
 
         private void Update()
@@ -70,6 +73,11 @@ namespace RPG.Movement
             navMeshAgent.SetDestination(destination);
         }
 
+        private float GetMoveSpeed()
+        {
+            return (1f + baseStats.GetStat(Stat.MoveSpeed));
+        }
+
         public void QueueRotationAfterMove(Quaternion rotation)
         {
             rotationQueuedOnPathEnd = true;
@@ -97,7 +105,7 @@ namespace RPG.Movement
 
         private void SetSpeed(float speedFraction)
         {
-            navMeshAgent.speed = Mathf.Clamp01(speedFraction) * maxSpeed;
+            navMeshAgent.speed = Mathf.Clamp01(speedFraction) * maxSpeed * GetMoveSpeed();
         }
 
         private void UpdateAnimator()

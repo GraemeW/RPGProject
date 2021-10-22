@@ -130,16 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4215029269172849953}
     m_Modifications:
-    - target: {fileID: 5583624583477696719, guid: f13cdb5b262fb1b42bb4fa3c799d7110,
-        type: 3}
-      propertyPath: deleteAllSaves
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5583624583477696719, guid: f13cdb5b262fb1b42bb4fa3c799d7110,
-        type: 3}
-      propertyPath: enableDebugger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6383466872071426980, guid: f13cdb5b262fb1b42bb4fa3c799d7110,
         type: 3}
       propertyPath: m_Name

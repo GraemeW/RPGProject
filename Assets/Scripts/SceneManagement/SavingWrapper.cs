@@ -36,8 +36,8 @@ namespace RPG.SceneManagement
         {
             if (string.IsNullOrEmpty(saveFile)) { return; }
 
-            if (GetComponent<SavingSystem>().SaveFileExists(PlayerPrefs.GetString(PLAYER_PREFS_CURRENT_SAVE))) { Delete(); }
             SetCurrentSave(saveFile);
+            if (GetComponent<SavingSystem>().SaveFileExists(GetCurrentSave())) { Delete(); }
             StartCoroutine(LoadFirstScene(saveFile));
         }
 

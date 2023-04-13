@@ -1,4 +1,4 @@
-# Unity RPG Project
+# Unity RPG Project *Complete*
 
 The Unity RPG Project tracks my development of a 3D Action RPG in Unity, following along the courses offered by [GameDev.tv](https://www.gamedev.tv/).  
 

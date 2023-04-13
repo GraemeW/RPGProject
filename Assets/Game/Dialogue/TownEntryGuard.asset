@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speaker: 1
   speakerName: Guard Jones
-  text: Whattayawant
+  text: What do you want?
   children:
   - 68a34882-f717-452c-9d3b-9030236f070b
   - e0dc5d78-52bd-4d2a-9910-685a04ca86fe
